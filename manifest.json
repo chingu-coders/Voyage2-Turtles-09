@@ -1,0 +1,9 @@
+{
+  "manifest_version": 2,
+  "name": "Momentum Health",
+  "version": "0.0.1",
+  "description": "TODO: a description of the extension goes here",
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  }
+}
