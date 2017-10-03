@@ -1,6 +1,11 @@
 "use strict"
 
 window.onload = (() => {
+  //Development aids
+  localStorage.setItem("userName", "David");
+
+// Stage A - Production code
+// Stage B - In development
   let currentHour, greeting, userName;
 
   currentHour = new Date().getHours();
@@ -15,7 +20,7 @@ window.onload = (() => {
   }
   console.log(greeting);
 
-  userName = "test user";
+  userName = localStorage.getItem("userName");
   console.log(userName);
 
   const greetingHTMLId = document.getElementById("greeting");
@@ -25,6 +30,7 @@ window.onload = (() => {
   const userNameHTMLId = document.getElementById("userName");
   console.log(userNameHTMLId);
   userNameHTMLId.innerHTML = userName;
+
 //Stage C - initial ideas
 
 //This function turns the userName into a editable span so
