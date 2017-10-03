@@ -1,19 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
-      <meta charset="UTF-8">
-      <title>Index</title>
+    <meta charset="UTF-8">
+    <title>New Tab</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
+
   <body>
-    <div id="nameEntry">
-      <p></p>
-    </div>
-    <div>
-      <span id="greeting"></span>
-      <span id="userName" contenteditable="false"></span>
-      <span>.</span>
-    </div>
+
+    <div class="main-wrapper">
+
+      <!-- Top row of page -->
+      <div id="top-row">
+        <section>Links?</section>
+        <section>Weather?</section>
+      </div>
+
+      <!-- Center row of page -->
+      <div id="center-row">
+        <div id="nameEntry">
+          <p></p>
+        </div>
+        <section id="time">time</section>
+        <section>
+          <span id="greeting"> </span>
+          <span id="userName" contenteditable="false"></script>
+        </section>
+        <section id="focus">What is your main focus for today?</section>
+      </div>
+
+      <!-- Bottom row of page -->
+      <div id="bottom-row">
+        <section>image data</section>
+        <section>quote</section>
+        <section>todo</section>
+      </div>
+
+    </div><!-- end of .main-wrapper -->
+
+
+
   </body>
-  <script src="js/script.js"></script>
-  <script src="js/script-name-greet.js"></script>
+<script src="js/script.js"></script>
+<script src="js/script-name-greet.js"></script>
 </html>
