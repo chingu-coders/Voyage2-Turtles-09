@@ -1,6 +1,6 @@
 "use strict"
 
-window.onload = (() => {
+window.onload = () => {
   //Development aids
   localStorage.setItem("userName", "David");
 
@@ -41,3 +41,4 @@ window.onload = (() => {
     userNameHTMLId.setAttribute("contenteditable", true);
   });
 
+}
