@@ -25,3 +25,13 @@ window.onload = (() => {
   const userNameHTMLId = document.getElementById("userName");
   console.log(userNameHTMLId);
   userNameHTMLId.innerHTML = userName;
+//Stage C - initial ideas
+
+//This function turns the userName into a editable span so
+//user can update their userName. 'Enter' would send the
+//new userName to the database.
+  userNameHTMLId.addEventListener("click", () => {
+    console.log("Clicked!");
+    userNameHTMLId.setAttribute("contenteditable", true);
+  });
+
