@@ -18,7 +18,10 @@ window.onload = (() => {
   userName = "test user";
   console.log(userName);
 
-  const userNameHTMLId = document.getElementById("greeting");
+  const greetingHTMLId = document.getElementById("greeting");
+  console.log(greetingHTMLId);
+  greetingHTMLId.innerHTML = "Good " + greeting;
+
+  const userNameHTMLId = document.getElementById("userName");
   console.log(userNameHTMLId);
-  userNameHTMLId.innerHTML = "Good " + greeting + userName + ".";
-})
+  userNameHTMLId.innerHTML = userName;
