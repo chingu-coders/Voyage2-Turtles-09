@@ -1,4 +1,19 @@
-/*body {*/
+body {
     /*background: url('https://unsplash.it/1200') no-repeat center center fixed;*/
     /*background-size: cover;*/
-/*}*/
+
+    color: #fff;
+
+}
+#slider {
+    opacity: 0.8;
+    height: 30px;
+    border: 1px solid pink;
+}
+#slider:hover {
+    opacity: 1.0;
+}
+
+#image-location {
+    display: none;
+}
