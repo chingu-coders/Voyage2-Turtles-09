@@ -6,7 +6,7 @@ window.onload = () => {
 
 // Stage A - Production code
 // Stage B - In development
-  let currentHour, greeting, storedUserName;
+  let currentHour, greeting, storedUserName, newUserName;
 
   currentHour = new Date().getHours();
   console.log(currentHour);
@@ -31,14 +31,27 @@ window.onload = () => {
   console.log(userNameHTMLId);
   userNameHTMLId.innerHTML = storedUserName;
 
-//Stage C - initial ideas
-
-//This function turns the userName into a editable span so
-//user can update their userName. 'Enter' would send the
-//new userName to the database.
   userNameHTMLId.addEventListener("click", () => {
-    console.log("Clicked!");
+    console.log("Clicked on user name.");
     userNameHTMLId.setAttribute("contenteditable", true);
+    userNameHTMLId.addEventListener("keydown", (event) => {
+      if (event.which === 13) {
+        event.preventDefault();
+        document.activeElement.blur();
+      }
+    });
   });
+
+  userNameHTMLId.addEventListener("blur", () => {
+    if (userNameHTMLId.innerHTML) {
+      newUserName = userNameHTMLId.innerHTML;
+      localStorage.setItem("userName", newUserName);
+    } else {
+      userNameHTMLId.innerHTML = storedUserName;
+    }
+    console.log(userNameHTMLId.innerHTML + " - new user name successfully submitted.");
+  });
+
+//Stage C - initial ideas
 
 }
