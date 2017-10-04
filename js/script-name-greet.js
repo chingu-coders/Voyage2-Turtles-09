@@ -6,7 +6,7 @@ window.onload = () => {
 
 // Stage A - Production code
 // Stage B - In development
-  let currentHour, greeting, userName;
+  let currentHour, greeting, storedUserName;
 
   currentHour = new Date().getHours();
   console.log(currentHour);
@@ -20,8 +20,8 @@ window.onload = () => {
   }
   console.log(greeting);
 
-  userName = localStorage.getItem("userName");
-  console.log(userName);
+  storedUserName = localStorage.getItem("userName");
+  console.log(storedUserName);
 
   const greetingHTMLId = document.getElementById("greeting");
   console.log(greetingHTMLId);
@@ -29,7 +29,7 @@ window.onload = () => {
 
   const userNameHTMLId = document.getElementById("userName");
   console.log(userNameHTMLId);
-  userNameHTMLId.innerHTML = userName;
+  userNameHTMLId.innerHTML = storedUserName;
 
 //Stage C - initial ideas
 
