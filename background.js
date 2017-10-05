@@ -27,6 +27,12 @@
         // IMAGE DATA
         imgLocation.innerHTML =`${imageLocationData}` || `{imageDescriptionData}`;
         imgPhotographer.innerHTML =`<a href="${linkToUser}">${photographerData}</a>` || `<a href="{linkToUser}">${username}</a>`;
+
+        // FOCUS BACKGROUND
+        $(".credit-box").click( function() {
+            $("#bottom-row").siblings().fadeOut();
+            $(".credit-box").siblings().fadeOut();
+        });
     });
 
 
