@@ -12,11 +12,11 @@ window.onload = () => {
   console.log(currentHour);
 
   if (currentHour > 2 && currentHour < 12) {
-    greeting = "Morning, "
+    greeting = "Morning"
   } else if (currentHour < 18){
-    greeting = "Afternoon, "
+    greeting = "Afternoon"
   } else {
-    greeting = "Evening, "
+    greeting = "Evening"
   }
   console.log(greeting);
 
@@ -25,7 +25,7 @@ window.onload = () => {
 
   const greetingHTMLId = document.getElementById("greeting");
   console.log(greetingHTMLId);
-  greetingHTMLId.innerHTML = "Good " + greeting;
+  greetingHTMLId.innerHTML = "Good " + greeting + ", ";
 
   const userNameHTMLId = document.getElementById("userName");
   console.log(userNameHTMLId);
@@ -53,5 +53,7 @@ window.onload = () => {
   });
 
 //Stage C - initial ideas
+//Function for initial prompt asking for user name.
+
 
 }
