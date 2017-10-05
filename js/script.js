@@ -6,39 +6,69 @@
   const focusOutput = document.querySelector("#focus-output");
   const focusOutWrapper = document.querySelector("#focus-output-wrapper");
   const focusInWrapper = document.querySelector("#focus-input-wrapper");
+  const focusClose = document.querySelector(".focus-close");
   let focusText;
 
-  /*chrome.storage.sync.get("focus", function(obj) { */
-    /* TODO need to check if chrome.storage returns null when it doesn't find the key */
-  /*  if (obj.focus === null) {
-      focusText = "";
-    }
-    else {
-      focusText = obj.focus;
-    }
-  console.log(focusText);
-  });*/
+  getFocus();
 
-
-  focusInput.addEventListener("keydown", function(event) {
-    if (event.keyCode === 13){ //Enter key pressed
-      if (this.value !== "") {
-        focusText = this.value;
-        this.value = "";
-        chrome.storage.sync.set({"focus": focusText}, function() {
-          chrome.storage.sync.get("focus", function(data){
-            console.log("focus saved: " + data.focus);
-          });
-        });
-        displayFocus(focusText)        
-      }
-    }
+  focusClose.addEventListener("click", function(event) {
+    deleteFocus();
   });
 
+  function getFocus() {
+    /* Is there already a focus in storage? */
+    chrome.storage.sync.get("focus", function(data){
+      /* if there is, display it */    
+      if (data.focus !== undefined) {
+        showElement(focusOutWrapper);
+        displayFocus(data.focus);
+      }
+      /* if not, get focus from user */
+      else {
+        //console.log(data);
+        showElement(focusInWrapper);
+        getFocusFromUser();
+      }
+    });
+  }
+
+  function getFocusFromUser() {
+    focusInput.addEventListener("keydown", function(event) {
+      if (event.keyCode === 13){ //Enter key pressed
+        if (this.value !== "") {
+          focusText = this.value;
+          this.value = "";
+          displayFocus(focusText) 
+          chrome.storage.sync.set({"focus": focusText}, function() {
+            /* TODO remove get and console.log, and figure out how to handle errors */
+            chrome.storage.sync.get("focus", function(data){
+              //console.log(data);
+            });
+          });       
+        }
+      }
+    });
+  }
+
   function displayFocus(focusText) {
-    focusInWrapper.classList.add("hidden");
+    hideElement(focusInWrapper);
     focusOutput.innerHTML = focusText;
-    focusOutWrapper.classList.remove("hidden");
+    showElement(focusOutWrapper);
+  }
+
+  function showElement(element) {
+    element.classList.remove("hidden");
+  }
+
+  function hideElement(element) {
+    element.classList.add("hidden");
+  }
+
+  function deleteFocus() {
+    chrome.storage.sync.remove(["focus"]);
+    hideElement(focusOutWrapper);
+    focusOutput.innerHTML = "";
+    getFocus();
   }
 
 })();
