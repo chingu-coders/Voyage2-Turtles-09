@@ -42,6 +42,20 @@ body {
   //background-color: rgba(0, 255, 0, .1);
 }
 
+#nameEntry {
+
+}
+
+#nameEntryGreeting {
+  display: block;
+}
+
+#nameEntryLine {
+  display: block;
+  width: 100px;
+  border-bottom: 2px black solid;
+}
+
 #greetingUserName {
   height: 1.5em;
 }
