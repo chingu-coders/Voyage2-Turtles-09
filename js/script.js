@@ -6,13 +6,19 @@
   const focusOutput = document.querySelector("#focus-output");
   const focusOutWrapper = document.querySelector("#focus-output-wrapper");
   const focusInWrapper = document.querySelector("#focus-input-wrapper");
-  let focusText = chrome.storage.sync.get("focus", function() {
-    if (focusText === ) {
-      let focusText = "";
-    }
-  });
+  let focusText;
 
-  
+  /*chrome.storage.sync.get("focus", function(obj) { */
+    /* TODO need to check if chrome.storage returns null when it doesn't find the key */
+  /*  if (obj.focus === null) {
+      focusText = "";
+    }
+    else {
+      focusText = obj.focus;
+    }
+  console.log(focusText);
+  });*/
+
 
   focusInput.addEventListener("keydown", function(event) {
     if (event.keyCode === 13){ //Enter key pressed
@@ -20,14 +26,19 @@
         focusText = this.value;
         this.value = "";
         chrome.storage.sync.set({"focus": focusText}, function() {
-          console.log("focus saved");
+          chrome.storage.sync.get("focus", function(data){
+            console.log("focus saved: " + data.focus);
+          });
         });
-        focusOutput.innerHTML = focusText;
-        focusOutWrapper.classList.remove("hidden");
-        focusInWrapper.classList.add("hidden");
+        displayFocus(focusText)        
       }
     }
   });
 
+  function displayFocus(focusText) {
+    focusInWrapper.classList.add("hidden");
+    focusOutput.innerHTML = focusText;
+    focusOutWrapper.classList.remove("hidden");
+  }
 
 })();
