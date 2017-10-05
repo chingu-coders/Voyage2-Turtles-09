@@ -42,9 +42,16 @@ body {
   //background-color: rgba(0, 255, 0, .1);
 }
 
+#greetingUserName {
+  height: 1.5em;
+}
+
 #userName {
   cursor: pointer;
   outline: none;
+  display: inline-block;
+  min-width: 20px;
+  max-width: 750px;
 }
 
 #userName:focus {
