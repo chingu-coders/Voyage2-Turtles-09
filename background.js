@@ -25,11 +25,7 @@
     // });
 
 
-    $("document").ready(function () {
-        $("#slider").click(function () {
-            $("#slider").toggleClass("closed");
-        });
-    });
+
 
 
 
