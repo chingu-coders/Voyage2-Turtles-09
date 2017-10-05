@@ -7,34 +7,49 @@
     const imgPhotographer = document.querySelector("#image-photographer");
     const imgLocation = document.querySelector("#image-location");
 
-    fetch(query).then( response => response.json()).then( data =>
-    {
-        // IMAGE DATA VARS
-        let bgUrl = data.urls.regular;
-        let photographerData = data.user.name;
-        // let imageLocationData = data.location.name;
-        // let imageLocation = data.location.title;
-        let imageDescriptionData = data.description;
-        let username = data.user.username;
-        let linkToUser = `https://unsplash.com/@${username}?utm_source=over&utm_medium=referral&utm_campaign=api-credit`;
-        let imageLocationData = data.user.location || "Photo Credits";
+    // fetch(query).then( response => response.json()).then( data =>
+    // {
+    //     // IMAGE DATA VARS
+    //     let bgUrl = data.urls.regular;
+    //     let photographerData = data.user.name;
+    //     // let imageLocationData = data.location.name;
+    //     // let imageLocation = data.location.title;
+    //     let imageDescriptionData = data.description;
+    //     let username = data.user.username;
+    //     let linkToUser = `https://unsplash.com/@${username}?utm_source=over&utm_medium=referral&utm_campaign=api-credit`;
+    //     let imageLocationData = data.user.location || "Photo Credits";
+    //
+    //
+    //     // SET BG
+    //     console.log(data);
+    //     document.body.style.background = `#f3f3f3 url('${bgUrl}') center center fixed / cover no-repeat`;
+    //
+    //     // IMAGE DATA
+    //     imgLocation.innerHTML =`${imageLocationData}` || `{imageDescriptionData}`;
+    //     imgPhotographer.innerHTML =`<a href="${linkToUser}">${photographerData}</a>` || `<a href="{linkToUser}">${username}</a>`;
+    //
+    //
+    //
+    // });
 
+    // FOCUS BACKGROUND
+    const mouseOverFocus = () => {
+        $(".main-wrapper").delay(3000).fadeOut();
+        // $(".credit-box").siblings().delay(3000).fadeOut();
+    };
+    const mouseOutFocus = () => {
+        $(".main-wrapper").fadeIn();
+        // $(".credit-box").siblings().css("display", "none").delay(500).fadeIn();
+    };
 
-        // SET BG
-        console.log(data);
-        document.body.style.background = `#f3f3f3 url('${bgUrl}') center center fixed / cover no-repeat`;
+    $(".credit-box").mouseenter(mouseOverFocus);
+    $(".credit-box").mouseleave(mouseOutFocus);
 
-        // IMAGE DATA
-        imgLocation.innerHTML =`${imageLocationData}` || `{imageDescriptionData}`;
-        imgPhotographer.innerHTML =`<a href="${linkToUser}">${photographerData}</a>` || `<a href="{linkToUser}">${username}</a>`;
-
-        // FOCUS BACKGROUND
-        $(".credit-box").click( function() {
-            $("#bottom-row").siblings().fadeOut();
-            $(".credit-box").siblings().fadeOut();
-        });
-    });
-
+    // if ($(".credit-box").is(":visible")) {
+    //
+    // } else {
+    //
+    // }
 
 
 
