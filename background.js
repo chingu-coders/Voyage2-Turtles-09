@@ -34,17 +34,18 @@
 
     // FOCUS BACKGROUND
     const mouseOverFocus = () => {
-        $("#bottom-row").siblings().delay(3000).fadeOut();
-        $(".credit-box").siblings().delay(3000).fadeOut();
+        $("#bottom-row").siblings().fadeOut();
+        $(".credit-box").siblings().fadeOut();
     };
 
     let timer = setTimeout(mouseOverFocus, 3000);
 
     const mouseOutFocus = () => {
-        $("#bottom-row").siblings().delay(500).fadeIn();
-        $(".credit-box").siblings().delay(500).fadeIn();
+        $("#bottom-row").siblings().delay(200).fadeIn();
+        $(".credit-box").siblings().delay(200).fadeIn();
         clearTimeout(timer);
     };
+    $(".credit-box").mouseenter(mouseOverFocus);
     $(".credit-box").mouseleave(mouseOutFocus);
 
 
