@@ -60,7 +60,7 @@ function addEventListeners() {
   });
 }
 
-function greeting() {
+function setGreeting() {
   currentHour = new Date().getHours();
   if (currentHour > 2 && currentHour < 12) {
     greeting = "Morning";
@@ -82,7 +82,7 @@ function printUserName() {
 window.onload = () => {
   declarations();
   getStoredUserName();
-  greeting();
+  setGreeting();
   checkUserName();
   addEventListeners();
 }
