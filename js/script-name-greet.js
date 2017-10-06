@@ -12,7 +12,9 @@ const greetingHTMLId = document.getElementById("greeting");
 const userNameHTMLId = document.getElementById("userName");
 
 function getStoredUserName() {
+  storedUserName = localStorage.getItem("userName");
 }
+
 function checkUserName() {
   if (storedUserName) {
     $(".initial-wrapper").css("display", "none");
