@@ -32,6 +32,7 @@ function addEventListeners() {
         newUserName = nameEntryLineHTMLId.innerHTML;
         localStorage.setItem("userName", newUserName);
         $(".initial-wrapper").fadeOut("slow", () => {
+          printUserName();
           $(".main-wrapper").fadeIn("slow");
         });
       }
@@ -80,7 +81,6 @@ function printUserName() {
 }
 
 window.onload = () => {
-  declarations();
   getStoredUserName();
   setGreeting();
   checkUserName();
