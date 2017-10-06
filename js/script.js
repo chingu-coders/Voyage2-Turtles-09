@@ -11,6 +11,14 @@
 
   getFocus();
 
+  focusOutWrapper.addEventListener("mouseover", function(event) {
+    showElement(focusClose);
+  });
+
+  focusOutWrapper.addEventListener("mouseleave", function(event) {
+    hideElement(focusClose);
+  });
+
   focusClose.addEventListener("click", function(event) {
     deleteFocus();
   });
@@ -41,8 +49,8 @@
           displayFocus(focusText) 
           chrome.storage.sync.set({"focus": focusText}, function() {
             /* TODO remove get and console.log, and figure out how to handle errors */
-            chrome.storage.sync.get("focus", function(data){
-              //console.log(data);
+            chrome.storage.sync.get(["focus"], function(data){
+              console.log(data);
             });
           });       
         }
