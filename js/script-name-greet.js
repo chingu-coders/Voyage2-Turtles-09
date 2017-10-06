@@ -6,6 +6,10 @@ window.onload = () => {
 
 // Stage A - Production code
 // Stage B - In development
+  const nameEntryGreetingHTMLId = document.getElementById("nameEntryGreeting");
+  const nameEntryLineHTMLId = document.getElementById("nameEntryLine");
+  const greetingHTMLId = document.getElementById("greeting");
+  const userNameHTMLId = document.getElementById("userName");
   let currentHour, greeting, storedUserName, newUserName;
 
   currentHour = new Date().getHours();
@@ -23,11 +27,9 @@ window.onload = () => {
   storedUserName = localStorage.getItem("userName");
   console.log(storedUserName);
 
-  const greetingHTMLId = document.getElementById("greeting");
   console.log(greetingHTMLId);
   greetingHTMLId.innerHTML = "Good " + greeting + ", ";
 
-  const userNameHTMLId = document.getElementById("userName");
   console.log(userNameHTMLId);
   userNameHTMLId.innerHTML = storedUserName;
 
@@ -54,10 +56,10 @@ window.onload = () => {
 
 //Stage C - initial ideas
 //Function for initial prompt asking for user name.
-const nameEntryGreetingHTMLId = document.getElementById("nameEntryGreeting");
+
 nameEntryGreetingHTMLId.innerHTML = "Hello, how are you this " + greeting + "?";
 
-const nameEntryLineHTMLId = document.getElementById("nameEntryLine");
+
 
 if (storedUserName) {
   $(".initial-wrapper").css("display", "none");
