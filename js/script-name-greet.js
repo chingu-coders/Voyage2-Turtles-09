@@ -1,23 +1,29 @@
 "use strict"
 
-window.onload = () => {
   //Development aids
   //localStorage.setItem("userName", "David");
 
 // Stage A - Production code
 // Stage B - In development
+function declarations() {
   const nameEntryGreetingHTMLId = document.getElementById("nameEntryGreeting");
   const nameEntryLineHTMLId = document.getElementById("nameEntryLine");
   const greetingHTMLId = document.getElementById("greeting");
   const userNameHTMLId = document.getElementById("userName");
   let currentHour, greeting, storedUserName, newUserName;
+}
 
+function getStoredUserName() {
+}
+function checkUserName() {
   if (storedUserName) {
     $(".initial-wrapper").css("display", "none");
   } else {
     $(".main-wrapper").css("display", "none");
   }
+}
 
+function addEventListeners() {
   nameEntryLineHTMLId.addEventListener("keydown", (event) => {
     if (event.which === 13) {
       event.preventDefault();
@@ -52,21 +58,28 @@ window.onload = () => {
     }
     console.log(userNameHTMLId.innerHTML + " - new user name successfully submitted.");
   });
+}
 
+function greeting() {
   currentHour = new Date().getHours();
-
   if (currentHour > 2 && currentHour < 12) {
-    greeting = "Morning"
+    greeting = "Morning";
   } else if (currentHour < 18){
-    greeting = "Afternoon"
+    greeting = "Afternoon";
   } else {
-    greeting = "Evening"
+    greeting = "Evening";
   }
-
-  storedUserName = localStorage.getItem("userName");
   greetingHTMLId.innerHTML = "Good " + greeting + ", ";
-  userNameHTMLId.innerHTML = storedUserName;
   nameEntryGreetingHTMLId.innerHTML = "Hello, how are you this " + greeting + "?";
+}
+
+window.onload = () => {
+  declarations();
+  getStoredUserName();
+  greeting();
+  checkUserName();
+  addEventListeners();
+}
 
 //Stage C - initial ideas
 //Function for initial prompt asking for user name.
