@@ -38,15 +38,25 @@
         $(".credit-box").siblings().fadeOut();
     };
 
-    let timer = setTimeout(mouseOverFocus, 3000);
+    let timer = window.setTimeout(mouseOverFocus, 3000);
 
     const mouseOutFocus = () => {
-        $("#bottom-row").siblings().delay(200).fadeIn();
-        $(".credit-box").siblings().delay(200).fadeIn();
+        $("#bottom-row").siblings().fadeIn();
+        $(".credit-box").siblings().fadeIn();
         clearTimeout(timer);
     };
-    $(".credit-box").mouseenter(mouseOverFocus);
-    $(".credit-box").mouseleave(mouseOutFocus);
+
+    let timer2 = window.setTimeout(mouseOutFocus, 500);
+
+    $(".credit-box").mouseenter( function(){
+        // Why does calling timer() not work, but writing out the function does?
+        window.setTimeout(mouseOverFocus, 3000);
+        // timer();
+    });
+    $(".credit-box").mouseleave( function(){
+        window.setTimeout(mouseOutFocus, 500);
+        // timer2();
+    });
 
 
 
