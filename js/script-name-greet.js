@@ -13,7 +13,6 @@ window.onload = () => {
   let currentHour, greeting, storedUserName, newUserName;
 
   currentHour = new Date().getHours();
-  console.log(currentHour);
 
   if (currentHour > 2 && currentHour < 12) {
     greeting = "Morning"
@@ -22,15 +21,11 @@ window.onload = () => {
   } else {
     greeting = "Evening"
   }
-  console.log(greeting);
 
   storedUserName = localStorage.getItem("userName");
-  console.log(storedUserName);
 
-  console.log(greetingHTMLId);
   greetingHTMLId.innerHTML = "Good " + greeting + ", ";
 
-  console.log(userNameHTMLId);
   userNameHTMLId.innerHTML = storedUserName;
 
   userNameHTMLId.addEventListener("click", () => {
