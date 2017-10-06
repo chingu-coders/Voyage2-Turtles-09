@@ -2,7 +2,7 @@
 
 window.onload = () => {
   //Development aids
-  //localStorage.setItem("userName", "David");
+  //chrome.storage.sync.set({"userName": "David"});
 
 // Stage A - Production code
 // Stage B - In development
@@ -24,7 +24,7 @@ window.onload = () => {
       if (nameEntryLineHTMLId.innerHTML) {
         document.activeElement.blur();
         newUserName = nameEntryLineHTMLId.innerHTML;
-        localStorage.setItem("userName", newUserName);
+        chrome.storage.sync.set({"userName": newUserName});
         $(".initial-wrapper").fadeOut("slow", () => {
           $(".main-wrapper").fadeIn("slow");
         });
@@ -46,7 +46,7 @@ window.onload = () => {
   userNameHTMLId.addEventListener("blur", () => {
     if (userNameHTMLId.innerHTML) {
       newUserName = userNameHTMLId.innerHTML;
-      localStorage.setItem("userName", newUserName);
+      chrome.storage.sync.set({"userName": newUserName});
     } else {
       userNameHTMLId.innerHTML = storedUserName;
     }
@@ -63,7 +63,7 @@ window.onload = () => {
     greeting = "Evening"
   }
 
-  storedUserName = localStorage.getItem("userName");
+  storedUserName = chrome.storage.sync.get("userName");
   greetingHTMLId.innerHTML = "Good " + greeting + ", ";
   userNameHTMLId.innerHTML = storedUserName;
   nameEntryGreetingHTMLId.innerHTML = "Hello, how are you this " + greeting + "?";
