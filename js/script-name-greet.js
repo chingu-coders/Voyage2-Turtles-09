@@ -73,6 +73,12 @@ function greeting() {
   nameEntryGreetingHTMLId.innerHTML = "Hello, how are you this " + greeting + "?";
 }
 
+function printUserName() {
+  getStoredUserName();
+  console.log(storedUserName);
+  userNameHTMLId.innerHTML = storedUserName;
+}
+
 window.onload = () => {
   declarations();
   getStoredUserName();
