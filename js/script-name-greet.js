@@ -17,9 +17,10 @@ function getStoredUserName() {
 
 function checkUserName() {
   if (storedUserName) {
-    $(".initial-wrapper").css("display", "none");
+    printUserName();
+    $(".main-wrapper").fadeIn("slow");
   } else {
-    $(".main-wrapper").css("display", "none");
+    $(".initial-wrapper").fadeIn("slow");
   }
 }
 
