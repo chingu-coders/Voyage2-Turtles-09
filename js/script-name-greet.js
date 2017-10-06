@@ -90,5 +90,3 @@ window.onload = () => {
 
 //Stage C - initial ideas
 //Function for initial prompt asking for user name.
-
-}
