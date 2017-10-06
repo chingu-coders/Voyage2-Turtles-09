@@ -5,13 +5,11 @@
 
 // Stage A - Production code
 // Stage B - In development
-function declarations() {
-  const nameEntryGreetingHTMLId = document.getElementById("nameEntryGreeting");
-  const nameEntryLineHTMLId = document.getElementById("nameEntryLine");
-  const greetingHTMLId = document.getElementById("greeting");
-  const userNameHTMLId = document.getElementById("userName");
-  let currentHour, greeting, storedUserName, newUserName;
-}
+let currentHour, greeting, storedUserName, newUserName;
+const nameEntryGreetingHTMLId = document.getElementById("nameEntryGreeting");
+const nameEntryLineHTMLId = document.getElementById("nameEntryLine");
+const greetingHTMLId = document.getElementById("greeting");
+const userNameHTMLId = document.getElementById("userName");
 
 function getStoredUserName() {
 }
