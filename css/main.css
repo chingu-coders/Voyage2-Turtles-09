@@ -83,3 +83,12 @@ body {
   align-items: flex-end;
   //background-color: rgba(0, 0, 255, .1);
 }
+
+/***********************
+* Utility classes
+************************/
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  z-index: -1;
+}
