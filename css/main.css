@@ -78,13 +78,13 @@ body {
   margin-top: 0;
 }
 
-#focus-input-wrapper,
-#focus-output-wrapper {
+.focus-input-wrapper,
+.focus-output-wrapper {
   height: 150px;
   //background-color: rgba(255, 0, 255, .1);
 }
 
-#focus-output-wrapper {
+.focus-output-wrapper {
   margin-top: -150px;
   font-size: 2.25rem;
 }
@@ -100,6 +100,7 @@ body {
 .focus-row {
   display: flex;
   justify-content: center;
+  margin-left: 14px;
 }
 
 .focus-checkbox {
@@ -110,6 +111,10 @@ body {
 .fa-check-square-o {
   margin-left: -29px;
   margin-right: 20px;
+}
+
+.focus-output.focus-completed {
+  text-decoration: line-through;
 }
 
 .focus-close {
