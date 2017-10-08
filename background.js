@@ -1,6 +1,5 @@
     "use strict";
     // VARS
-    const bg = document.querySelector("#bg");
     const api = "https://api.unsplash.com/photos/random";
     const appID = "51eeacda52a858956883fcd86384424f78d38da8fb4f8b61b65723e41223d6b1";
     const query = api + "?client_id=" + appID + "&collections=488341";
@@ -12,8 +11,6 @@
         // IMAGE DATA VARS
         let bgUrl = data.urls.regular;
         let photographerData = data.user.name;
-        // let imageLocationData = data.location.name;
-        // let imageLocation = data.location.title;
         let imageDescriptionData = data.description;
         let username = data.user.username;
         let linkToUser = `https://unsplash.com/@${username}?utm_source=over&utm_medium=referral&utm_campaign=api-credit`;
@@ -38,7 +35,7 @@
         $(".credit-box").siblings().fadeOut();
     };
 
-    let timer = window.setTimeout(mouseOverFocus, 3000);
+    let timer ;
 
     const mouseOutFocus = () => {
         $("#bottom-row").siblings().fadeIn();
@@ -46,16 +43,12 @@
         clearTimeout(timer);
     };
 
-    let timer2 = window.setTimeout(mouseOutFocus, 500);
-
-    $(".credit-box").mouseenter( function(){
-        // Why does calling timer() not work, but writing out the function does?
-        window.setTimeout(mouseOverFocus, 3000);
-        // timer();
+    $(".credit-box").mouseenter( () => {
+        timer = window.setTimeout(mouseOverFocus, 3000);
     });
-    $(".credit-box").mouseleave( function(){
+    $(".credit-box").mouseleave( () => {
+        clearTimeout(timer);
         window.setTimeout(mouseOutFocus, 500);
-        // timer2();
     });
 
 
