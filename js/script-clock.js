@@ -2,7 +2,6 @@
 
 let current, timeStringToPrint, time12HourOptions, time24HourOptions, options, timeSetting;
 
-window.onload = () =>{
 time24HourOptions = {
   hour12: false,
   hour: '2-digit',
@@ -34,3 +33,8 @@ function changeTime(){
   console.log(timeStringToPrint);
 }
 
+$(document).ready(() => {
+  pullTimeSetting();
+  changeTime();
+  window.setInterval(changeTime, 30000);
+});
