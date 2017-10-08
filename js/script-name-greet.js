@@ -1,7 +1,7 @@
 "use strict"
 
   //Development aids
-  //localStorage.setItem("userName", "David");
+  //chrome.storage.sync.set({"userName": "David"});
 
 // Stage A - Production code
 // Stage B - In development
@@ -31,7 +31,7 @@ function addEventListeners() {
       if (nameEntryLineHTMLId.innerHTML) {
         document.activeElement.blur();
         newUserName = nameEntryLineHTMLId.innerHTML;
-        localStorage.setItem("userName", newUserName);
+        chrome.storage.sync.set({"userName": newUserName});
         $(".initial-wrapper").fadeOut("slow", () => {
           printUserName();
           $(".main-wrapper").fadeIn("slow");
@@ -54,7 +54,7 @@ function addEventListeners() {
   userNameHTMLId.addEventListener("blur", () => {
     if (userNameHTMLId.innerHTML) {
       newUserName = userNameHTMLId.innerHTML;
-      localStorage.setItem("userName", newUserName);
+      chrome.storage.sync.set({"userName": newUserName});
     } else {
       userNameHTMLId.innerHTML = storedUserName;
     }
@@ -71,6 +71,8 @@ function setGreeting() {
   } else {
     greeting = "Evening";
   }
+
+  storedUserName = chrome.storage.sync.get("userName");
   greetingHTMLId.innerHTML = "Good " + greeting + ", ";
   nameEntryGreetingHTMLId.innerHTML = "Hello, how are you this " + greeting + "?";
 }
