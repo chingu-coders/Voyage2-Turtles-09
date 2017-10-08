@@ -27,10 +27,16 @@
                 //* Fetching a new background from unsplash
                 queryUnsplash();
             } else {
-                //* Setting BG url to the last stored BG
-                chrome.storage.sync.get("bg_url", function(data) {
+                //* Setting BG url to the last stored BG using null to get the entire object
+                chrome.storage.sync.get(null, function(data) {
                     let savedBg = data["bg_url"];
+                    let savedPhotographer = data["photographer"];
+                    let savedLocation = data["location"];
+                    let savedLinkToUser = data["link"];
+                    let savedUsername = data["username"];
                     document.body.style.background = `#f3f3f3 url('${savedBg}') center center fixed / cover no-repeat`;
+                    imgLocation.innerHTML =`${savedLocation}` || `{imageDescriptionData}`;
+                    imgPhotographer.innerHTML =`<a href="${savedLinkToUser}">${savedPhotographer}</a>` || `<a href="{linkToUser}">${savedUsername}</a>`;
                     console.log("Using last saved BG");
                 });
 
@@ -59,10 +65,16 @@
             let imageDescriptionData = data.description;
             let username = data.user.username;
             let linkToUser = `https://unsplash.com/@${username}?utm_source=over&utm_medium=referral&utm_campaign=api-credit`;
-            let imageLocationData = data.user.location || "Photo Credits";
+            let imageLocationData = data.user.location || username;
 
             // SAVE BG URL TO STORAGE
-            chrome.storage.sync.set({"bg_url": bgUrl});
+            chrome.storage.sync.set({
+                "bg_url": bgUrl,
+                "photographer": photographerData,
+                "location": imageLocationData,
+                "username": username,
+                "link": linkToUser
+            });
 
 
 
