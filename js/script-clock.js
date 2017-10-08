@@ -26,3 +26,11 @@ function pullTimeSetting (){
     options = time24HourOptions;
   }
 }
+
+function changeTime(){
+  current = new Date();
+  timeStringToPrint = current.toLocaleTimeString([], options);
+  document.getElementById("time").innerHTML = timeStringToPrint;
+  console.log(timeStringToPrint);
+}
+
