@@ -8,8 +8,14 @@ html {
   box-sizing: inherit;
 }
 
+input:focus {
+  outline: none;
+}
+
 body {
   margin: 0;
+  color: #fff;
+  background-color: rgba(0, 0, 0, .2);
 }
 
 .main-wrapper {  
@@ -31,7 +37,7 @@ body {
 }
 
 /***********************
- * Middle row of page
+ * Center row of page
  ***********************/
 #center-row {
   display: flex;
@@ -42,6 +48,94 @@ body {
   //background-color: rgba(0, 255, 0, .1);
 }
 
+/* Time */
+.time {
+  font-size: 10rem;
+}
+
+/* Main focus */
+.focus,
+.focus input {
+  text-align: center;
+  font-size: 2.25rem;
+}
+
+.focus {
+  width: 90%;
+  margin-bottom: 0;
+  margin-top: 4rem;
+  //min-height: 150px;
+}
+
+.focus p {
+  margin: 0;
+}
+
+.focus-day {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 0;
+}
+
+.focus-input-wrapper,
+.focus-output-wrapper {
+  height: 150px;
+  //background-color: rgba(255, 0, 255, .1);
+}
+
+.focus-output-wrapper {
+  margin-top: -150px;
+  font-size: 2.25rem;
+}
+
+.focus input {
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  min-width: 500px;
+}
+
+.focus-row {
+  display: flex;
+  justify-content: center;
+  margin-left: 14px;
+}
+
+.focus-checkbox {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.fa-check-square-o {
+  margin-left: -29px;
+  margin-right: 20px;
+}
+
+.focus-output.focus-completed {
+  text-decoration: line-through;
+}
+
+.focus-close {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1;
+  width: 35px;
+  margin: .75rem;
+  padding: 7.5px 9.5px;
+  border: 1px solid transparent;
+}
+
+.focus-close:hover {
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid #fff;
+  border-radius: 50%;
+}
+/* end of main focus */
+
 /***********************
  * Bottom row of page
  ***********************/
@@ -51,4 +145,13 @@ body {
   justify-content: space-between;
   align-items: flex-end;
   //background-color: rgba(0, 0, 255, .1);
+}
+
+/***********************
+* Utility classes
+************************/
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  z-index: -1;
 }

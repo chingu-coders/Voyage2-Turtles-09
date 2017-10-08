@@ -4,6 +4,8 @@
   <head>
     <meta charset="UTF-8">
     <title>New Tab</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/testBg.css">
   </head>
@@ -20,9 +22,31 @@
 
       <!-- Center row of page -->
       <div id="center-row">
-        <section id="time">time</section>
+        <section class="time" id="time">time</section>
         <section id="greeting">Hello World!</section>
-        <section id="focus">What is your main focus for today?</section>
+
+        <!-- Main Focus -->
+        <section class="focus">
+
+          <div id="focus-input-wrapper" class="focus-input-wrapper hidden">
+            <p>What is your main focus for today?</p>
+            <input type="text" name="focus" id="focus-input">
+          </div>
+
+          <div id="focus-output-wrapper" class="focus-output-wrapper hidden">
+            <p class="focus-day">today</p>
+            <div class="focus-row">
+              <div>
+                <span class="focus-checkbox fa fa-square-o hidden"></span>
+                <span class="focus-checkbox fa fa-check-square-o hidden"></span>
+              </div>
+              <p id="focus-output" class="focus-output"></p>
+              <span class="focus-close hidden">✕</span>
+            </div>
+          </div>
+
+        </section><!-- end of main focus -->
+
       </div>
 
       <!-- Bottom row of page -->
