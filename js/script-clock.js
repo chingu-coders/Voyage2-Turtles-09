@@ -1,6 +1,6 @@
 "use strict";
 
-let currentDate, currentHour, currentMinute, currentTime, stringDate;
+let current, timeStringToPrint, time12HourOptions, time24HourOptions, options, timeSetting;
 
 window.onload = () =>{
   currentDate = new Date();
@@ -10,6 +10,6 @@ window.onload = () =>{
   currentTime = currentHour + ": " + currentMinute;
   console.log(currentTime);
 
-  stringDate = currentDate.toLocaleTimeString();
+  defaultLocaleTimeString = currentDate.toLocaleTimeString().split('').slice(0,4).join('');
   console.log(stringDate);
 }
