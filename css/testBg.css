@@ -11,7 +11,6 @@ body {
     bottom: 10px;
     height: 50px;
     width: 150px;
-    border: 1px solid red;
 
 }
 
@@ -19,7 +18,7 @@ body {
     opacity: 0.7;
     height: 0;
     margin: -15px 1px;
-    padding: 1em;
+    /*padding: 1em;*/
     line-height: 1em;
 
 }
@@ -31,7 +30,7 @@ p.photographer a {
 
 .credits:first-child {
     position: relative;
-    top: 1.8em;
+    top: 3.4em;
     border-bottom: 10px solid transparent;
     -webkit-transition: all 250ms 0.4s ease;
     -moz-transition: all 250ms 0.4s ease;
@@ -41,7 +40,7 @@ p.photographer a {
 
 .credit-box:hover .credits:first-child {
     opacity: 1;
-    transform: translateY(-0.8em);
+    transform: translateY(-1.2em);
     transition-delay: 250ms;
 }
 
