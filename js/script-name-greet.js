@@ -12,25 +12,21 @@ window.onload = () => {
   const userNameHTMLId = document.getElementById("userName");
   let currentHour, greeting, storedUserName, newUserName;
 
-  if (storedUserName) {
-    $(".initial-wrapper").css("display", "none");
+  currentHour = new Date().getHours();
+
+  if (currentHour > 2 && currentHour < 12) {
+    greeting = "Morning"
+  } else if (currentHour < 18){
+    greeting = "Afternoon"
   } else {
-    $(".main-wrapper").css("display", "none");
+    greeting = "Evening"
   }
 
-  nameEntryLineHTMLId.addEventListener("keydown", (event) => {
-    if (event.which === 13) {
-      event.preventDefault();
-      if (nameEntryLineHTMLId.innerHTML) {
-        document.activeElement.blur();
-        newUserName = nameEntryLineHTMLId.innerHTML;
-        chrome.storage.sync.set({"userName": newUserName});
-        $(".initial-wrapper").fadeOut("slow", () => {
-          $(".main-wrapper").fadeIn("slow");
-        });
-      }
-    }
-  });
+  storedUserName = localStorage.getItem("userName");
+
+  greetingHTMLId.innerHTML = "Good " + greeting + ", ";
+
+  userNameHTMLId.innerHTML = storedUserName;
 
   userNameHTMLId.addEventListener("click", () => {
     console.log("Clicked on user name.");
@@ -53,22 +49,31 @@ window.onload = () => {
     console.log(userNameHTMLId.innerHTML + " - new user name successfully submitted.");
   });
 
-  currentHour = new Date().getHours();
-
-  if (currentHour > 2 && currentHour < 12) {
-    greeting = "Morning"
-  } else if (currentHour < 18){
-    greeting = "Afternoon"
-  } else {
-    greeting = "Evening"
-  }
-
-  storedUserName = chrome.storage.sync.get("userName");
-  greetingHTMLId.innerHTML = "Good " + greeting + ", ";
-  userNameHTMLId.innerHTML = storedUserName;
-  nameEntryGreetingHTMLId.innerHTML = "Hello, how are you this " + greeting + "?";
-
 //Stage C - initial ideas
 //Function for initial prompt asking for user name.
+
+nameEntryGreetingHTMLId.innerHTML = "Hello, how are you this " + greeting + "?";
+
+
+
+if (storedUserName) {
+  $(".initial-wrapper").css("display", "none");
+} else {
+  $(".main-wrapper").css("display", "none");
+}
+
+nameEntryLineHTMLId.addEventListener("keydown", (event) => {
+  if (event.which === 13) {
+    event.preventDefault();
+    if (nameEntryLineHTMLId.innerHTML) {
+      document.activeElement.blur();
+      newUserName = nameEntryLineHTMLId.innerHTML;
+      localStorage.setItem("userName", newUserName);
+      $(".initial-wrapper").fadeOut("slow", () => {
+        $(".main-wrapper").fadeIn("slow");
+      });
+    }
+  }
+});
 
 }
