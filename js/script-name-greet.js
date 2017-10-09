@@ -6,7 +6,8 @@ function clearStorage() {
 }
 // Stage A - Production code
 // Stage B - In development
-let currentHour, greeting, storedUserName, newUserName;
+let currentHour, greeting, newUserName//,storedUserName;
+const storedUserName = {};
 const nameEntryGreetingHTMLId = document.getElementById("nameEntryGreeting");
 const nameEntryLineHTMLId = document.getElementById("nameEntryLine");
 const greetingHTMLId = document.getElementById("greeting");
