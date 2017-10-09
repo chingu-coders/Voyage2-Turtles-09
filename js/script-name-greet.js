@@ -1,8 +1,9 @@
 "use strict"
 
-  //Development aids
-  //chrome.storage.sync.set({"userName": "David"});
-
+//Development aids
+function clearStorage() {
+  chrome.storage.sync.clear();
+}
 // Stage A - Production code
 // Stage B - In development
 let currentHour, greeting, storedUserName, newUserName;
@@ -12,10 +13,15 @@ const greetingHTMLId = document.getElementById("greeting");
 const userNameHTMLId = document.getElementById("userName");
 
 function getStoredUserName() {
-  storedUserName = localStorage.getItem("userName");
+  chrome.storage.sync.get(null, (obj) => {
+    storedUserName = obj.userName;
+    console.log(storedUserName);
+  });
 }
 
 function checkUserName() {
+  getStoredUserName();
+  console.log(storedUserName);
   if (storedUserName) {
     printUserName();
     $(".main-wrapper").fadeIn("slow");
@@ -31,7 +37,7 @@ function addEventListeners() {
       if (nameEntryLineHTMLId.innerHTML) {
         document.activeElement.blur();
         newUserName = nameEntryLineHTMLId.innerHTML;
-        localStorage.setItem("userName", newUserName);
+        chrome.storage.sync.set({"userName": newUserName});
         $(".initial-wrapper").fadeOut("slow", () => {
           printUserName();
           $(".main-wrapper").fadeIn("slow");
@@ -54,7 +60,7 @@ function addEventListeners() {
   userNameHTMLId.addEventListener("blur", () => {
     if (userNameHTMLId.innerHTML) {
       newUserName = userNameHTMLId.innerHTML;
-      localStorage.setItem("userName", newUserName);
+      chrome.storage.sync.set({"userName": newUserName});
     } else {
       userNameHTMLId.innerHTML = storedUserName;
     }
@@ -72,7 +78,6 @@ function setGreeting() {
     greeting = "Evening";
   }
 
-  storedUserName = localStorage.getItem("userName");
   greetingHTMLId.innerHTML = "Good " + greeting + ", ";
   nameEntryGreetingHTMLId.innerHTML = "Hello, how are you this " + greeting + "?";
 }
