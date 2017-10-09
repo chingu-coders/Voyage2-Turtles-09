@@ -13,11 +13,6 @@ const nameEntryLineHTMLId = document.getElementById("nameEntryLine");
 const greetingHTMLId = document.getElementById("greeting");
 const userNameHTMLId = document.getElementById("userName");
 
-function getStoredUserName() {
-  chrome.storage.sync.get(null, (obj) => {
-    storedUserName = obj.userName;
-    console.log(storedUserName);
-  });
 }
 
 function checkUserName() {
