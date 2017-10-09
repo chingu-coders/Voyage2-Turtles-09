@@ -86,7 +86,7 @@ function addEventListeners() {
 }
 
 window.onload = () => {
-  getStoredUserName();
+  //clearStorage();
   setGreeting();
   checkUserName();
   addEventListeners();
