@@ -31,7 +31,7 @@ function addEventListeners() {
       if (nameEntryLineHTMLId.innerHTML) {
         document.activeElement.blur();
         newUserName = nameEntryLineHTMLId.innerHTML;
-        localStorage.set("userName", newUserName);
+        localStorage.setItem("userName", newUserName);
         $(".initial-wrapper").fadeOut("slow", () => {
           printUserName();
           $(".main-wrapper").fadeIn("slow");
@@ -54,7 +54,7 @@ function addEventListeners() {
   userNameHTMLId.addEventListener("blur", () => {
     if (userNameHTMLId.innerHTML) {
       newUserName = userNameHTMLId.innerHTML;
-      localStorage.set("userName", newUserName);
+      localStorage.setItem("userName", newUserName);
     } else {
       userNameHTMLId.innerHTML = storedUserName;
     }
@@ -72,7 +72,7 @@ function setGreeting() {
     greeting = "Evening";
   }
 
-  storedUserName = localStorage.get("userName");
+  storedUserName = localStorage.getItem("userName");
   greetingHTMLId.innerHTML = "Good " + greeting + ", ";
   nameEntryGreetingHTMLId.innerHTML = "Hello, how are you this " + greeting + "?";
 }
