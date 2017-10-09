@@ -28,14 +28,23 @@ function setGreeting() {
 }
 
 function checkUserName() {
-  getStoredUserName();
-  console.log(storedUserName);
-  if (storedUserName) {
-    printUserName();
-    $(".main-wrapper").fadeIn("slow");
-  } else {
-    $(".initial-wrapper").fadeIn("slow");
+  chrome.storage.sync.get(null, (obj) => {
+    let error = chrome.runtime.lastError;
+    if (error) {
+      console.error(error);
+    } else {
+      storedUserName.userName = obj.userName;
+      console.log(storedUserName.userName);
+
+      if (storedUserName.userName) {
+        userNameHTMLId.innerHTML = storedUserName.userName;
+        $(".main-wrapper").fadeIn("slow");
+      } else {
+        $(".initial-wrapper").fadeIn("slow");
+      }
+    }
   }
+);
 }
 
 function addEventListeners() {
