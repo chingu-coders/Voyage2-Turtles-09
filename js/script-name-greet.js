@@ -56,7 +56,7 @@ function addEventListeners() {
         newUserName = nameEntryLineHTMLId.innerHTML;
         chrome.storage.sync.set({"userName": newUserName});
         $(".initial-wrapper").fadeOut("slow", () => {
-          printUserName();
+          userNameHTMLId.innerHTML = newUserName;
           $(".main-wrapper").fadeIn("slow");
         });
       }
