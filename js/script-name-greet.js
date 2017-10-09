@@ -31,7 +31,7 @@ function addEventListeners() {
       if (nameEntryLineHTMLId.innerHTML) {
         document.activeElement.blur();
         newUserName = nameEntryLineHTMLId.innerHTML;
-        chrome.storage.sync.set({"userName": newUserName});
+        localStorage.set("userName", newUserName);
         $(".initial-wrapper").fadeOut("slow", () => {
           printUserName();
           $(".main-wrapper").fadeIn("slow");
@@ -54,7 +54,7 @@ function addEventListeners() {
   userNameHTMLId.addEventListener("blur", () => {
     if (userNameHTMLId.innerHTML) {
       newUserName = userNameHTMLId.innerHTML;
-      chrome.storage.sync.set({"userName": newUserName});
+      localStorage.set("userName", newUserName);
     } else {
       userNameHTMLId.innerHTML = storedUserName;
     }
@@ -72,7 +72,7 @@ function setGreeting() {
     greeting = "Evening";
   }
 
-  storedUserName = chrome.storage.sync.get("userName");
+  storedUserName = localStorage.get("userName");
   greetingHTMLId.innerHTML = "Good " + greeting + ", ";
   nameEntryGreetingHTMLId.innerHTML = "Hello, how are you this " + greeting + "?";
 }
