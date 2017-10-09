@@ -13,6 +13,18 @@ const nameEntryLineHTMLId = document.getElementById("nameEntryLine");
 const greetingHTMLId = document.getElementById("greeting");
 const userNameHTMLId = document.getElementById("userName");
 
+function setGreeting() {
+  currentHour = new Date().getHours();
+  if (currentHour > 2 && currentHour < 12) {
+    greeting = "Morning";
+  } else if (currentHour < 18){
+    greeting = "Afternoon";
+  } else {
+    greeting = "Evening";
+  }
+
+  greetingHTMLId.innerHTML = "Good " + greeting + ", ";
+  nameEntryGreetingHTMLId.innerHTML = "Hello, how are you this " + greeting + "?";
 }
 
 function checkUserName() {
@@ -62,26 +74,6 @@ function addEventListeners() {
     }
     console.log(userNameHTMLId.innerHTML + " - new user name successfully submitted.");
   });
-}
-
-function setGreeting() {
-  currentHour = new Date().getHours();
-  if (currentHour > 2 && currentHour < 12) {
-    greeting = "Morning";
-  } else if (currentHour < 18){
-    greeting = "Afternoon";
-  } else {
-    greeting = "Evening";
-  }
-
-  greetingHTMLId.innerHTML = "Good " + greeting + ", ";
-  nameEntryGreetingHTMLId.innerHTML = "Hello, how are you this " + greeting + "?";
-}
-
-function printUserName() {
-  getStoredUserName();
-  console.log(storedUserName);
-  userNameHTMLId.innerHTML = storedUserName;
 }
 
 window.onload = () => {
