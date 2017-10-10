@@ -7,7 +7,7 @@
   const focusOutput = document.querySelector("#focus-output");
   const focusOutWrapper = document.querySelector("#focus-output-wrapper");
   const focusInWrapper = document.querySelector("#focus-input-wrapper");
-  const focusClose = document.querySelector(".focus-close");
+  const focusDelete = document.querySelector(".focus-delete");
   const focusCheckbox = document.querySelector(".focus-checkbox");
   const focusUncheckedBox = document.querySelector(".fa-square-o");
   const focusCheckedBox = document.querySelector(".fa-check-square-o");
@@ -21,16 +21,16 @@
   getFocus();
 
   focusOutWrapper.addEventListener("mouseover", function(event) {
-    showElement(focusClose);
+    showElement(focusDelete);
     showElement(focusCheckbox);
   });
 
   focusOutWrapper.addEventListener("mouseleave", function(event) {
-    hideElement(focusClose);
+    hideElement(focusDelete);
     hideElement(focusCheckbox);
   });
 
-  focusClose.addEventListener("click", function() {
+  focusDelete.addEventListener("click", function() {
     deleteFocus();
   });
 
@@ -45,28 +45,27 @@
   function getFocus() {
     /* Is there already a focus in storage? */
     chrome.storage.sync.get("focusObj", function(obj){
-      /* if there is, display it */      
-      if (obj.focusObj !== undefined && obj !== {}) { //TODO test if this condition is sufficient
-        console.log(obj.focusObj.focusText);
-        focusObj = obj.focusObj;
-        /* check if focus has been completed */
-        if (focusObj.focusCompleted === true) {
-          markAsComplete();
-          focusOutput.classList.add("focus-completed");
-          console.log("focus completed");
-        }
-        /* TODO figure out if the else statement is needed */
-        else {
-          focusOutput.classList.remove("focus-completed");
-        }
-        showElement(focusOutWrapper);
-        displayFocus(focusObj.focusText);
+      let error = chrome.runtime.lastError;
+      if (error) {
+        console.error("getFocus(): " + error);
       }
-      /* if not, get focus from user */
       else {
-        showElement(focusInWrapper);
-        markAsIncomplete();
-        getFocusFromUser();
+        /* if there is, display it */      
+        if (obj.focusObj) {
+          //console.log(obj.focusObj.focusText);
+          focusObj = obj.focusObj;
+          /* check if focus has been completed */
+          if (focusObj.focusCompleted === true) {
+            markAsComplete();
+          }
+          displayFocus(focusObj.focusText);
+        }
+        /* if not, get focus from user */
+        else {
+          showElement(focusInWrapper);
+          markAsIncomplete();
+          getFocusFromUser();
+        }
       }
     });
   }
@@ -80,10 +79,10 @@
           this.value = "";
           displayFocus(focusObj.focusText) 
           chrome.storage.sync.set({focusObj}, function() {
-            /* TODO remove get and console.log, and figure out how to handle errors */
-            chrome.storage.sync.get(null, function(data){
-              console.log(data);
-            });
+            let error = chrome.runtime.lastError;
+            if (error) {
+              console.error("getFocusFromUser(): " + error);
+            }
           });       
         }
       }
@@ -97,7 +96,12 @@
   }
 
   function deleteFocus() {
-    chrome.storage.sync.remove("focusObj");
+    chrome.storage.sync.remove("focusObj", function() {
+      let error = chrome.runtime.lastError;
+      if (error) {
+        console.error("getFocusFromUser(): " + error);
+      }
+    });
     hideElement(focusOutWrapper);
     focusOutput.innerHTML = "";
     markAsIncomplete();

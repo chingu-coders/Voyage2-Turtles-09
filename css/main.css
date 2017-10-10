@@ -117,7 +117,7 @@ body {
   text-decoration: line-through;
 }
 
-.focus-close {
+.focus-delete {
   font-size: 1rem;
   font-weight: 300;
   line-height: 1;
@@ -127,7 +127,7 @@ body {
   border: 1px solid transparent;
 }
 
-.focus-close:hover {
+.focus-delete:hover {
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
