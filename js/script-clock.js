@@ -13,17 +13,25 @@ const time12HourOptions = {
   minute: '2-digit'
 };
 
-function pullTimeSetting (){
-  //TODO: pull timeSetting from storage.
 let options;
 
-  if (timeSetting === "12-hour") {
-    options = time12HourOptions;
-  } else if (timeSetting === "24-hour") {
-    options = time24HourOptions;
-  } else {
-    options = time24HourOptions;
-  }
+function pullTimeSetting (){
+  chrome.storage.sync.get(null, (obj) => {
+    let error = chrome.runtime.lastError;
+    if (error) {
+      console.error(error);
+    } else if (!obj.timeSetting){
+      console.log(obj.timeSetting);
+      options = time24HourOptions //Should be set to locale default
+      changeTime(options);
+      dblclickEventListener()
+    } else {
+      console.log(obj.timeSetting);
+      options = obj.timeSetting;
+      changeTime(options);
+      dblclickEventListener();
+    }
+  });
 }
 
 function changeTime(){
