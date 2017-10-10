@@ -24,8 +24,9 @@
       let error = chrome.runtime.lastError;
       if (error) {
         console.error(error);
-      } else if (!obj.timeSetting){
+      } else if (!obj || !obj.timeSetting){
         options = time24HourOptions //Should be set to locale default
+        chrome.storage.sync.set({"timeSetting": options});
         changeTime(options);
         dblclickEventListener()
       } else {
@@ -62,7 +63,7 @@
             options = time24HourOptions //Should be set to locale default
             changeTime(options);
         }
-      chrome.storage.sync.set({"timeSetting": options});
+        chrome.storage.sync.set({"timeSetting": options});
     });
   });}
 
