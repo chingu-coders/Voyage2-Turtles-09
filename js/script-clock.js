@@ -1,21 +1,21 @@
 "use strict";
+const timeHTMLSelector = document.querySelector("#time");
 
-let current, timeStringToPrint, time12HourOptions, time24HourOptions, options, timeSetting;
-
-time24HourOptions = {
+const time24HourOptions = {
   hour12: false,
   hour: '2-digit',
   minute: '2-digit'
 };
 
-time12HourOptions = {
+const time12HourOptions = {
   hour12: true,
   hour: '2-digit',
   minute: '2-digit'
-}
+};
 
 function pullTimeSetting (){
   //TODO: pull timeSetting from storage.
+let options;
 
   if (timeSetting === "12-hour") {
     options = time12HourOptions;
