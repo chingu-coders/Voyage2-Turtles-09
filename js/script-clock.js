@@ -35,9 +35,9 @@ function pullTimeSetting (){
 }
 
 function changeTime(){
-  current = new Date();
-  timeStringToPrint = current.toLocaleTimeString([], options);
-  document.getElementById("time").innerHTML = timeStringToPrint;
+  let current = new Date();
+  let timeStringToPrint = current.toLocaleTimeString([], options);
+  timeHTMLSelector.innerHTML = timeStringToPrint;
   console.log(timeStringToPrint);
 }
 
