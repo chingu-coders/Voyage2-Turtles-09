@@ -67,6 +67,5 @@ function dblclickEventListener(){
 
 $(document).ready(() => {
   pullTimeSetting();
-  changeTime();
   window.setInterval(changeTime, 30000);
 });
