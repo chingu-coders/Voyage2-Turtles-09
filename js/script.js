@@ -11,6 +11,9 @@
   const focusCheckbox = document.querySelector(".focus-checkbox");
   const focusUncheckedBox = document.querySelector(".fa-square-o");
   const focusCheckedBox = document.querySelector(".fa-check-square-o");
+  const focusEnterPrompt = document.querySelector("#focus-input-wrapper .focus-message");
+  const ENTER_MSG_DELAY = 4000;
+  const REMOVE_MSG_DELAY = 1000;
 
   let focusObj = {
     "focusText": "",
@@ -52,7 +55,6 @@
       else {
         /* if there is, display it */      
         if (obj.focusObj) {
-          //console.log(obj.focusObj.focusText);
           focusObj = obj.focusObj;
           /* check if focus has been completed */
           if (focusObj.focusCompleted === true) {
@@ -71,13 +73,20 @@
   }
 
   function getFocusFromUser() {
-    focusInput.addEventListener("keydown", function(event) {
+    focusInput.addEventListener("input", displayEnterPrompt);
+    focusInput.addEventListener("input", deteteEnterPrompt);
+    focusInput.addEventListener("keydown", handleKeydown);
+
+    function handleKeydown(event) {
       if (event.keyCode === 13){ //Enter key pressed
+        focusInput.removeEventListener("input", displayEnterPrompt);
+        focusInput.removeEventListener("input", deteteEnterPrompt);
+        focusInput.removeEventListener("keydown", handleKeydown);
         if (this.value !== "") {
           focusObj.focusText = this.value;
           focusObj.focusTimestamp = Date.now();
           this.value = "";
-          displayFocus(focusObj.focusText) 
+          displayFocus(focusObj.focusText);
           chrome.storage.sync.set({focusObj}, function() {
             let error = chrome.runtime.lastError;
             if (error) {
@@ -86,7 +95,7 @@
           });       
         }
       }
-    });
+    }
   }
 
   function displayFocus(focusText) {
@@ -105,6 +114,7 @@
     hideElement(focusOutWrapper);
     focusOutput.innerHTML = "";
     markAsIncomplete();
+    hideElement(focusEnterPrompt);
     getFocus();
   }
 
@@ -139,6 +149,44 @@
   function hideElement(element) {
     element.classList.add("hidden");
   }
+
+  /* Copied from https://davidwalsh.name/javascript-debounce-function */
+  // Returns a function, that, as long as it continues to be invoked, will not
+  // be triggered. The function will be called after it stops being called for
+  // N milliseconds. If `immediate` is passed, trigger the function on the
+  // leading edge, instead of the trailing.
+  function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this, args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  }
+
+  /* Show or hide Enter prompt, when text is added to,
+     or removed from the focus input box */
+  let displayEnterPrompt = debounce(function() {
+    /* if input box contains characters other than whitespace */
+    if (/\S/.test(this.value)) {
+      showElement(focusEnterPrompt);
+    }    
+    console.log("listener triggered");
+  }, ENTER_MSG_DELAY);
+
+  let deteteEnterPrompt = debounce(function() {
+    /* if input box is empty, or contains only whitespace */
+    if (this.value === "" || !/\S/.test(this.value)) {
+      hideElement(focusEnterPrompt);
+    }    
+    console.log("listener triggered");
+  }, REMOVE_MSG_DELAY);
 
 })();
 

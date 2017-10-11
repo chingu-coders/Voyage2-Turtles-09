@@ -49,6 +49,8 @@ body {
 }
 
 /* Time */
+/* This is a temporary style which can be removed if it 
+  conficts with David's feature/clock styles */
 .time {
   font-size: 10rem;
 }
@@ -134,6 +136,12 @@ body {
   border: 1px solid #fff;
   border-radius: 50%;
 }
+
+.focus-message {
+  font-size: 1rem;
+  line-height: 2;
+}
+
 /* end of main focus */
 
 /***********************
