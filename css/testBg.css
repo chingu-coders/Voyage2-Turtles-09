@@ -6,7 +6,7 @@ body {
 
 }
 
-.credit-box {
+.floater-box {
     position: relative;
     bottom: 10px;
     height: 50px;
@@ -14,7 +14,7 @@ body {
 
 }
 
-.credits{
+.floater{
     opacity: 0.7;
     height: 0;
     margin: -15px 1px;
@@ -28,7 +28,7 @@ p.photographer a {
     color: #fff;
 }
 
-.credits:first-child {
+.floater:first-child {
     position: relative;
     top: 3.4em;
     border-bottom: 10px solid transparent;
@@ -38,13 +38,13 @@ p.photographer a {
     transition: all 0.4s ease;
 }
 
-.credit-box:hover .credits:first-child {
+.floater-box:hover .floater:first-child {
     opacity: 1;
     transform: translateY(-1.2em);
     transition-delay: 250ms;
 }
 
-.credits:last-child {
+.floater:last-child {
     opacity: 0;
     font-size: 0.5rem;
     position: absolute;
@@ -57,7 +57,7 @@ p.photographer a {
 
 }
 
-.credit-box:hover .credits:last-child {
+.floater-box:hover .floater:last-child {
     opacity: 0.7;
     transform: translateY(1.5em);
     transition-delay: 250ms;
