@@ -12,6 +12,7 @@
   const focusUncheckedBox = document.querySelector(".fa-square-o");
   const focusCheckedBox = document.querySelector(".fa-check-square-o");
   const focusEnterPrompt = document.querySelector("#focus-input-wrapper .focus-message");
+  const focusEncouragement = document.querySelector("#focus-encouragement");
   const ENTER_MSG_DELAY = 4000;
   const REMOVE_MSG_DELAY = 1000;
 
@@ -122,12 +123,17 @@
     markAsComplete()
     focusObj.focusCompleted = true;
     chrome.storage.sync.set({focusObj});
+    encourage();
   }
 
   function toggleOffFocusCompleted() {
     markAsIncomplete();
     focusObj.focusCompleted = false;
     chrome.storage.sync.set({focusObj});
+  }
+
+  function encourage() {
+    focusEncouragement.innerHTML = "<p class='focus-message'><span class='loading'></span>Well done!</p>";
   }
 
   function markAsIncomplete() {

@@ -18,6 +18,10 @@ body {
   background-color: rgba(0, 0, 0, .2);
 }
 
+body, input {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 .main-wrapper {  
   height: 100vh;
   width: 100%;
@@ -30,10 +34,9 @@ body {
  * Top row of page
  ***********************/
 #top-row {
-  flex: 1 1 100px;
+  flex: 1 1 400px;
   display: flex;
   justify-content: space-between;
-  //background-color: rgba(0, 0, 255, .1);
 }
 
 /***********************
@@ -44,16 +47,20 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  flex: 2 1 auto;
-  //background-color: rgba(0, 255, 0, .1);
+  flex: 1 1 auto;
 }
 
-/* Time */
-/* This is a temporary style which can be removed if it 
-  conficts with David's feature/clock styles */
+/* Time & Greeting */
+/* These are temporary styles which can be removed if it 
+  conficts with David's feature/clock and feature/greeting styles */
 .time {
-  font-size: 10rem;
+  font-size: 9.75rem;
+  line-height: 1;
 }
+.greeting {
+  font-size: 3.375rem;
+}
+/* end of time & greeting */
 
 /* Main focus */
 .focus,
@@ -65,17 +72,17 @@ body {
 .focus {
   width: 90%;
   margin-bottom: 0;
-  margin-top: 4rem;
-  //min-height: 150px;
+  margin-top: 3rem;
 }
 
 .focus p {
+  -webkit-margin-before: 0;
   margin: 0;
 }
 
 .focus-day {
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size: 1.325rem;
+  font-weight: 900;
   text-transform: uppercase;
   margin-top: 0;
 }
@@ -83,12 +90,11 @@ body {
 .focus-input-wrapper,
 .focus-output-wrapper {
   height: 150px;
-  //background-color: rgba(255, 0, 255, .1);
 }
 
 .focus-output-wrapper {
   margin-top: -150px;
-  font-size: 2.25rem;
+  font-size: 2rem;
 }
 
 .focus input {
@@ -107,11 +113,14 @@ body {
 
 .focus-checkbox {
   font-size: 1.5rem;
-  line-height: 2.25;
+}
+
+.focus-checkbox span {
+  margin-top: 8px;
 }
 
 .fa-check-square-o {
-  margin-left: -29px;
+  margin-left: -26px;
   margin-right: 20px;
 }
 
@@ -124,8 +133,8 @@ body {
   font-weight: 300;
   line-height: 1;
   width: 35px;
-  margin: .75rem;
-  padding: 7.5px 9.5px;
+  margin: 0 .75rem;
+  padding: 10px 9.5px 6px;
   border: 1px solid transparent;
 }
 
@@ -140,6 +149,16 @@ body {
 .focus-message {
   font-size: 1rem;
   line-height: 2;
+  opacity: 1;
+  visibility: visible;
+  animation-name: fadeInOut;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.focus-message.hidden {
 }
 
 /* end of main focus */
@@ -152,7 +171,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  //background-color: rgba(0, 0, 255, .1);
 }
 
 /***********************
@@ -160,6 +178,56 @@ body {
 ************************/
 .hidden {
   visibility: hidden;
-  opacity: 0;
   z-index: -1;
+  opacity: 0;
 }
+
+@keyframes fadeInOut {
+  0%,100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Spinner */
+.loading {
+  width: 14px;
+  height: 14px;
+  background: transparent;
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
+}
+
+.loading:before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -5px;
+  margin-left: -15px;
+  border: 2px solid #fff;
+  animation: pulse 1s linear infinite;
+  opacity: 0;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* end of spinner */
