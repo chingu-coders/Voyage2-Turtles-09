@@ -2,7 +2,6 @@
 
 (() => {
 
-let currentHour, greeting, newUserName;
 const storedUserName = {};
 const nameEntryGreetingHTMLId = document.getElementById("nameEntryGreeting");
 const nameEntryLineHTMLId = document.getElementById("nameEntryLine");
@@ -13,7 +12,9 @@ setGreeting();
 checkUserName();
 
 function setGreeting() {
-  currentHour = new Date().getHours();
+  let greeting;
+  let currentHour = new Date().getHours();
+
   if (currentHour > 2 && currentHour < 12) {
     greeting = "Morning";
   } else if (currentHour < 18){
@@ -47,6 +48,8 @@ function checkUserName() {
 }
 
 function addUserNameListeners() {
+  let newUserName;
+
   nameEntryLineHTMLId.addEventListener("keydown", (event) => {
     if (event.which === 13) {
       event.preventDefault();
