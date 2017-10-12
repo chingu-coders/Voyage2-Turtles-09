@@ -42,11 +42,11 @@ function checkUserName() {
         $(".initial-wrapper").fadeIn("slow");
       }
     }
-  }
-);
+  });
+  addUserNameListeners();
 }
 
-function addEventListeners() {
+function addUserNameListeners() {
   nameEntryLineHTMLId.addEventListener("keydown", (event) => {
     if (event.which === 13) {
       event.preventDefault();
@@ -84,6 +84,5 @@ function addEventListeners() {
   });
 }
 
-}
 
 })();
