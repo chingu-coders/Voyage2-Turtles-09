@@ -1,17 +1,16 @@
-"use strict"
+"use strict";
 
-//Development aids
-function clearStorage() {
-  chrome.storage.sync.clear();
-}
-// Stage A - Production code
-// Stage B - In development
+(() => {
+
 let currentHour, greeting, newUserName;
 const storedUserName = {};
 const nameEntryGreetingHTMLId = document.getElementById("nameEntryGreeting");
 const nameEntryLineHTMLId = document.getElementById("nameEntryLine");
 const greetingHTMLId = document.getElementById("greeting");
 const userNameHTMLId = document.getElementById("userName");
+
+setGreeting();
+checkUserName();
 
 function setGreeting() {
   currentHour = new Date().getHours();
@@ -85,12 +84,6 @@ function addEventListeners() {
   });
 }
 
-window.onload = () => {
-  //clearStorage();
-  setGreeting();
-  checkUserName();
-  addEventListeners();
 }
 
-//Stage C - initial ideas
-//Function for initial prompt asking for user name.
+})();
