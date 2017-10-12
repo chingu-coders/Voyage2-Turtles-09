@@ -5,7 +5,7 @@ let quote = document.getElementById("quote");
 let quoteLinks = document.getElementById("quoteLinks");
 let getQuote = (data) => {
     quote.innerHTML = data.quoteText;
-    quoteLinks.innerHTML = (data.quoteAuthor || "Anonymous");
+    quoteLinks.innerHTML = "- " +(data.quoteAuthor || "Anonymous");
 };
 
 let handleErr = (error) => console.warn(error);
