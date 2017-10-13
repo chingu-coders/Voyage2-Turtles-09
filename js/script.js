@@ -13,6 +13,7 @@
   const focusCheckedBox = document.querySelector(".fa-check-square-o");
   const focusEnterPrompt = document.querySelector("#focus-input-wrapper .focus-message");
   const focusEncouragement = document.querySelector("#focus-encouragement");
+  const congrats = ["Way to go!", "Great work!", "Good job!", "Nice!"];
   const ENTER_MSG_DELAY = 4000;
   const REMOVE_MSG_DELAY = 1000;
 
@@ -133,7 +134,9 @@
   }
 
   function encourage() {
-    focusEncouragement.innerHTML = "<p class='focus-message'><span class='loading'></span>Well done!</p>";
+    let i = Math.floor(Math.random() * congrats.length);
+    let congratsText = congrats[i];
+    focusEncouragement.innerHTML = "<p class='focus-message'><span class='loading'></span>" + congratsText + "</p>";
   }
 
   function markAsIncomplete() {
