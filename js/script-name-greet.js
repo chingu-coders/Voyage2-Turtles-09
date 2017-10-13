@@ -87,6 +87,7 @@ function addUserNameListeners() {
     if (userNameHTMLId.innerHTML && whiteSpaceCheck) {
       newUserName = userNameHTMLId.innerHTML;
       chrome.storage.sync.set({"userName": newUserName});
+      storedUserName.userName = newUserName;
     } else {
       userNameHTMLId.innerHTML = storedUserName.userName;
     }
