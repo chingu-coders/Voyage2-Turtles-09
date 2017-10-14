@@ -100,15 +100,13 @@ function whiteSpaceChecker() {
 
   userNameCheck = (() => {
     let matchVal;
-    let re = /\w[^&nbsp;]/;
-
+    let re = /&nbsp;*/g;
     if ($(".main-wrapper").css("display") === "none") {
       matchVal = nameEntryLineHTMLId.innerHTML.search(re);
     } else {
       matchVal = userNameHTMLId.innerHTML.search(re);
     }
-
-    if (matchVal !== -1) {
+    if (matchVal == -1) {
       return true;
     } else {
       return false;
