@@ -10,7 +10,8 @@ let getQuote = (data) => {
     let quoteSelected = data[Math.floor(Math.random() * data.length)];
     quote.innerHTML = quoteSelected.quote;
     // If no author then 'Anonymous'
-    quoteLinks.innerHTML = "- " +(quoteSelected.name || "Anonymous");
+    quoteLinks.innerHTML = "- " +(quoteSelected.name || "Anonymous") +
+        '<button type="button" class="btn btn-default" aria-label="Left Align"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span></button>';
 };
 let handleErr = (error) => console.warn(error);
 
