@@ -6,6 +6,7 @@
 const quote = {
     renderQuote: document.getElementById("quote"),
     renderDetails: document.getElementById("quoteLinks"),
+    saveQuote: document.getElementById("saveQuote"),
     twitter: 'https://twitter.com/intent/tweet?text=',
     settings: {
         "async": true,
@@ -26,13 +27,36 @@ const getQuote = (data) => {
     return data;
 
 };
-const getTweet = (data) => {
-    const tweet = () => window.open(twitter + quote.renderQuote.innerText.trim() + " - " + (data.quoteAuthor || 'Anonymous'), "_blank");
-    $("#tweet").on("click", tweet);
+
+// Renders API data, handles tweet and like functionality
+const wrapData = function (data) {
+    const handleQuote = {
+        render: () => {
+            quote.renderQuote.innerText = data.quoteText;
+            quote.renderDetails.prepend("- " + (data.quoteAuthor || 'Anonymous'));
+            // Data is returned in order to resolve the promise triggering getTweet() in the promise chain
+
+        },
+        tweet: () => window.open(quote.twitter + quote.renderQuote.innerText.trim() + " - " + (data.quoteAuthor || 'Anonymous'), "_blank"),
+        save: () => {
+            // Parses YYYY-MM-DD format
+            let time = new Date().toISOString().slice(0, 10);
+            let savedQuotes = JSON.parse(localStorage.getItem("quotes")) || [];
+            let newQuote = {[time]: data.quoteText + " - " + (data.quoteAuthor || 'Anonymous')};
+        }
+    };
+
+    // Display Quote
+    handleQuote.render();
+
+    // Fire button functionality
+    $("#tweet").on("click", handleQuote.tweet);
+    $("#saveQuote").on("click", handleQuote.save);
+
 };
 
-// Choosing to chain promises rather than call getTweet from within getQuote
-$.getJSON(quote.settings).then(data => getQuote(data)).then(data => getTweet(data)).fail(quote.handleErr);
 
+// wrapData() passes API data to all handleQuote methods
+$.getJSON(quote.settings).then(data => wrapData(data)).fail(quote.handleErr);
 
 
