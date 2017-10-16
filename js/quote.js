@@ -12,12 +12,13 @@ const quote = {
         "async": true,
         "crossDomain": true,
         // url prepends a proxy to get around CORS issue
-        "url": "https://cors.io/?" + "https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en",
+        "url": "https://cors-anywhere.herokuapp.com/" + "https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en",
         "method": "GET"
         },
         handleErr: function handleErr (error) {console.warn(error);}
 
 };
+
 
 const getQuote = (data) => {
     quote.renderQuote.innerText = data.quoteText;
