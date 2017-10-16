@@ -40,6 +40,7 @@ const wrapData = function (data) {
         },
         tweet: () => window.open(quote.twitter + quote.renderQuote.innerText.trim() + " - " + (data.quoteAuthor || 'Anonymous'), "_blank"),
         save: () => {
+            // BTW SAVE ISN'T WORKING YET
             // Parses YYYY-MM-DD format
             let time = new Date().toISOString().slice(0, 10);
             let savedQuotes = JSON.parse(localStorage.getItem("quotes")) || [];
