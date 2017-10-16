@@ -66,9 +66,4 @@
         chrome.storage.sync.set({"timeSetting": options});
     });
   });}
-
-// $(document).ready(() => {
-//   pullTimeSetting();
-//   window.setInterval(changeTime, 30000);
-// });
 })();
