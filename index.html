@@ -8,8 +8,23 @@
   </head>
 
   <body>
+    <div class="initial-wrapper" style="display: none;">
+      <div id="top-row"></div>
 
-    <div class="main-wrapper">
+      <div id="center-row">
+        <div id="nameEntry">
+          <div id="nameEntryGreeting"></div>
+          <div>
+            <p>What's your name?</p>
+          </div>
+          <div id="nameEntryLine" contenteditable="true"></div>
+        </div>
+      </div>
+
+      <div id="bottom-row"></div>
+    </div>
+
+    <div class="main-wrapper" style="display: none;">
 
       <!-- Top row of page -->
       <div id="top-row">
@@ -19,8 +34,12 @@
 
       <!-- Center row of page -->
       <div id="center-row">
-        <section id="time"></section>
-        <section id="greeting">Hello World!</section>
+        <section id="time">time</section>
+        <section id="greetingUserName">
+          <span id="greeting"></span>
+          <span id="userName" spellcheck="false" contenteditable="false"></span>.
+        </section>
+
         <section id="focus">What is your main focus for today?</section>
       </div>
 

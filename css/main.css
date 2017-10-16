@@ -27,7 +27,6 @@ body {
   flex: 1 1 100px;
   display: flex;
   justify-content: space-between;
-  //background-color: rgba(0, 0, 255, .1);
 }
 
 /***********************
@@ -39,11 +38,38 @@ body {
   justify-content: flex-end;
   align-items: center;
   flex: 2 1 auto;
-  //background-color: rgba(0, 255, 0, .1);
 }
 
-#time {
+#nameEntry {
+  text-align: center;
+}
+
+#nameEntryGreeting {
+  display: block;
+}
+
+#nameEntryLine {
+  display: block;
+  margin: auto;
+  width: 150px;
+  border-bottom: 2.5px black solid;
+  outline: none;
+}
+
+#greetingUserName {
+  height: 1.5em;
+}
+
+#userName {
   cursor: pointer;
+  outline: none;
+  display: inline-block;
+  min-width: 20px;
+  max-width: 750px;
+}
+
+#userName:focus {
+  border-bottom: 2px black solid;
 }
 
 /***********************
@@ -54,5 +80,13 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  //background-color: rgba(0, 0, 255, .1);
+}
+
+/***********************
+* Utility classes
+************************/
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  z-index: -1;
 }
