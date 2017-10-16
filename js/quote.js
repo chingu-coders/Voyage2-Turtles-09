@@ -44,6 +44,12 @@ const wrapData = function (data) {
             let time = new Date().toISOString().slice(0, 10);
             let savedQuotes = JSON.parse(localStorage.getItem("quotes")) || [];
             let newQuote = {[time]: data.quoteText + " - " + (data.quoteAuthor || 'Anonymous')};
+
+            chrome.storage.local.set({"quotes": newQuote});
+            chrome.storage.sync.get("quotes", function (storage) {
+                console.log(storage);
+            });
+
         }
     };
 
