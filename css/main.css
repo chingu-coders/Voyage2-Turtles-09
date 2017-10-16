@@ -27,7 +27,6 @@ body {
   flex: 1 1 100px;
   display: flex;
   justify-content: space-between;
-  //background-color: rgba(0, 0, 255, .1);
 }
 
 /***********************
@@ -39,7 +38,6 @@ body {
   justify-content: flex-end;
   align-items: center;
   flex: 2 1 auto;
-  //background-color: rgba(0, 255, 0, .1);
 }
 
 #nameEntry {
@@ -82,7 +80,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  //background-color: rgba(0, 0, 255, .1);
 }
 
 /***********************
