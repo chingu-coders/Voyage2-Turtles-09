@@ -3,6 +3,7 @@
 ### Version 1.0.0
 
 _A non-exhaustive style guide for a Chrome extension._
+
 Borrowed in part from: https://developers.lewiscommunications.com/standards
 
 ## General
@@ -20,7 +21,7 @@ Borrowed in part from: https://developers.lewiscommunications.com/standards
 - Lower case & hyphenate `class-names`
 - camelCase `id` names; e.g., `userNameEntryLine`
 - Do not use `id` as a "style hook", i.e., provide a `class` if specific CSS is
-  to be applied to that element
+to be applied to that element
 
 ## CSS
 - One empty line between selector declarations
@@ -63,12 +64,12 @@ Borrowed in part from: https://developers.lewiscommunications.com/standards
 - Use camelCase for methods & variables
 - Add empty lines between coherent blocks of code to improve readability
 - Add one space of padding between keyword & opening brace as well as closing
-  parenthesis &  opening brace; e.g., `if (1 > 0) {...}`
+parenthesis &  opening brace; e.g., `if (1 > 0) {...}`
 - Do not add a space between method name & opening parenthesis,
-  e.g., `function greeting() {...}`
+e.g., `function greeting() {...}`
 - Declare all `const`, `let`, & `var` at the top of its scope
 - Do not pollute global namespace with `let` declarations; refactor to keep
-  `let` variables as scope-specific as possible
+`let` variables as scope-specific as possible
 
 ### Global namespace refactoring
 _For each variable, ask yourself_:
