@@ -13,80 +13,80 @@ body {
 }
 
 .main-wrapper {
-  height: 100vh;
-  width: 100%;
   display: flex;
   flex-direction: column;
+  height: 100vh;
   justify-content: space-between;
+  width: 100%;
 }
 
 /***********************
  * Top row of page
  ***********************/
-#top-row {
-  flex: 1 1 100px;
+.top-row {
   display: flex;
+  flex: 1 1 100px;
   justify-content: space-between;
 }
 
 /***********************
  * Middle row of page
  ***********************/
-#center-row {
+.center-row {
+  align-items: center;
   display: flex;
+  flex: 2 1 auto;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: center;
-  flex: 2 1 auto;
+  //background-color: rgba(0, 255, 0, .1);
 }
-
-#nameEntry {
+.name-entry {
   text-align: center;
 }
 
-#nameEntryGreeting {
+.name-entry-greeting {
   display: block;
 }
 
-#nameEntryLine {
+.name-entry-line {
+  border-bottom: 2.5px black solid;
   display: block;
   margin: auto;
-  width: 150px;
-  border-bottom: 2.5px black solid;
   outline: none;
+  width: 150px;
 }
 
-#greetingUserName {
+.greeting-user-name {
   height: 1.5em;
 }
 
-#userName {
+.user-name {
   cursor: pointer;
-  outline: none;
   display: inline-block;
-  min-width: 20px;
   max-width: 750px;
+  min-width: 20px;
+  outline: none;
 }
 
-#userName:focus {
+.user-name:focus {
   border-bottom: 2px black solid;
 }
-
 /***********************
  * Bottom row of page
  ***********************/
-#bottom-row {
-  flex: 1 1 100px;
-  display: flex;
-  justify-content: space-between;
+.bottom-row {
   align-items: flex-end;
+  display: flex;
+  flex: 1 1 100px;
+  justify-content: space-between;
+  //background-color: rgba(0, 0, 255, .1);
 }
 
 /***********************
 * Utility classes
 ************************/
 .hidden {
-  visibility: hidden;
   opacity: 0;
+  visibility: hidden;
   z-index: -1;
 }
