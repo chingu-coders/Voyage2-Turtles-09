@@ -27,7 +27,6 @@ body {
   display: flex;
   flex: 1 1 100px;
   justify-content: space-between;
-  //background-color: rgba(0, 0, 255, .1);
 }
 
 /***********************
