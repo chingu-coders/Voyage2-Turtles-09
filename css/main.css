@@ -13,19 +13,19 @@ body {
 }
 
 .main-wrapper {
-  height: 100vh;
-  width: 100%;
   display: flex;
   flex-direction: column;
+  height: 100vh;
   justify-content: space-between;
+  width: 100%;
 }
 
 /***********************
  * Top row of page
  ***********************/
-#top-row {
-  flex: 1 1 100px;
+.top-row {
   display: flex;
+  flex: 1 1 100px;
   justify-content: space-between;
   //background-color: rgba(0, 0, 255, .1);
 }
@@ -33,12 +33,12 @@ body {
 /***********************
  * Middle row of page
  ***********************/
-#center-row {
+.center-row {
+  align-items: center;
   display: flex;
+  flex: 2 1 auto;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: center;
-  flex: 2 1 auto;
   //background-color: rgba(0, 255, 0, .1);
 }
 .name-entry {
@@ -75,11 +75,11 @@ body {
 /***********************
  * Bottom row of page
  ***********************/
-#bottom-row {
-  flex: 1 1 100px;
-  display: flex;
-  justify-content: space-between;
+.bottom-row {
   align-items: flex-end;
+  display: flex;
+  flex: 1 1 100px;
+  justify-content: space-between;
   //background-color: rgba(0, 0, 255, .1);
 }
 
@@ -87,7 +87,7 @@ body {
 * Utility classes
 ************************/
 .hidden {
-  visibility: hidden;
   opacity: 0;
+  visibility: hidden;
   z-index: -1;
 }
