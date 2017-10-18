@@ -15,7 +15,6 @@ input:focus {
 body {
   margin: 0;
   color: #fff;
-  background-color: rgba(0, 0, 0, .2);
 }
 
 body, input {
@@ -84,13 +83,12 @@ body, input {
 }
 
 /* Time & Greeting */
-/* These are temporary styles which can be removed if it 
-  conficts with David's feature/clock and feature/greeting styles */
 .time {
   font-size: 9.75rem;
   line-height: 1;
 }
-.greeting {
+.greeting,
+.user-name {
   font-size: 3.375rem;
 }
 /* end of time & greeting */
