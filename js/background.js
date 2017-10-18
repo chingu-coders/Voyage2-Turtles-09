@@ -82,14 +82,14 @@
 	(function () {
 		const mouseOverFocus = () => {
 			$("#bottom-row").siblings().fadeOut();
-			$(".floater-box").siblings().fadeOut();
+			$(".credits").siblings().fadeOut();
 		};
 
 		let timer ;
 
 		const mouseOutFocus = () => {
 			$("#bottom-row").siblings().fadeIn();
-			$(".floater-box").siblings().fadeIn();
+			$(".credits").siblings().fadeIn();
 			clearTimeout(timer);
 		};
 
