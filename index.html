@@ -5,25 +5,42 @@
     <meta charset="UTF-8">
     <title>New Tab</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/testBg.css">
   </head>
 
   <body>
+    <div class="initial-wrapper" style="display: none;">
+      <div class="top-row" id="top-row"></div>
 
-    <div class="main-wrapper">
+      <div class="center-row" id="center-row">
+        <div class="name-entry">
+          <div class="name-entry-greeting" id="nameEntryGreeting"></div>
+          <div>
+            <p>What's your name?</p>
+          </div>
+          <div class="name-entry-line" id="nameEntryLine" contenteditable="true"></div>
+        </div>
+      </div>
+
+      <div class="bottom-row" id="bottom-row"></div>
+    </div>
+
+    <div class="main-wrapper" style="display: none;">
 
       <!-- Top row of page -->
-      <div id="top-row">
+      <div class="top-row" id="top-row">
         <section>Links?</section>
         <section>Weather?</section>
       </div>
 
       <!-- Center row of page -->
-      <div id="center-row">
-        <section class="time" id="time">time</section>
-        <section id="greeting">Hello World!</section>
+      <div class="center-row" id="center-row">
+        <section class="time" id="time"></section>
+        <section class="greeting-user-name" id="greetingUserName">
+          <span id="greeting"></span>
+          <span class="user-name" id="userName" spellcheck="false" contenteditable="false"></span>.
+        </section>
 
         <!-- Main Focus -->
         <section class="focus">
@@ -50,20 +67,34 @@
       </div>
 
       <!-- Bottom row of page -->
-      <div id="bottom-row">
+      <div class="bottom-row" id="bottom-row">
         <section class="floater-box">
           <p id="image-location" class="floater location">image location</p>
           <p id="image-photographer" class="floater photographer">image data</p>
         </section>
-        <section>quote</section>
+        <section class="floater-box quote">
+          <p id="quote" class="floater quote"></p>
+          <p id="quoteLinks" class="floater quoteLinks">
+            <!-- Tweet Button -->
+            <button type="button" id="tweet" class="btn btn-default" aria-label="Left Align">
+              <span class="glyphicon fa fa-twitter" aria-hidden="true"></span>
+            </button>
+            <!-- Like Button -->
+            <button type="button" id="saveQuote" class="btn btn-default" aria-label="Left Align">
+              <span class="glyphicon fa fa-heart-o" aria-hidden="true"></span>
+            </button>
+          </p>
+        </section>
         <section>todo</section>
       </div>
 
     </div><!-- end of .main-wrapper -->
-
     <script src="libs/jquery-3.2.1.min.js"></script>
     <script src="js/script.js"></script>
     <script src="js/background.js"></script>
+    <script src="js/quote.js"></script>
+    <script src="js/script-clock.js"></script>
+    <script src="js/script-name-greet.js"></script>
 
   </body>
 

@@ -18,34 +18,64 @@ body {
   background-color: rgba(0, 0, 0, .2);
 }
 
-.main-wrapper {  
-  height: 100vh;
-  width: 100%;
+.main-wrapper {
   display: flex;
   flex-direction: column;
+  height: 100vh;
   justify-content: space-between;
+  width: 100%;
 }
 
 /***********************
  * Top row of page
  ***********************/
-#top-row {
-  flex: 1 1 100px;
+.top-row {
   display: flex;
+  flex: 1 1 100px;
   justify-content: space-between;
-  //background-color: rgba(0, 0, 255, .1);
 }
 
 /***********************
  * Center row of page
  ***********************/
-#center-row {
+.center-row {
+  align-items: center;
   display: flex;
+  flex: 2 1 auto;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: center;
-  flex: 2 1 auto;
   //background-color: rgba(0, 255, 0, .1);
+}
+.name-entry {
+  text-align: center;
+}
+
+.name-entry-greeting {
+  display: block;
+}
+
+.name-entry-line {
+  border-bottom: 2.5px black solid;
+  display: block;
+  margin: auto;
+  outline: none;
+  width: 150px;
+}
+
+.greeting-user-name {
+  height: 1.5em;
+}
+
+.user-name {
+  cursor: pointer;
+  display: inline-block;
+  max-width: 750px;
+  min-width: 20px;
+  outline: none;
+}
+
+.user-name:focus {
+  border-bottom: 2px black solid;
 }
 
 /* Time */
@@ -139,19 +169,81 @@ body {
 /***********************
  * Bottom row of page
  ***********************/
-#bottom-row { 
-  flex: 1 1 100px;
-  display: flex;
-  justify-content: space-between;
+.bottom-row {
   align-items: flex-end;
+  display: flex;
+  flex: 1 1 100px;
+  justify-content: space-between;
   //background-color: rgba(0, 0, 255, .1);
 }
 
 /***********************
-* Utility classes
-************************/
-.hidden {
-  visibility: hidden;
+ * Floating Text Effect
+ ***********************/
+.floater-box {
+  position: relative;
+  bottom: 10px;
+  height: 50px;
+  width: 150px;
+}
+
+.floater-box.quote {
+  width: 70%;
+/*   border: 1px solid red; */
+}
+
+.floater{
+  opacity: 0.7;
+  height: 0;
+  margin: -15px 1px;
+  /*padding: 1em;*/
+  line-height: 1em;
+}
+
+p.photographer a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.floater:first-child {
+  position: relative;
+  top: 3.4em;
+  border-bottom: 10px solid transparent;
+  -webkit-transition: all 250ms 0.4s ease;
+  -moz-transition: all 250ms 0.4s ease;
+  -o-transition: all 250ms 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.floater-box:hover .floater:first-child {
+  opacity: 1;
+  transform: translateY(-1.2em);
+  transition-delay: 250ms;
+}
+
+.floater:last-child {
   opacity: 0;
+  font-size: 0.5rem;
+  position: absolute;
+  bottom: 2.3rem;
+  border-top: 10px solid transparent;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease;
+}
+
+.floater-box:hover .floater:last-child {
+  opacity: 0.7;
+  transform: translateY(1.5em);
+  transition-delay: 250ms;
+}
+
+/************************
+ * Utility classes
+ ***********************/
+.hidden {
+  opacity: 0;
+  visibility: hidden;
   z-index: -1;
 }
