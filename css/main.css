@@ -12,44 +12,73 @@ body {
   margin: 0;
 }
 
-.main-wrapper {  
-  height: 100vh;
-  width: 100%;
+.main-wrapper {
   display: flex;
   flex-direction: column;
+  height: 100vh;
   justify-content: space-between;
+  width: 100%;
 }
 
 /***********************
  * Top row of page
  ***********************/
-#top-row {
-  flex: 1 1 100px;
+.top-row {
   display: flex;
+  flex: 1 1 100px;
   justify-content: space-between;
-  //background-color: rgba(0, 0, 255, .1);
 }
 
 /***********************
  * Middle row of page
  ***********************/
-#center-row {
+.center-row {
+  align-items: center;
   display: flex;
+  flex: 2 1 auto;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: center;
-  flex: 2 1 auto;
   //background-color: rgba(0, 255, 0, .1);
 }
+.name-entry {
+  text-align: center;
+}
 
+.name-entry-greeting {
+  display: block;
+}
+
+.name-entry-line {
+  border-bottom: 2.5px black solid;
+  display: block;
+  margin: auto;
+  outline: none;
+  width: 150px;
+}
+
+.greeting-user-name {
+  height: 1.5em;
+}
+
+.user-name {
+  cursor: pointer;
+  display: inline-block;
+  max-width: 750px;
+  min-width: 20px;
+  outline: none;
+}
+
+.user-name:focus {
+  border-bottom: 2px black solid;
+}
 /***********************
  * Bottom row of page
  ***********************/
-#bottom-row { 
-  flex: 1 1 100px;
-  display: flex;
-  justify-content: space-between;
+.bottom-row {
   align-items: flex-end;
+  display: flex;
+  flex: 1 1 100px;
+  justify-content: space-between;
   //background-color: rgba(0, 0, 255, .1);
 }
 
@@ -118,4 +147,13 @@ p.photographer a {
   transition-delay: 250ms;
 
 
+}
+
+/************************
+ * Utility classes
+ ***********************/
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  z-index: -1;
 }
