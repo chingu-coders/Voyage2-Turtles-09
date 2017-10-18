@@ -4,6 +4,7 @@
   <head>
     <meta charset="UTF-8">
     <title>New Tab</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
 
@@ -46,14 +47,26 @@
       <!-- Bottom row of page -->
       <div class="bottom-row" id="bottom-row">
         <section>image data</section>
-        <section>quote</section>
+        <section class="floater-box quote">
+          <p id="quote" class="floater quote"></p>
+          <p id="quoteLinks" class="floater quoteLinks">
+            <!-- Tweet Button -->
+            <button type="button" id="tweet" class="btn btn-default" aria-label="Left Align">
+              <span class="glyphicon fa fa-twitter" aria-hidden="true"></span>
+            </button>
+            <!-- Like Button -->
+            <button type="button" id="saveQuote" class="btn btn-default" aria-label="Left Align">
+              <span class="glyphicon fa fa-heart-o" aria-hidden="true"></span>
+            </button>
+          </p>
+        </section>
         <section>todo</section>
       </div>
 
     </div><!-- end of .main-wrapper -->
-
     <script src="libs/jquery-3.2.1.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/quote.js"></script>
     <script src="js/script-clock.js"></script>
     <script src="js/script-name-greet.js"></script>
 
