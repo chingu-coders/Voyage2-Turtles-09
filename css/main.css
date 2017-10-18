@@ -83,6 +83,26 @@ body {
 }
 
 /***********************
+* To-do classes
+************************/
+.wrap {
+  width: 250px;
+  height: auto;
+  padding: 15px;
+  margin: 0;
+  border: 1px solid crimson;
+}
+
+.checked {
+  color: #736e68;
+  text-decoration: line-through;
+}
+
+.unchecked {
+  color: #000;
+  text-decoration: none;
+}
+/***********************
 * Utility classes
 ************************/
 .hidden {
@@ -90,3 +110,4 @@ body {
   visibility: hidden;
   z-index: -1;
 }
+
