@@ -6,6 +6,7 @@
     <title>New Tab</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/testBg.css">
   </head>
 
   <body>
@@ -35,18 +36,42 @@
 
       <!-- Center row of page -->
       <div class="center-row" id="center-row">
-        <section id="time">time</section>
+        <section class="time" id="time"></section>
         <section class="greeting-user-name" id="greetingUserName">
           <span id="greeting"></span>
           <span class="user-name" id="userName" spellcheck="false" contenteditable="false"></span>.
         </section>
 
-        <section id="focus">What is your main focus for today?</section>
+        <!-- Main Focus -->
+        <section class="focus">
+
+          <div id="focus-input-wrapper" class="focus-input-wrapper hidden">
+            <p>What is your main focus for today?</p>
+            <input type="text" name="focus" id="focus-input">
+          </div>
+
+          <div id="focus-output-wrapper" class="focus-output-wrapper hidden">
+            <p class="focus-day">today</p>
+            <div class="focus-row">
+              <div>
+                <span class="focus-checkbox fa fa-square-o hidden"></span>
+                <span class="focus-checkbox fa fa-check-square-o hidden"></span>
+              </div>
+              <p id="focus-output" class="focus-output"></p>
+              <span class="focus-close hidden">✕</span>
+            </div>
+          </div>
+
+        </section><!-- end of main focus -->
+
       </div>
 
       <!-- Bottom row of page -->
       <div class="bottom-row" id="bottom-row">
-        <section>image data</section>
+        <section class="floater-box">
+          <p id="image-location" class="floater location">image location</p>
+          <p id="image-photographer" class="floater photographer">image data</p>
+        </section>
         <section class="floater-box quote">
           <p id="quote" class="floater quote"></p>
           <p id="quoteLinks" class="floater quoteLinks">
@@ -66,6 +91,7 @@
     </div><!-- end of .main-wrapper -->
     <script src="libs/jquery-3.2.1.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/background.js"></script>
     <script src="js/quote.js"></script>
     <script src="js/script-clock.js"></script>
     <script src="js/script-name-greet.js"></script>
