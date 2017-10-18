@@ -1,27 +1,24 @@
-"use strict";
-
 /* Main Focus */
 
-(function() {
+(function mainFocus() {
+  "use strict";
+
+  const STORAGE = chrome.storage.sync;
   const focusInput = document.querySelector("#focus-input");
   const focusOutput = document.querySelector("#focus-output");
-  const focusOutWrapper = document.querySelector("#focus-output-wrapper");
   const focusInWrapper = document.querySelector("#focus-input-wrapper");
+  const focusOutWrapper = document.querySelector("#focus-output-wrapper");
   const focusDelete = document.querySelector(".focus-delete");
   const focusCheckbox = document.querySelector(".focus-checkbox");
   const focusUncheckedBox = document.querySelector(".fa-square-o");
   const focusCheckedBox = document.querySelector(".fa-check-square-o");
-  const focusEnterPrompt = document.querySelector("#focus-input-wrapper .focus-message");
   const focusEncouragement = document.querySelector("#focus-encouragement");
+  const focusInputMessage = document.querySelector("#focus-input-message");
   const congrats = ["Way to go!", "Great work!", "Good job!", "Nice!"];
   const ENTER_MSG_DELAY = 4000;
   const REMOVE_MSG_DELAY = 1000;
-
-  let focusObj = {
-    "focusText": "",
-    "focusCompleted": false,
-    "focusTimestamp": 0
-  };
+  let focusArr = [];
+  let currentFocus;
 
   getFocus();
 
@@ -49,20 +46,16 @@
 
   function getFocus() {
     /* Is there already a focus in storage? */
-    chrome.storage.sync.get("focusObj", function(obj){
+    STORAGE.get("focusArray", function(obj){
       let error = chrome.runtime.lastError;
       if (error) {
         console.error("getFocus(): " + error);
       }
       else {
-        /* if there is, display it */      
-        if (obj.focusObj) {
-          focusObj = obj.focusObj;
-          /* check if focus has been completed */
-          if (focusObj.focusCompleted === true) {
-            markAsComplete();
-          }
-          displayFocus(focusObj.focusText);
+        /* if there is, display it */
+        if (obj.focusArray && obj.focusArray.length > 0) {
+          focusArr = obj.focusArray;
+          prepareFocusForDisplay();
         }
         /* if not, get focus from user */
         else {
@@ -74,69 +67,78 @@
     });
   }
 
+  function prepareFocusForDisplay() {
+    currentFocus = focusArr.pop();
+
+    /* check if current focus has been completed */
+    if (currentFocus.focusCompleted === true) {
+      markAsComplete();
+    }
+    displayFocus(currentFocus.focusText);
+  }
+
   function getFocusFromUser() {
     focusInput.addEventListener("input", displayEnterPrompt);
-    focusInput.addEventListener("input", deteteEnterPrompt);
+    focusInput.addEventListener("input", deleteEnterPrompt);
     focusInput.addEventListener("keydown", handleKeydown);
-
-    function handleKeydown(event) {
-      if (event.keyCode === 13){ //Enter key pressed
-        focusInput.removeEventListener("input", displayEnterPrompt);
-        focusInput.removeEventListener("input", deteteEnterPrompt);
-        focusInput.removeEventListener("keydown", handleKeydown);
-        if (this.value !== "") {
-          focusObj.focusText = this.value;
-          focusObj.focusTimestamp = Date.now();
-          this.value = "";
-          displayFocus(focusObj.focusText);
-          chrome.storage.sync.set({focusObj}, function() {
-            let error = chrome.runtime.lastError;
-            if (error) {
-              console.error("getFocusFromUser(): " + error);
-            }
-          });       
-        }
-      }
-    }
   }
 
   function displayFocus(focusText) {
     hideElement(focusInWrapper);
-    focusOutput.innerHTML = focusObj.focusText;
+    focusInputMessage.innerHTML = "";
+    focusOutput.innerHTML = focusText;
     showElement(focusOutWrapper);
   }
 
+  function createFocusObject(focusText) {
+    let timestamp = Date.now();
+    let newObj = {"focusText": focusText || "", "focusCompleted": false, "focusTimestamp": timestamp};
+    return newObj;
+  }
+
   function deleteFocus() {
-    chrome.storage.sync.remove("focusObj", function() {
+    focusArr.pop();
+    STORAGE.set({"focusArray": focusArr}, function() {
       let error = chrome.runtime.lastError;
       if (error) {
         console.error("getFocusFromUser(): " + error);
       }
     });
-    hideElement(focusOutWrapper);
-    focusOutput.innerHTML = "";
-    markAsIncomplete();
-    hideElement(focusEnterPrompt);
-    getFocus();
+    if (focusArr.length === 0) {
+      hideElement(focusOutWrapper);
+      focusOutput.innerHTML = "";
+      markAsIncomplete();
+      currentFocus = {};
+      getFocus();
+    }
+    else {
+      currentFocus = focusArr.pop();
+      displayFocus(currentFocus.focusText);
+    }
+    
   }
 
   function toggleOnFocusCompleted() {
-    markAsComplete()
-    focusObj.focusCompleted = true;
-    chrome.storage.sync.set({focusObj});
+    markAsComplete();
+    currentFocus.focusCompleted = true;
+    focusArr.pop();
+    focusArr.push(currentFocus);
+    STORAGE.set({"focusArray": focusArr});
     encourage();
   }
 
   function toggleOffFocusCompleted() {
     markAsIncomplete();
-    focusObj.focusCompleted = false;
-    chrome.storage.sync.set({focusObj});
+    currentFocus.focusCompleted = false;
+    focusArr.pop();
+    focusArr.push(currentFocus);
+    STORAGE.set({"focusArray": focusArr});
   }
 
   function encourage() {
     let i = Math.floor(Math.random() * congrats.length);
     let congratsText = congrats[i];
-    focusEncouragement.innerHTML = "<p class='focus-message'><span class='loading'></span>" + congratsText + "</p>";
+    focusEncouragement.innerHTML = "<p class='focus-message focus-congrats'><span class='loading'></span>" + congratsText + "</p>";
   }
 
   function markAsIncomplete() {
@@ -159,23 +161,48 @@
     element.classList.add("hidden");
   }
 
-  /* Copied from https://davidwalsh.name/javascript-debounce-function */
+  function handleKeydown(event) {
+    if (event.keyCode === 13){ //Enter key pressed
+      if (this.value !== "") {
+        focusInput.removeEventListener("input", displayEnterPrompt);
+        focusInput.removeEventListener("input", deleteEnterPrompt);
+        focusInput.removeEventListener("keydown", handleKeydown);
+        currentFocus = createFocusObject(this.value);
+        this.value = "";
+        displayFocus(currentFocus.focusText);
+        focusArr.push(currentFocus);
+        STORAGE.set({"focusArray": focusArr}, function() {
+          let error = chrome.runtime.lastError;
+          if (error) {
+            console.error("getFocusFromUser(): " + error);
+          }
+        });
+      }
+    }
+  }
+
+  /* Adapted from code on https://davidwalsh.name/javascript-debounce-function */
   // Returns a function, that, as long as it continues to be invoked, will not
   // be triggered. The function will be called after it stops being called for
   // N milliseconds. If `immediate` is passed, trigger the function on the
   // leading edge, instead of the trailing.
   function debounce(func, wait, immediate) {
-    var timeout;
+    let timeout;
     return function() {
-      var context = this, args = arguments;
-      var later = function() {
+      let context = this;
+      let args = arguments;
+      let later = function() {
         timeout = null;
-        if (!immediate) func.apply(context, args);
+        if (!immediate) {
+          func.apply(context, args);
+        }
       };
-      var callNow = immediate && !timeout;
+      let callNow = immediate && !timeout;
       clearTimeout(timeout);
       timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
+      if (callNow) {
+        func.apply(context, args);
+      }
     };
   }
 
@@ -184,17 +211,15 @@
   let displayEnterPrompt = debounce(function() {
     /* if input box contains characters other than whitespace */
     if (/\S/.test(this.value)) {
-      showElement(focusEnterPrompt);
-    }    
-    console.log("listener triggered");
+      focusInputMessage.innerHTML = "<p class='focus-message focus-enter'>Press enter to set your focus.</p>";
+    }
   }, ENTER_MSG_DELAY);
 
-  let deteteEnterPrompt = debounce(function() {
+  let deleteEnterPrompt = debounce(function() {
     /* if input box is empty, or contains only whitespace */
     if (this.value === "" || !/\S/.test(this.value)) {
-      hideElement(focusEnterPrompt);
-    }    
-    console.log("listener triggered");
+      focusInputMessage.innerHTML = "";
+    }
   }, REMOVE_MSG_DELAY);
 
 })();
