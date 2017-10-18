@@ -13,8 +13,8 @@ input:focus {
 }
 
 body {
-  margin: 0;
   color: #fff;
+  margin: 0;
 }
 
 body, input {
@@ -35,7 +35,6 @@ body, input {
 .top-row {
   display: flex;
   flex: 1 1 100px;
-  //flex: 1 1 400px;
   justify-content: space-between;
 }
 
@@ -46,7 +45,6 @@ body, input {
   align-items: center;
   display: flex;
   flex: 2 1 auto;
-  //flex: 1 1 auto;
   flex-direction: column;
   justify-content: flex-end;
 }
@@ -96,14 +94,14 @@ body, input {
 /* Main focus */
 .focus,
 .focus input {
-  text-align: center;
   font-size: 2.25rem;
+  text-align: center;
 }
 
 .focus {
-  width: 90%;
   margin-bottom: 0;
   margin-top: 3rem;
+  width: 90%;
 }
 
 .focus p {
@@ -114,8 +112,8 @@ body, input {
 .focus-day {
   font-size: 1.325rem;
   font-weight: 900;
-  text-transform: uppercase;
   margin-top: 0;
+  text-transform: uppercase;
 }
 
 .focus-input-wrapper,
@@ -124,15 +122,15 @@ body, input {
 }
 
 .focus-output-wrapper {
-  margin-top: -150px;
   font-size: 2rem;
+  margin-top: -150px;
 }
 
 .focus input {
-  color: #fff;
   background-color: transparent;
   border: none;
   border-bottom: 2px solid #fff;
+  color: #fff;
   min-width: 500px;
 }
 
@@ -160,46 +158,46 @@ body, input {
 }
 
 .focus-delete {
+  border: 1px solid transparent;
   font-size: 1rem;
   font-weight: 300;
   line-height: 1;
-  width: 35px;
   margin: 0 .75rem;
   padding: 10px 9.5px 6px;
-  border: 1px solid transparent;
+  width: 35px;
 }
 
 .focus-delete:hover {
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
   border: 1px solid #fff;
   border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .focus-message {
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
   font-size: 1rem;
   line-height: 2;
   opacity: 1;
   visibility: visible;
-  animation-timing-function: linear;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
 }
 
 .focus-enter {
-  animation-name: fadeIn;
   animation-duration: 3s;
+  animation-name: fadeIn;
 }
 
 .focus-enter:hidden {
-  visibility: hidden;
   opacity: 0;
+  visibility: hidden;
 }
 
 .focus-congrats {
-  animation-name: fadeInOut;
   animation-duration: 5s;
+  animation-name: fadeInOut;
 }
 
 /* end of main focus */
@@ -243,28 +241,28 @@ body, input {
 
 /* Spinner */
 .loading {
-  width: 14px;
-  height: 14px;
   background: transparent;
   border-radius: 50%;
-  position: relative;
   display: inline-block;
+  height: 14px;
+  position: relative;
+  width: 14px;
 }
 
 .loading:before {
+  animation: pulse 1s linear infinite;
+  border: 2px solid #fff;
+  border-radius: 50%;
   content: '';
   display: block;
-  width: 14px;
   height: 14px;
-  border-radius: 50%;
+  left: 50%;
+  margin-left: -15px;
+  margin-top: -5px;
+  opacity: 0;
   position: absolute;
   top: 50%;
-  left: 50%;
-  margin-top: -5px;
-  margin-left: -15px;
-  border: 2px solid #fff;
-  animation: pulse 1s linear infinite;
-  opacity: 0;
+  width: 14px;
 }
 
 @keyframes pulse {
@@ -275,8 +273,8 @@ body, input {
     opacity: 1;
   }
   100% {
-    transform: scale(1.5);
     opacity: 0;
+    transform: scale(1.5);
   }
 }
 
