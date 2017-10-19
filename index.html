@@ -6,7 +6,6 @@
     <title>New Tab</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/testBg.css">
   </head>
 
   <body>
@@ -38,7 +37,7 @@
       <div class="center-row" id="center-row">
         <section class="time" id="time"></section>
         <section class="greeting-user-name" id="greetingUserName">
-          <span id="greeting"></span>
+          <span id="greeting" class="greeting"></span>
           <span class="user-name" id="userName" spellcheck="false" contenteditable="false"></span>.
         </section>
 
@@ -48,18 +47,20 @@
           <div id="focus-input-wrapper" class="focus-input-wrapper hidden">
             <p>What is your main focus for today?</p>
             <input type="text" name="focus" id="focus-input">
+            <div id="focus-input-message"></div>
           </div>
 
           <div id="focus-output-wrapper" class="focus-output-wrapper hidden">
             <p class="focus-day">today</p>
             <div class="focus-row">
-              <div>
-                <span class="focus-checkbox fa fa-square-o hidden"></span>
-                <span class="focus-checkbox fa fa-check-square-o hidden"></span>
+              <div class="focus-checkbox hidden">
+                <span class="fa fa-square-o"></span>
+                <span class="fa fa-check-square-o hidden"></span>
               </div>
               <p id="focus-output" class="focus-output"></p>
-              <span class="focus-close hidden">✕</span>
+              <span class="focus-delete hidden">✕</span>
             </div>
+            <div id="focus-encouragement"></div>
           </div>
 
         </section><!-- end of main focus -->
