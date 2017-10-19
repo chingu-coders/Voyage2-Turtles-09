@@ -1,41 +1,46 @@
 "use strict";
 
-    function handleTodo() {
-    let listBody = document.getElementById("todo-list");
-    let boxes = document.getElementsByClassName("checkbox");
-    let check = "X";
-    let uncheck = " ";
-    let help = document.getElementById("help");
-    function handleCheck() {
-        console.log("I've clicked on " + this);
-        event.stopPropagation();
-        if (this.innerHTML == "") {
-            this.innerHTML = "[ ]";
-        }
-        else if (this.innerHTML == "[x]") {
-            console.log(this.innerHTML);
-            this.innerHTML = "[ ]";
-            this.classList.remove("checked");
-            this.classList.add("unchecked");
-        } else if (this.innerHTML == "[ ]" ) {
-            console.log(this.innerHTML);
-            this.innerHTML = "[x]";
-            this.classList.remove("unchecked");
-            this.classList.add("checked");
+const todoBody = {
+    listBody: document.getElementById("todo-list"),
+    listItems: document.getElementsByClassName("checkbox"),
+    input: document.getElementsByTagName("input"),
+};
 
-        } else {
-            console.log("sorry");
-        }
 
+//TODO: Make delete function
+
+let todo = {
+    taskArray: [],
+    taskList: [],
+    getInput:
+        function () {
+            if(event.keyCode === 13) {
+                console.log(this.value);
+                todo.taskList.push(this.value);
+                console.log(todo.taskList);
+            }
+        },
+    addTask:
+        function () {
+            if(event.keyCode === 13) {
+                todoBody.listBody.innerHTML += "<li class='checkbox'>" + this.value + "</li>";
+                for (let i = 0; i < todoBody.listItems.length; i++) {
+                    todoBody.listItems[i].addEventListener("click", todo.checkTask, false);
+                }
+            }
+
+        },
+    checkTask:
+        function () {
+            this.classList.toggle("checked");
+    },
+};
+
+(function (){
+    for (let i = 0; i < todoBody.input.length; i++) {
+        // Both listeners are applied to the input field - they don't overwrite each other
+        todoBody.input[i].addEventListener("keydown", todo.getInput, false);
+        todoBody.input[i].addEventListener("keydown", todo.addTask, false);
     }
-
-
-        for(let i = 0; i < boxes.length; i++) {
-            boxes[i].addEventListener("click", handleCheck, false);
-        }
-
-
-}
-
-handleTodo();
+}());
 
