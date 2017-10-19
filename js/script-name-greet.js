@@ -17,7 +17,7 @@ function setGreeting() {
 
   if (currentHour > 2 && currentHour < 12) {
     greeting = "Morning";
-  } else if (currentHour < 18){
+  } else if (currentHour >= 12 && currentHour < 18){
     greeting = "Afternoon";
   } else {
     greeting = "Evening";
