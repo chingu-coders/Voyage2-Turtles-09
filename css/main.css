@@ -341,3 +341,10 @@ p.photographer a {
   transform: translateY(1.5em);
   transition-delay: 250ms;
 }
+/***********************
+ * To-do Utility Classes
+ ***********************/
+.checked {
+    text-decoration: line-through;
+    color: #65615b;
+}

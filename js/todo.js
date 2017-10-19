@@ -27,7 +27,7 @@ let todo = {
                     "<li class='checkbox'>" + this.value + "</li>" +
                     "<span class='delete'>(X)</span>";
                 todoUtil.applyCheck();
-                todoUtil.applyDelete(this);
+                todoUtil.applyDelete();
             }
 
         },
