@@ -1,3 +1,6 @@
+/******************
+ * Browser Resets
+ ******************/
 html {
   box-sizing: border-box;
 }
@@ -11,6 +14,14 @@ html {
 input:focus {
   outline: none;
 }
+
+ul {
+  list-style: none;
+}
+
+/***********
+ * General
+ ***********/
 
 body {
   color: #fff;
@@ -26,6 +37,8 @@ body, input {
   flex-direction: column;
   height: 100vh;
   justify-content: space-between;
+  max-height: 100vh;
+  overflow: hidden;
   width: 100%;
 }
 
