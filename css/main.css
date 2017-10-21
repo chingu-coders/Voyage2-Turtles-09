@@ -24,6 +24,7 @@ ul {
  ***********/
 
 body {
+  background: url('https://source.unsplash.com/vJ3YdXU6U_Y/1600x900') center center / cover no-repeat;
   color: #fff;
   margin: 0;
 }
@@ -360,4 +361,43 @@ p.photographer a {
 .checked {
     text-decoration: line-through;
     color: #65615b;
+}
+
+.todo {
+  border: 1px solid red;
+  background-color: palegreen;
+  padding: 0;
+  margin: 5px;
+  width: 25vw;
+  max-width: 250px;
+}
+
+.todo-panel {
+  background-color: #414141;
+  color: #9d9d9d;
+  font-size: 1.2em;
+  padding: 10px;
+}
+
+.todo-panel ul {
+  padding: 0;
+
+}
+
+.checkbox {
+  padding: 0.3em 0;
+}
+
+.checkbox:hover {
+  color: #fff;
+}
+
+.new-todo-input {
+  border: transparent;
+  background: #1d1d1d;
+  color: #9d9d9d;
+  font-size: 1.2em;
+  padding: 5px 10px;
+  width: 100%;
+  height: 2.5em;
 }

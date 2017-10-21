@@ -87,14 +87,17 @@
           </p>
         </section>
         <section>
-          <div class="todo wrap">
-            <h2>Todo: List</h2>
-            <input type="text" title="to-do" id="todo-input">
-            <ul id="todo-list">
-              <li class="checkbox">Example</li>
-              <li class="checkbox">Example</li>
-              <li class="checkbox">Example</li>
-            </ul>
+          <div class="todo">
+            <div class="todo-panel">
+              <h2>Todo: List</h2>
+              <ul id="todo-list">
+                <li class="checkbox">
+                  <input type="checkbox" class="todo-checkbox">
+                  <span>Example</span>
+                </li>
+              </ul>
+            </div>
+            <input type="text" title="to-do" class="new-todo-input" id="todo-input">
           </div>
         </section>
       </div>
@@ -102,7 +105,7 @@
     </div><!-- end of .main-wrapper -->
     <script src="libs/jquery-3.2.1.min.js"></script>
     <script src="js/script.js"></script>
-    <script src="js/background.js"></script>
+    <!--<script src="js/background.js"></script>-->
     <script src="js/quote.js"></script>
     <script src="js/script-clock.js"></script>
     <script src="js/script-name-greet.js"></script>
