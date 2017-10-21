@@ -2,7 +2,7 @@
 
 const bg = {
   defaultBgUrl: "https://images.unsplash.com/photo-1473800447596-01729482b8eb?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=40eba4c15ec393c84db9c76380d26869",
-  query: "https://api.unsplash.com/photos/random?collections=575196" + "&client_id=" + "51eeacda52a858956883fcd86384424f78d38da8fb4f8b61b65723e41223d6b1",
+  query: "https://api.unsplash.com/photos/random?collections=1291922" + "&client_id=" + "51eeacda52a858956883fcd86384424f78d38da8fb4f8b61b65723e41223d6b1",
   renderPhotographer: document.querySelector("#image-photographer"),
   renderLocation: document.querySelector("#image-location"),
 };
@@ -45,7 +45,8 @@ function queryUnsplash () {
 
     // Querying local storage first to see if last time is available
     if (prevTimeStamp !== undefined) {
-      // Checking if 30s have elapsed since the time recorded in storage
+      // Checking if 1s have elapsed since the time recorded in storage
+      // TODO: change time elapse condition to every hour
       if (currentTimeStamp - prevTimeStamp >= 1000) {
         //* Updating the previous time stamp in storage to the current time
         prevTimeStamp = currentTimeStamp;
