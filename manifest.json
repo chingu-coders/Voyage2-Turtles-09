@@ -1,17 +1,27 @@
 {
   "manifest_version": 2,
-  "name": "Momentum Health",
-  "version": "0.0.1",
-  "description": "TODO: a description of the extension goes here",
+  "name": "Blueberry Dash",
+  "version": "1.0.0",
+  "description": "Replace new tab page with a dashboard that inspires healthy food choices, encouragement, and productivity",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
+  "background": {
+    "persistent": false,
+    "scripts": [
+      "js/background.js"
+    ]
+  },
   "permissions": [
-    "storage"
+    "storage",
+    "tabs"
   ],
-  "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "Blueberry Dash"
   }
 }
