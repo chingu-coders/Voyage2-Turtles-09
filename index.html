@@ -69,6 +69,24 @@
 
       <!-- Bottom row of page -->
       <div class="bottom-row" id="bottom-row">
+        <span class="fa fa-cog fa-2x settings-icon"></span>
+        <section class="settings hidden">
+          <ul class="settings-nav">
+            <li><a href="#settings-general">General</a></li>
+            <li><a href="#settings-about" class="settings-current">About</a></li>
+          </ul>
+          <div class="settings-subpanel-container">
+            <div class="settings-subpanel settings-general hidden" id="settings-general">
+              
+            </div>
+            <div class="settings-subpanel settings-about" id="settings-about">
+              <div class="image-wrapper">
+                <img src="icons/icon128.png">
+              </div>              
+              <h1></h1>
+            </div>
+          </div>
+        </section>
         <section class="floater-box credits">
           <p id="image-location" class="floater location">image location</p>
           <p id="image-photographer" class="floater photographer">image data</p>
@@ -92,10 +110,11 @@
     </div><!-- end of .main-wrapper -->
     <script src="libs/jquery-3.2.1.min.js"></script>
     <script src="js/script.js"></script>
-    <script src="js/background.js"></script>
+    <!--<script src="js/background.js"></script>-->
     <script src="js/quote.js"></script>
     <script src="js/script-clock.js"></script>
     <script src="js/script-name-greet.js"></script>
+    <script src="js/settings.js"></script>
 
   </body>
 

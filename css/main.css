@@ -24,6 +24,7 @@ ul {
  ***********/
 
 body {
+  background: url("https://source.unsplash.com/vJ3YdXU6U_Y/1600x900") center center / cover no-repeat;
   color: #fff;
   margin: 0;
 }
@@ -223,7 +224,81 @@ body, input {
   display: flex;
   flex: 1 1 100px;
   justify-content: space-between;
+  position: relative;
 }
+
+/* Settings */
+
+.settings-icon {
+  height: 40px;
+  margin: 0 1rem;
+  opacity: .5;
+  transform: opacity 200ms ease-in;
+}
+
+.settings-icon:hover {
+  opacity: .9;
+}
+
+.settings {
+  background-color: rgba(0, 0, 0, .75);
+  border-right: 2px solid rgba(0, 0, 0, .5);
+  bottom: 50px;
+  display: flex;
+  left: .5rem;
+  position: absolute;
+}
+
+.settings-nav {
+  display: block;
+  padding: 0;
+  width: 170px;
+}
+
+.settings-nav li {
+  margin: 0 1rem;
+}
+
+.settings-nav a {
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.settings-nav a:link,
+.settings-nav a:visited {
+  color: #ccc;
+}
+
+.settings-nav a:hover,
+.settings-nav a:active {
+  color: #fff;
+}
+
+.settings-subpanel-container {
+  background-color: rgba(0, 0, 0, .75);
+  min-height: 450px;
+  min-width: 530px;
+}
+
+.settings-about {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+
+.settings .image-wrapper {
+  background-color: rgba(255, 255, 255, .8);
+  border-radius: 5px;
+}
+
+.settings-about img {
+  width: 80px;
+  height: 80px;
+}
+
+/* end of settings */
 
 /*****************************
 * Utility classes and Helpers
