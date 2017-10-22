@@ -7,59 +7,56 @@
   let todoInput = document.getElementById("todo-input");
   let taskList = [];
 
-  function getTaskList(task) {
-    console.log(task);
-    taskList.push(task);
-    console.log(taskList);
+  function renderItem(item) {
+    console.log("item passed in is " + item);
+
+    let newItem = '<li class="checkbox"><input type="checkbox">' + item + '</li>';
+    $(listBody).append(newItem);
+
+    $(listItems).on("click", function() {
+      console.log("you've clicked on " + this.innerText);
+    });
+
+    renderDeleteIcon(newItem);
   }
 
-  function renderTask(task) {
-    // Build task item html here
-    console.log(task);
-    listBody.innerHTML += "<li class='checkbox'>"
-        + "<input type='checkbox' class='todo-checkbox'>"
-        + "<span>" + task + "</span>"
-        + "<span class='todo-delete'>x</span></li>";
+  function deleteHOnHover() {
+    function handlerIn() {
+      console.log(this);
+      $(this).find(deleteIcons).removeClass("hidden");
 
-  }
-
-  function deleteTask(task) {
-    event.stopPropagation();
-    task.parentElement.remove();
-  }
-
-
-  let todoUtil = {
-    applyCheck:
-        function () {
-          for (let i = 0; i < listItems.length; i++) {
-            listItems[i].addEventListener("click", function () {
-              listItems[i].classList.toggle("checked");
-            }, false);
-          }
-        },
-    applyDelete:
-        function () {
-          for (let i = 0; i < deleteIcons.length; i++) {
-            deleteIcons[i].addEventListener("click", event => {
-              deleteTask(event.target);
-            }, false);
-          }
-        }
-  };
-
-  todoInput.addEventListener("keydown", event => {
-    if (event.keyCode === 13) {
-
-      getTaskList(event.target.value);
-      renderTask(event.target.value);
-
-      todoUtil.applyDelete();
-      todoUtil.applyCheck();
-
-      todoInput.value = "";
     }
-  }, false);
+    function handlerOut() {
+      $(this).find(deleteIcons).addClass("hidden");
+    }
+
+    $(listItems).hover(handlerIn, handlerOut);
+  }
+
+  function renderDeleteIcon(newItem) {
+    $(listItems).last().append('<span class="todo-delete hidden">x</span>');
+    deleteHOnHover();
+    $(deleteIcons).on("click", function(){
+      // console.log("removing " + this.addBack());
+      $(this).parent().fadeOut();
+      event.stopPropagation();
+    });
+  }
+
+
+  function addTask() {
+    $(todoInput).on("keydown", event => {
+      if (event.which === 13) {
+        taskList.push(event.target.value);
+        console.log(taskList);
+        renderItem(event.target.value);
+
+        todoInput.value = "";
+      }
+    });
+  }
+  addTask();
+
 
 })();
 

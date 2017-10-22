@@ -388,12 +388,10 @@ p.photographer a {
   padding: 0.2em 0 0 0;
 }
 
-.checkbox:hover {
-  color: #fff;
-}
 
 .todo-delete {
   float: right;
+  opacity: 1;
   border: 1px solid transparent;
   font-size: 0.8rem;
   line-height: 1;
@@ -411,7 +409,7 @@ p.photographer a {
 
 .new-todo-input {
   border: transparent;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.9);
   color: #9d9d9d;
   font-size: 1.2em;
   padding: 5px 10px;
