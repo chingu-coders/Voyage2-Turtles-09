@@ -3,7 +3,7 @@
 
   let listBody = document.getElementById("todo-list");
   let listItems = document.getElementsByClassName("checkbox");
-  let deleteIcons = document.getElementsByClassName("delete");
+  let deleteIcons = document.getElementsByClassName("todo-delete");
   let todoInput = document.getElementById("todo-input");
   let taskList = [];
 
@@ -16,7 +16,10 @@
   function renderTask(task) {
     // Build task item html here
     console.log(task);
-    listBody.innerHTML += "<li class='checkbox'>" + task + "<span class='delete'>(X)</span></li>";
+    listBody.innerHTML += "<li class='checkbox'>"
+        + "<input type='checkbox' class='todo-checkbox'>"
+        + "<span>" + task + "</span>"
+        + "<span class='todo-delete'>x</span></li>";
 
   }
 
