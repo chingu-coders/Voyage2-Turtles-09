@@ -74,30 +74,39 @@ body, input {
   flex-direction: column;
   justify-content: flex-end;
 }
+
+/* Time, Greeting, & Username */
+.greeting,
+.user-name {
+  font-size: 3.375rem;
+}
+
+.greeting-user-name{
+  line-height: 3.38rem;
+}
+
 .name-entry {
   text-align: center;
 }
 
-.name-entry-greeting {
-  display: block;
-}
-
 .name-entry-line {
-  border-bottom: 2.5px black solid;
   display: block;
+  font-size: 3.375rem;
   margin: auto;
+  max-width: 90vw;
+  min-width: 3.375rem;
   outline: none;
-  width: 150px;
 }
 
-.greeting-user-name {
-  height: 1.5em;
+.time {
+  font-size: 9.75rem;
+  line-height: 1;
 }
 
 .user-name {
   cursor: pointer;
   display: inline-block;
-  max-width: 750px;
+  max-width: 90vw;
   min-width: 20px;
   outline: none;
 }
@@ -108,15 +117,6 @@ body, input {
               0px 10px 25px -15px #000;
 }
 
-/* Time & Greeting */
-.time {
-  font-size: 9.75rem;
-  line-height: 1;
-}
-.greeting,
-.user-name {
-  font-size: 3.375rem;
-}
 /* end of time & greeting */
 
 /* Main focus */
