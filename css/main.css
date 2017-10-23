@@ -391,20 +391,23 @@ p.photographer a {
 
 .todo-delete {
   float: right;
-  opacity: 1;
-  border: 1px solid transparent;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 50%;
   font-size: 0.8rem;
   line-height: 1;
   margin: 0 .75rem;
   padding: 2px 5.5px 2px;
   width: 19px;
+  transition: all 0.3s ease;
 }
 
 .todo-delete:hover {
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
   cursor: pointer;
-
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  /*-webkit-transition: all 0.5s ease;*/
+  /*-moz-transition: all 0.5s ease;*/
+  /*-o-transition: all 0.5s ease-in, ease-out;*/
+  transition: all 0.3s ease;
 }
 
 .new-todo-input {

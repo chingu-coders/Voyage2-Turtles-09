@@ -22,9 +22,7 @@
 
   function deleteHOnHover() {
     function handlerIn() {
-      console.log(this);
       $(this).find(deleteIcons).removeClass("hidden");
-
     }
     function handlerOut() {
       $(this).find(deleteIcons).addClass("hidden");
