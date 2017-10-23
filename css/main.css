@@ -32,7 +32,8 @@ body, input {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.main-wrapper {
+.main-wrapper,
+.initial-wrapper {
   display: flex;
   flex-direction: column;
   height: 100vh;
