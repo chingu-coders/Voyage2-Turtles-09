@@ -24,7 +24,6 @@ ul {
  ***********/
 
 body {
-  background: url("https://source.unsplash.com/vJ3YdXU6U_Y/1600x900") center center / cover no-repeat;
   color: #fff;
   margin: 0;
 }
@@ -229,38 +228,69 @@ body, input {
 
 /* Settings */
 
+/* animate cog icon */
 .settings-icon {
-  height: 40px;
-  margin: 0 1rem;
-  opacity: .5;
-  transform: opacity 200ms ease-in;
+  margin: 0 1rem 1rem;
 }
 
-.settings-icon:hover {
-  opacity: .9;
+.fa-cog {
+  display: inline-block;
+  opacity: .5;
 }
+
+.fa-cog:hover {
+  opacity: .7;
+  transition: opacity 200ms,
+              transform 200ms ease-in;
+}
+
+.clicked,
+.clicked:hover {
+  opacity: 1;
+  transform: rotate(45deg) scale(1.2);
+}
+/* end animate cog icon */
 
 .settings {
-  background-color: rgba(0, 0, 0, .75);
-  border-right: 2px solid rgba(0, 0, 0, .5);
-  bottom: 50px;
+  background-color: rgba(15, 15, 15, .9);
+  border-radius: 3px;
+  bottom: 100px;
   display: flex;
   left: .5rem;
+  opacity: 1;
   position: absolute;
+  transition: opacity 200ms ease-in,
+              visibility 200ms ease-in;
+  visibility: visible;
+}
+
+/* speech bubble effect */
+.settings::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 25px;
+  border-width: 6px 8px 0;
+  border-style: solid;
+  border-color: rgba(15, 15, 15, .9) transparent;
+  display: block;
+  width: 0;
 }
 
 .settings-nav {
+  border-right: 2px solid rgba(255, 255, 255, .1);
   display: block;
-  padding: 0;
+  margin: 0;
+  padding: 30px 0;
   width: 170px;
 }
 
 .settings-nav li {
-  margin: 0 1rem;
+  margin: .5rem 1.5rem;
 }
 
 .settings-nav a {
-  font-size: 1rem;
+  font-size: 1.125rem;
   text-decoration: none;
 }
 
@@ -275,7 +305,6 @@ body, input {
 }
 
 .settings-subpanel-container {
-  background-color: rgba(0, 0, 0, .75);
   min-height: 450px;
   min-width: 530px;
 }
@@ -289,13 +318,71 @@ body, input {
 }
 
 .settings .image-wrapper {
-  background-color: rgba(255, 255, 255, .8);
-  border-radius: 5px;
+  //background-color: rgba(255, 255, 255, .8);
+  //border-radius: 5px;
 }
 
 .settings-about img {
   width: 80px;
   height: 80px;
+}
+
+.settings-about-text {
+  text-align: center;
+}
+
+.settings-about-text h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.settings-about-text p {
+  color: #ccc;
+  font-size: 1.125rem;
+  margin: 1.5rem;
+}
+
+.settings-about-text p.settings-version {
+  font-size: .875rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.settings-version span {
+  color: #999;
+  font-size: .75rem;
+}
+
+.settings-about-text ul {
+  border-top: 1px solid rgba(255, 255, 255, .3);
+  border-bottom: 1px solid rgba(255, 255, 255, .3);
+  display: flex;
+  justify-content: center;
+  padding: 0 2rem;
+}
+
+.settings-about-text li {
+  font-size: 1rem;
+  padding: .75rem .5rem;
+}
+
+.settings-about-text li a {
+  text-decoration: none;
+}
+
+.settings-about-text li a:link,
+.settings-about-text li a:visited {
+  color: #ccc;
+}
+
+.settings-about-text li a:hover,
+.settings-about-text li a:active {
+  color: #fff;
+}
+
+.settings-about-text footer {
+  color: #ccc;
+  font-size: .875rem;
 }
 
 /* end of settings */
