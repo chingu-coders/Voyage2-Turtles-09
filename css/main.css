@@ -131,7 +131,7 @@ body, input {
 
 .focus {
   margin-bottom: 0;
-  margin-top: 3rem;
+  margin-top: 6rem;
   width: 90%;
 }
 
@@ -178,7 +178,7 @@ body, input {
 }
 
 .focus-checkbox span {
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .fa-check-square-o {
