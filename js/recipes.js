@@ -39,7 +39,8 @@
   const app_id = "&app_id=373a2755";
   const app_key = "&app_key=5e414263cb40da6abf1019a550333f43";
   let options = "";
-  const query = api + search + app_id + app_key + options;
+  let calorieLimit = "&calories=lte%20850" /* upper limit is 850 */
+  const query = api + search + app_id + app_key + calorieLimit;
 
   // Check storage for saved recipe
   chrome.storage.sync.get("recipe", function(obj){
