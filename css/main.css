@@ -47,8 +47,53 @@ body, input {
  ***********************/
 .top-row {
   display: flex;
-  flex: 1 1 100px;
+  flex: 0 1 auto;
   justify-content: space-between;
+}
+
+
+.recipes {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 10px;
+  width: 100vw;
+}
+
+.recipes > h2 {
+  background: rgba(0, 0, 0, 0.1);
+  color: #ddd;
+  font-size: 1em;
+  font-weight: normal;
+  letter-spacing: 1px;
+  margin: -10px -10px 0 -10px;
+  padding: 10px;
+  text-transform: uppercase;
+}
+
+.recipes a:link,
+.recipes a:visited,
+.recipes a:hover,
+.recipes a:active {
+  color: #eee;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.recipe-preview {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 50px;
+  width: 100%;
+}
+
+.recipe-thumbnail {
+  background: rgba(0, 0, 0, 0.4);
+  margin-right: 10px;
+  max-height: 50px;
+  min-width: 50px;
+}
+
+.recipe-title {
+  margin: 0;
 }
 
 /***********************
