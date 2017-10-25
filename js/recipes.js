@@ -12,19 +12,6 @@
   const recipeDailyValue = document.querySelector(".recipe-daily-value .value");
   const recipeSource = document.querySelector(".recipe-source");
 
-  // Initialize API and storage variables
-  // let edmImage, edmTitle, edmCalories, edmSource, edmSourceUrl;
-  // let savedRecipe = {
-  //     timestamp: timestamp,
-  //     thumbnail: edmImage,
-  //     title: edmTitle,
-  //     calories: edmCalories,
-  //     source: edmSource,
-  //     sourceUrl: edmSourceUrl
-  //   }
-
-
-
   // Build API URL
   const api = "https://api.edamam.com/search?q=";
   let search = "chicken";
@@ -34,20 +21,20 @@
   const query = api + search + app_id + app_key + options;
 
   // Check storage for saved recipe
-  //chrome.storage.sync.get("recipe", function(obj){
+  chrome.storage.sync.get("recipe", function(obj){
     // Check for errors
-    //let error = chrome.runtime.lastError;
-    //if (error) {
-    //  console.error("checkRecipe(): " + error);
-    // If there's nothing in storage, OR the
-    // saved recipe is not today's date, run the query
-    //} else if (!obj.recipe || (obj.recipe && obj.recipe.timestamp !== timestamp)) {
+    let error = chrome.runtime.lastError;
+    if (error) {
+      console.error("checkRecipe(): " + error);
+    // If there's nothing in storage,
+    // OR the saved recipe is not today's date, run the query
+    } else /*if (!obj.recipe || (obj.recipe && obj.recipe.timestamp !== timestamp))*/ {
       queryEdamam();
-    //}
+    }
     // Display recipe preview in browser
-    //recipePreview(obj.recipe);
+    recipePreview(obj.recipe);
 
-  //});
+  });
 
   // Query Edamam API
   function queryEdamam() {
@@ -63,27 +50,18 @@
       let edmSource = json.hits[randomRecipe].recipe.source;
       let edmSourceUrl = json.hits[randomRecipe].recipe.url;
 
-
-
-      saveRecipe(edmTitle, edmImage, edmCalories, edmSource, edmSourceUrl);
-
-    });
-  }
-
-  // Save recipe to local storage
-  function saveRecipe(edmTitle, edmImage, edmCalories, edmSource, edmSourceUrl) {
-    let savedRecipe = {
+      let savedRecipe = {
         timestamp: timestamp,
         thumbnail: edmImage,
         title: edmTitle,
         calories: edmCalories,
         source: edmSource,
         sourceUrl: edmSourceUrl
-    }
-    // Save to Chrome storage
-    chrome.storage.sync.set({"recipe": savedRecipe});
-    // NEED TO FIGURE OUT A BETTER PLACE TO CALL THIS
-    recipePreview(savedRecipe);
+      }
+
+      // Save to Chrome storage
+      chrome.storage.sync.set({"recipe": savedRecipe});
+    });
   }
 
   // Display recipe preview with recipe data saved from API
