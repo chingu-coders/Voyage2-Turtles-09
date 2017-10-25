@@ -1,6 +1,10 @@
 (function recipes() {
   "use strict";
 
+  // Create date timestamp for daily recipe
+  let today = new Date();
+  let timestamp = today.getDate() + "-" + (today.getMonth()+1) + "-" + today.getFullYear();
+
   // Set up DOM variables
   const recipeThumbnail = document.querySelector(".recipe-thumbnail");
   const recipeTitle = document.querySelector(".recipe-title");
@@ -8,38 +12,93 @@
   const recipeDailyValue = document.querySelector(".recipe-daily-value .value");
   const recipeSource = document.querySelector(".recipe-source");
 
+  // Initialize API and storage variables
+  // let edmImage, edmTitle, edmCalories, edmSource, edmSourceUrl;
+  // let savedRecipe = {
+  //     timestamp: timestamp,
+  //     thumbnail: edmImage,
+  //     title: edmTitle,
+  //     calories: edmCalories,
+  //     source: edmSource,
+  //     sourceUrl: edmSourceUrl
+  //   }
+
+
+
   // Build API URL
   const api = "https://api.edamam.com/search?q=";
   let search = "chicken";
   const app_id = "&app_id=373a2755";
   const app_key = "&app_key=5e414263cb40da6abf1019a550333f43";
   let options = "";
-  const url = api + search + app_id + app_key + options;
+  const query = api + search + app_id + app_key + options;
+
+  // Check storage for saved recipe
+  //chrome.storage.sync.get("recipe", function(obj){
+    // Check for errors
+    //let error = chrome.runtime.lastError;
+    //if (error) {
+    //  console.error("checkRecipe(): " + error);
+    // If there's nothing in storage, OR the
+    // saved recipe is not today's date, run the query
+    //} else if (!obj.recipe || (obj.recipe && obj.recipe.timestamp !== timestamp)) {
+      queryEdamam();
+    //}
+    // Display recipe preview in browser
+    //recipePreview(obj.recipe);
+
+  //});
 
   // Query Edamam API
-  $.getJSON(url, function(json) {
-    // Set random pick from data array
-    let randomRecipe = Math.round(Math.random() * 10);
+  function queryEdamam() {
+    $.getJSON(query, function(json) {
 
-    // Set data variables
-    let title = json.hits[randomRecipe].recipe.label;
-    let image = json.hits[randomRecipe].recipe.image;
-    let calories = Math.round(json.hits[randomRecipe].recipe.calories);
-    // let dailyValue = json.hits[randomRecipe].recipe.totalDaily;
-    let source = json.hits[randomRecipe].recipe.source;
-    let sourceUrl = json.hits[randomRecipe].recipe.url;
+      console.log(json);
 
-    // Populate DOM with recipe data
-    console.log(json);
-    recipeThumbnail.setAttribute("src", image);
-    recipeTitle.textContent = title;
-    recipeCalories.textContent = calories;
-    // recipeDailyValue.textContent = ;
-    recipeSource.textContent = source;
-    recipeSource.setAttribute("href", sourceUrl);
+      // Set data variables (edm == edamam)
+      let randomRecipe = rand(json.hits.length);
+      let edmTitle = json.hits[randomRecipe].recipe.label;
+      let edmImage = json.hits[randomRecipe].recipe.image;
+      let edmCalories = Math.round(json.hits[randomRecipe].recipe.calories);
+      let edmSource = json.hits[randomRecipe].recipe.source;
+      let edmSourceUrl = json.hits[randomRecipe].recipe.url;
 
-  });
 
+
+      saveRecipe(edmTitle, edmImage, edmCalories, edmSource, edmSourceUrl);
+
+    });
+  }
+
+  // Save recipe to local storage
+  function saveRecipe(edmTitle, edmImage, edmCalories, edmSource, edmSourceUrl) {
+    let savedRecipe = {
+        timestamp: timestamp,
+        thumbnail: edmImage,
+        title: edmTitle,
+        calories: edmCalories,
+        source: edmSource,
+        sourceUrl: edmSourceUrl
+    }
+    // Save to Chrome storage
+    chrome.storage.sync.set({"recipe": savedRecipe});
+    // NEED TO FIGURE OUT A BETTER PLACE TO CALL THIS
+    recipePreview(savedRecipe);
+  }
+
+  // Display recipe preview with recipe data saved from API
+  function recipePreview(recipe) {
+    recipeThumbnail.setAttribute("src", recipe.thumbnail);
+    recipeTitle.textContent = recipe.title;
+    recipeCalories.textContent = recipe.calories;
+    recipeSource.textContent = recipe.source;
+    recipeSource.setAttribute("href", recipe.sourceUrl);
+  }
+
+  // Get random number
+  function rand(num) {
+    return Math.floor(Math.random() * num);
+  }
 
 })();
 // Recipes ends
