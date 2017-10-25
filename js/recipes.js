@@ -12,9 +12,30 @@
   const recipeDailyValue = document.querySelector(".recipe-daily-value .value");
   const recipeSource = document.querySelector(".recipe-source");
 
+  // Define default recipe search options
+  let searchTerms = ["chicken",
+                     "beef",
+                     "pork",
+                     "fish",
+                     "seafood",
+                     "vegetable",
+                     "pasta",
+                     "roast",
+                     "risotto",
+                     "stew",
+                     "curry"
+                     ]
+  let dietOptions = ["balanced",
+                     "high-protein",
+                     "high-fiber",
+                     "low-fat",
+                     "low-carb",
+                     "low-sodium"
+                     ]
+
   // Build API URL
   const api = "https://api.edamam.com/search?q=";
-  let search = "chicken";
+  let search = searchTerms[rand(searchTerms.length)];
   const app_id = "&app_id=373a2755";
   const app_key = "&app_key=5e414263cb40da6abf1019a550333f43";
   let options = "";
