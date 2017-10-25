@@ -97,6 +97,10 @@ body, input {
   margin: 0;
 }
 
+.recipe-information p {
+  margin: 0;
+}
+
 /***********************
  * Center row of page
  ***********************/

@@ -9,8 +9,9 @@
   const recipeThumbnail = document.querySelector(".recipe-thumbnail");
   const recipeTitle = document.querySelector(".recipe-title");
   const recipeCalories = document.querySelector(".recipe-calories .value");
-  const recipeDailyValue = document.querySelector(".recipe-daily-value .value");
   const recipeSource = document.querySelector(".recipe-source");
+  const recipeDietLabels = document.querySelector(".recipe-diet-labels");
+  const recipeHealthLabels = document.querySelector(".recipe-health-labels");
 
   // Define default recipe search options
   let searchTerms = ["chicken",
@@ -44,10 +45,10 @@
 
   // Check storage for saved recipe
   chrome.storage.sync.get("recipe", function(obj){
-    // Check for errors
+    // Error handling
     let error = chrome.runtime.lastError;
     if (error) {
-      console.error("checkRecipe(): " + error);
+      console.error("Check Chrome storage for saved recipe: " + error);
     // If there's nothing in storage,
     // OR the saved recipe is not today's date, run the query
     } else /*if (!obj.recipe || (obj.recipe && obj.recipe.timestamp !== timestamp))*/ {
@@ -71,12 +72,16 @@
       let edmCalories = Math.round(json.hits[randomRecipe].recipe.calories);
       let edmSource = json.hits[randomRecipe].recipe.source;
       let edmSourceUrl = json.hits[randomRecipe].recipe.url;
+      let edmDietLabels = json.hits[randomRecipe].recipe.dietLabels;
+      let edmHealthLabels = json.hits[randomRecipe].recipe.healthLabels;
 
       let savedRecipe = {
         timestamp: timestamp,
         thumbnail: edmImage,
         title: edmTitle,
         calories: edmCalories,
+        diet: edmDietLabels,
+        health: edmHealthLabels,
         source: edmSource,
         sourceUrl: edmSourceUrl
       }
@@ -90,6 +95,8 @@
   function recipePreview(recipe) {
     recipeThumbnail.setAttribute("src", recipe.thumbnail);
     recipeTitle.textContent = recipe.title;
+    recipeDietLabels.textContent = recipe.diet;
+    recipeHealthLabels.textContent = recipe.health;
     recipeCalories.textContent = recipe.calories;
     recipeSource.textContent = recipe.source;
     recipeSource.setAttribute("href", recipe.sourceUrl);
