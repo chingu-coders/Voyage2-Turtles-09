@@ -96,7 +96,7 @@
     recipeThumbnail.setAttribute("src", recipe.thumbnail);
     recipeTitle.textContent = recipe.title;
     recipeDietLabels.textContent = recipe.diet;
-    recipeHealthLabels.textContent = recipe.health;
+    //recipeHealthLabels.textContent = recipe.health;
     recipeCalories.textContent = recipe.calories;
     recipeSource.textContent = recipe.source;
     recipeSource.setAttribute("href", recipe.sourceUrl);
