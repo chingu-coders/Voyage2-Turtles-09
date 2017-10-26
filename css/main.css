@@ -286,27 +286,27 @@ body, input {
 }
 
 .settings-nav li {
-  margin: .5rem 1.5rem;
-}
-
-.settings-nav a {
-  font-size: 1.125rem;
-  text-decoration: none;
-}
-
-.settings-nav a:link,
-.settings-nav a:visited {
   color: #ccc;
+  font-size: 1.125rem;
+  padding: .5rem 1.5rem;
 }
 
-.settings-nav a:hover,
-.settings-nav a:active {
+.settings-nav li:hover {
+  color: #ddd;
+  cursor: pointer;
+}
+
+.settings-nav .settings-current {
   color: #fff;
 }
 
 .settings-subpanel-container {
+  display: flex;
   min-height: 450px;
-  min-width: 530px;
+}
+
+.settings-subpanel {  
+  width: 530px;
 }
 
 .settings-about {
@@ -315,6 +315,17 @@ body, input {
   flex-direction: column;
   height: 100%;
   justify-content: center;
+}
+
+.settings-general {
+}
+
+.settings-quotes,
+.settings-links,
+.settings-todo,
+.settings-about,
+.settings-t9 {
+  margin-left: -530px;
 }
 
 .settings .image-wrapper {

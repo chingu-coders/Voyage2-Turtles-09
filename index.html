@@ -74,22 +74,57 @@
         </div>
         <section class="settings hidden">
           <ul class="settings-nav">
-            <li><a href="#settings-general">General</a></li>
-            <li><a href="#settings-about" class="settings-current">About</a></li>
+            <li class="settings-current">General</li>
+            <li>Quotes</li>
+            <li>Links</li>
+            <li>About</li>
+            <li>T9</li>
           </ul>
-          <div class="settings-subpanel-container">
+          <div class="settings-subpanel-container" id="settingsSubpanelContainer">
 
             <!-- General -->
-            <div class="settings-subpanel settings-general hidden" id="settingsGeneral">
-              
+            <div class="settings-subpanel settings-general" id="settingsGeneral">
+              <ul>
+                <li>Time</li>
+                <li>Greeting</li>
+                <li>Focus</li>
+                <li>To-do</li>
+                <li>Quote</li>
+              </ul>
+            </div>
+
+            <!-- Quotes -->
+            <div class="settings-subpanel settings-quotes hidden" id="settingsQuotes">
+              <ul>
+                <li>Quote 1</li>
+                <li>Quote 2</li>
+              </ul>
+            </div>
+
+            <!-- Links -->
+            <div class="settings-subpanel settings-links hidden" id="settingsLinks">
+              <ul>
+                <li><a href="chrome-search://localntp/local-ntp.html">Chrome Tab</a></li>
+                <li><a href="chrome://apps/">Apps</a></li>
+              </ul>
             </div>
 
             <!-- About -->
-            <div class="settings-subpanel settings-about" id="settingsAbout">
+            <div class="settings-subpanel settings-about hidden" id="settingsAbout">
               <div class="settings-image-wrapper">
                 <img src="icons/icon128.png">
               </div>
               <div class="settings-about-text"></div>
+            </div>
+
+            <!-- T9 -->
+            <div class="settings-subpanel settings-t9 hidden" id="settingsT9">
+              <ul>
+                <li>Jordan</li>
+                <li>David</li>
+                <li>Reuben</li>
+                <li>Toni</li>
+              </ul>
             </div>
 
           </div>

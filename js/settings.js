@@ -3,11 +3,20 @@
 
   const settingsIcon = document.querySelector(".settings-icon");
   const settingsPanel = document.querySelector(".settings");
+  const settingsNav = document.querySelector(".settings-nav");
+  //const settingsAbout = document.querySelector(".settings-about");
   const aboutText = document.querySelector(".settings-about-text");
+  const settingsGeneral = document.querySelector(".settings-general");
   const manifest = chrome.runtime.getManifest();
   console.log(manifest.version);
 
   settingsIcon.addEventListener("click", toggleSettingsPanel);
+
+  settingsNav.addEventListener("click", function() {
+    let target = document.querySelector(`#settings${event.target.innerHTML}`);
+    //console.log(target);
+    hideAllChildrenButOne("settingsSubpanelContainer", target);
+  });
 
   function toggleSettingsPanel() {
     settingsIcon.classList.toggle("clicked");
@@ -37,6 +46,16 @@
 
   function hideElement(element) {
     element.classList.add("hidden");
+  }
+
+  // Based on 
+  // https://stackoverflow.com/questions/17928816/how-to-get-and-hide-siblings-in-javascript
+  function hideAllChildrenButOne(parentId, toRevealId) {
+    let children = document.getElementById(parentId).children;
+    for (let i = 0; i < children.length; i++) {
+      hideElement(children[i]);
+    }
+    showElement(toRevealId);
   }
 
 })();
