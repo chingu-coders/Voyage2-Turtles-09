@@ -99,7 +99,7 @@ body, input {
 
 .recipe-information {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
 }
 
 .recipe-information p {
@@ -112,11 +112,11 @@ body, input {
 
 .recipe-diet-labels * {
   background: #333;
-  border-radius: .4rem;
+  border-radius: .2rem;
   color: #eee;
   font-weight: bold;
   letter-spacing: 1px;
-  /*margin: .2rem;*/
+  margin-right: .4rem;
   padding: .2rem .4rem;
   text-transform: uppercase;
 }

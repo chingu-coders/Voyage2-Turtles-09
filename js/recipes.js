@@ -40,7 +40,7 @@
   const app_key = "&app_key=5e414263cb40da6abf1019a550333f43";
   let search = "?q=" + searchTerms[rand(searchTerms.length)];
   let diet = "&diet=" + dietOptions[rand(dietOptions.length)];
-  let range = "&to=100";
+  let range = "&to=" + "5";
   const query = api + search + app_id + app_key + diet + range;
 
   // Check storage for saved recipe
@@ -75,10 +75,12 @@
       let edmDietLabels = json.hits[randomRecipe].recipe.dietLabels;
       let edmHealthLabels = json.hits[randomRecipe].recipe.healthLabels;
 
+      console.log(edmDietLabels);
+
       let savedRecipe = {
+        title: edmTitle,
         timestamp: timestamp,
         thumbnail: edmImage,
-        title: edmTitle,
         calories: edmCalories,
         diet: edmDietLabels,
         health: edmHealthLabels,
@@ -95,7 +97,7 @@
   function recipePreview(recipe) {
     recipeThumbnail.setAttribute("src", recipe.thumbnail);
     recipeTitle.textContent = recipe.title;
-    recipeDietLabels.textContent = recipe.diet;
+    recipeDietLabels.innerHTML = listAry(recipe.diet);
     //recipeHealthLabels.textContent = recipe.health;
     recipeCalories.textContent = recipe.calories;
     recipeSource.textContent = recipe.source;
@@ -105,6 +107,13 @@
   // Get random number
   function rand(num) {
     return Math.floor(Math.random() * num);
+  }
+
+  // Return list of array items wrapped in spans
+  function listAry(ary) {
+    let list = "";
+    ary.forEach(function(e){ list += ("<span>" + e + "</span>") })
+    return list
   }
 
 })();
