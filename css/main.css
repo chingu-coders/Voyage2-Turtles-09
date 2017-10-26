@@ -251,6 +251,14 @@ body, input {
   justify-content: space-between;
 }
 
+.settings {
+  flex:  1 0 0;
+}
+
+.credits {
+  flex: 4 0 0;
+}
+
 .fa-twitter,
 .fa-heart-o {
   cursor: pointer;
@@ -258,6 +266,14 @@ body, input {
   margin-left: 10px;
 }
 
+.quote {
+  flex: 15 0 0;
+  text-align: center;
+}
+
+.todo {
+  flex: 5 0 0;
+}
 /*****************************
 * Utility classes and Helpers
 ******************************/
@@ -333,15 +349,9 @@ body, input {
   position: relative;
   bottom: 30px;
   height: 50px;
-  width: 150px;
-}
-
-.floater-box.quote {
-  width: 70%;
 }
 
 .floater{
-  opacity: 0.8;
   height: 0;
   margin: -15px 1px;
   line-height: 1em;
@@ -354,7 +364,7 @@ p.photographer a {
 
 .floater:first-child {
   position: relative;
-  top: 3.4em;
+  top: 4em;
   border-bottom: 10px solid transparent;
   -webkit-transition: all 250ms 0.4s ease;
   -moz-transition: all 250ms 0.4s ease;
@@ -364,15 +374,14 @@ p.photographer a {
 
 .floater-box:hover .floater:first-child {
   opacity: 1;
-  transform: translateY(-.75em);
+  transform: translateY(-1.5em);
   transition-delay: 250ms;
 }
 
 .floater:last-child {
   opacity: 0;
-  position: absolute;
   bottom: 2.3rem;
-  border-top: 10px solid transparent;
+  border-top: 55px solid transparent;
   -webkit-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
@@ -380,7 +389,7 @@ p.photographer a {
 }
 
 .floater-box:hover .floater:last-child {
-  opacity: 0.8;
-  transform: translateY(1.5em);
+  opacity: 1;
+  transform: translateY(1em);
   transition-delay: 250ms;
 }
