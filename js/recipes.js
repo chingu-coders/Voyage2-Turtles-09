@@ -75,17 +75,15 @@
       let edmDietLabels = json.hits[randomRecipe].recipe.dietLabels;
       let edmHealthLabels = json.hits[randomRecipe].recipe.healthLabels;
 
-      console.log(edmDietLabels);
-
       let savedRecipe = {
         title: edmTitle,
         timestamp: timestamp,
-        thumbnail: edmImage,
+        source: edmSource,
+        sourceUrl: edmSourceUrl,
         calories: edmCalories,
         diet: edmDietLabels,
         health: edmHealthLabels,
-        source: edmSource,
-        sourceUrl: edmSourceUrl
+        thumbnail: edmImage
       }
 
       // Save to Chrome storage
@@ -97,7 +95,7 @@
   function recipePreview(recipe) {
     recipeThumbnail.setAttribute("src", recipe.thumbnail);
     recipeTitle.textContent = recipe.title;
-    recipeDietLabels.innerHTML = listAry(recipe.diet);
+    recipeDietLabels.innerHTML = listAry(recipe.diet, "<span>", "</span>");
     //recipeHealthLabels.textContent = recipe.health;
     recipeCalories.textContent = recipe.calories;
     recipeSource.textContent = recipe.source;
@@ -109,10 +107,10 @@
     return Math.floor(Math.random() * num);
   }
 
-  // Return list of array items wrapped in spans
-  function listAry(ary) {
+  // Return list of array items wrapped in a container
+  function listAry(ary, containerOpen, containerClose) {
     let list = "";
-    ary.forEach(function(e){ list += ("<span>" + e + "</span>") })
+    ary.forEach(function(e){ list += (containerOpen + e + containerClose) })
     return list
   }
 
