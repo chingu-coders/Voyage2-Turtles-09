@@ -27,6 +27,7 @@ ul {
  }
 
 body {
+  background: radial-gradient(rgba(223,223,223,.75), rgba(128,128,128,.75));
   color: #fff;
   font-size: 16px;
   margin: 0;
