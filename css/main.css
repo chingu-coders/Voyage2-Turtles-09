@@ -97,8 +97,28 @@ body, input {
   margin: 0;
 }
 
+.recipe-information {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
 .recipe-information p {
-  margin: 0;
+  margin: 5px 0 10px;
+}
+
+.recipe-labels {
+  font-size: 0.5em;
+}
+
+.recipe-diet-labels * {
+  background: #333;
+  border-radius: .4rem;
+  color: #eee;
+  font-weight: bold;
+  letter-spacing: 1px;
+  /*margin: .2rem;*/
+  padding: .2rem .4rem;
+  text-transform: uppercase;
 }
 
 /***********************
