@@ -82,6 +82,13 @@ body, input {
   justify-content: flex-end;
 }
 
+.fa-twitter,
+.fa-heart-o {
+  cursor: pointer;
+  font-size: 1.25rem;
+  margin-left: 10px;
+}
+
 /* Time, Greeting, & Username */
 .greeting,
 .user-name {
