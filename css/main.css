@@ -48,25 +48,39 @@ body, input {
 .top-row {
   display: flex;
   flex: 0 1 auto;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 
 .recipes {
-  background: rgba(0, 0, 0, 0.4);
-  font-size: 1.2rem;
-  padding: 10px;
-  width: 100vw;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  color: #000;
+  font-size: 1rem;
+  margin-top: -150px;
+  height: 200px;
+  padding: 0 15px;
+  width: 50%;
+  transition: all 0.5s cubic-bezier(.25,.8,.25,1);
 }
 
-.recipes > h2 {
-  background: rgba(0, 0, 0, 0.1);
-  color: #ddd;
-  font-size: 1rem;
+.recipes:hover {
+  background: rgba(255, 255, 255, 0.9);
+  /*box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22);*/
+  margin-top: 0;
+}
+
+.recipes h2 {
+  color: #222;
+  display: flex;
+  flex-flow: row nowrap;
+  font-size: 0.7rem;
   font-weight: normal;
+  justify-content: space-between;
   letter-spacing: 1px;
-  margin: -10px -10px 0 -10px;
-  padding: 10px;
+  margin: 0;
+  padding: 0;
   text-transform: uppercase;
 }
 
@@ -74,40 +88,43 @@ body, input {
 .recipes a:visited,
 .recipes a:hover,
 .recipes a:active {
-  color: #eee;
+  color: #666;
   font-weight: bold;
   text-decoration: none;
 }
 
 .recipe-preview {
   display: flex;
-  flex-flow: row nowrap;
-  height: 50px;
-  width: 100%;
+  flex-flow: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 0 10px;
+}
+
+.recipe-reveal {
+  display: flex;
+}
+
+.recipe-reload a:link,
+.recipe-reload a:visited,
+.recipe-reload a:active {
+  color: #555;
+  transition: all 0.3s;
+}
+
+.recipe-reload a:hover {
+  color: #000;
 }
 
 .recipe-thumbnail {
   background: rgba(0, 0, 0, 0.4);
   margin-right: 10px;
-  max-height: 50px;
-  min-width: 50px;
+  max-height: 140px;
 }
 
 .recipe-title {
+  font-size: 0.8rem;
   margin: 0;
-}
-
-.recipe-information {
-  display: flex;
-  flex-flow: row wrap;
-}
-
-.recipe-information p {
-  margin: 5px 0 10px;
-}
-
-.recipe-labels {
-  font-size: 0.5em;
 }
 
 .recipe-diet-labels * {
