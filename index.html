@@ -34,25 +34,42 @@
 
         <!-- Recipes -->
         <section class="recipes">
-          <h2>Recipe of the Day</h2>
           <div class="recipe-preview">
-            <img class="recipe-thumbnail" src="">
-            <div class="recipe-information">
-              <h3 class="recipe-title"></h3>
-              <p class="recipe-labels">
-                <span class="recipe-diet-labels"></span>
+            <div class="recipe-reveal">
+              <img class="recipe-thumbnail" src="">
+              <!-- <p class="recipe-labels">
                 <span class="recipe-health-labels"></span>
-              </p>
-              <a class="recipe-source" href="#"></a>
-            </div>
-            <div class="recipe-nutrition">
+              </p> -->
+
+              <div class="recipe-information">
+                <span>Get the recipe at:</span>
+                <a class="recipe-source" href="#"></a>
                 <div class="recipe-calories">
                   <span>Calories</span>
                   <span class="value"></span>
                 </div>
+                <span class="recipe-reload">
+                  <a href="#">
+                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                  </a>
+                </span>
+              </div>
+
+
             </div>
-            <div><a class="recipe-reload" href="#"><i class="fa fa-refresh" aria-hidden="true"></i> New Recipe!</a></div>
-          </div>
+            <div class="pull-tab">
+              <span>Recipe of the Day:</span>
+              <h2>
+                <span>
+                  <span class="recipe-title"></span>
+                  <span class="recipe-diet-labels"></span>
+                </span>
+                <span class="recipe-reveal-pull">
+                  <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </span>
+              </h2>
+            </div>
+          </div><!-- End of preview -->
         </section><!-- End of recipes -->
 
         <!-- <section>Weather?</section> -->
