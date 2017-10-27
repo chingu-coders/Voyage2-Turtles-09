@@ -35,7 +35,7 @@
         console.error("Check Chrome storage for saved recipe: " + error);
       // If there's nothing in storage,
       // OR the saved recipe is not today's date, run the query
-      } else if (!obj.recipe || (obj.recipe && obj.recipe.timestamp !== timestamp)) {
+      } else if (!obj.recipe || (obj.recipe.timestamp !== timestamp)) {
         queryEdamam();
       } else {
         recipePreview(obj.recipe);
