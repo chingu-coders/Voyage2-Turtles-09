@@ -100,7 +100,7 @@
   function recipePreview(recipe) {
     recipeThumbnail.setAttribute("src", recipe.thumbnail);
     recipeTitle.textContent = recipe.title;
-    recipeDietLabels.innerHTML = listAry(recipe.diet, "<span>", "</span>");
+    recipeDietLabels.innerHTML = listAry(recipe.diet);
     //recipeHealthLabels.textContent = recipe.health;
     recipeCalories.textContent = recipe.calories;
     recipeSource.textContent = recipe.source;
@@ -113,9 +113,9 @@
   }
 
   // Return list of array items wrapped in a container
-  function listAry(ary, containerOpen, containerClose) {
+  function listAry(ary) {
     let list = "";
-    ary.forEach(function(e){ list += (containerOpen + e + containerClose) })
+    ary.forEach(function(e){ list += ('<span class="' + e.toLowerCase() + '">' + e + '</span>') })
     return list
   }
 
