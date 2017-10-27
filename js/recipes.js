@@ -14,47 +14,20 @@
   const recipeHealthLabels = document.querySelector(".recipe-health-labels");
   const recipeReload = document.querySelector(".recipe-reload");
 
-  // Initialize saved recipe object
-  //let savedRecipe;
-
-  // Define default recipe search options
-  let searchTerms = ["chicken",
-                     "beef",
-                     "pork",
-                     "fish",
-                     "seafood",
-                     "vegetable",
-                     "pasta",
-                     "roast",
-                     "risotto",
-                     "stew",
-                     "curry"
-                     ]
-  let dietOptions = ["balanced",
-                     "high-protein",
-                     "high-fiber",
-                     "low-fat",
-                     "low-carb",
-                     "low-sodium"
-                     ]
-
-  // Build API URL
-  const api = "https://api.edamam.com/search";
-  const app_id = "&app_id=373a2755";
-  const app_key = "&app_key=5e414263cb40da6abf1019a550333f43";
-  let search = "?q=" + searchTerms[rand(searchTerms.length)];
-  let diet = "&diet=" + dietOptions[rand(dietOptions.length)];
-  let range = "&to=" + "5";
-  const query = api + search + app_id + app_key + diet + range;
-
   // Action!
-  (function init() {
-    getRecipe();
+  getRecipe();
 
-  })();
+  // Listen for recipe reset
+  recipeReload.addEventListener("click", function reload() {
+    queryEdamam();
+  })
 
-  // Check storage for saved recipe
+  // ----------------------------------------------------------------------
+  // Functions
+  //
+
   function getRecipe() {
+    // Check storage for saved recipe
     chrome.storage.sync.get("recipe", function(obj){
       // Error handling
       let error = chrome.runtime.lastError;
@@ -72,8 +45,26 @@
 
   // Query Edamam API
   function queryEdamam() {
-    $.getJSON(query, function(json) {
+    // Define default recipe search options
+    let searchTerms = ["chicken", "beef", "pork", "fish", "seafood",
+                        "vegetable", "pasta", "roast", "risotto",
+                        "stew", "curry"
+                        ]
+    let dietOptions = ["balanced", "high-protein", "high-fiber",
+                        "low-fat", "low-carb", "low-sodium"
+                        ]
 
+    // Build query url
+    const api = "https://api.edamam.com/search";
+    const app_id = "&app_id=" + "373a2755";
+    const app_key = "&app_key=" + "5e414263cb40da6abf1019a550333f43";
+    let search = "?q=" + searchTerms[rand(searchTerms.length)];
+    let diet = "&diet=" + dietOptions[rand(dietOptions.length)];
+    let range = "&to=" + "5";
+    const query = api + search + app_id + app_key + diet + range;
+
+    // Query Edamam
+    $.getJSON(query, function(json) {
       console.log(json);
 
       // Set data variables (edm == edamam)
@@ -86,6 +77,7 @@
       let edmDietLabels = json.hits[randomRecipe].recipe.dietLabels;
       let edmHealthLabels = json.hits[randomRecipe].recipe.healthLabels;
 
+      // Save query vars
       let savedRecipe = {
         title: edmTitle,
         timestamp: timestamp,
@@ -126,12 +118,6 @@
     ary.forEach(function(e){ list += (containerOpen + e + containerClose) })
     return list
   }
-
-  // Event listener for reloading recipe
-  recipeReload.addEventListener("click", function reload() {
-    // TODO: Build new query string before resending the query
-    queryEdamam();
-  })
 
 })();
 // Recipes ends
