@@ -153,14 +153,6 @@
     hideElement(focusUncheckedBox);
   }
 
-  function showElement(element) {
-    element.classList.remove("hidden");
-  }
-
-  function hideElement(element) {
-    element.classList.add("hidden");
-  }
-
   function handleKeydown(event) {
     if (event.keyCode === 13){ //Enter key pressed
       if (this.value !== "") {

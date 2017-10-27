@@ -6,19 +6,20 @@
     <title>New Tab</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
   </head>
 
-  <body>
+  <body spellcheck="false">
     <div class="initial-wrapper" style="display: none;">
       <div class="top-row"></div>
 
       <div class="center-row">
-        <div class="name-entry">
-          <div class="name-entry-greeting" id="nameEntryGreeting"></div>
-          <div>
+        <div class="name-entry text-shadow">
+          <div class="greeting" id="nameEntryGreeting"></div>
+          <div class="greeting">
             <p>What's your name?</p>
           </div>
-          <div class="name-entry-line" id="nameEntryLine" contenteditable="true"></div>
+          <div class="name-entry-line border-bottom-shadow" id="nameEntryLine" contenteditable="true"></div>
         </div>
       </div>
 
@@ -35,18 +36,18 @@
 
       <!-- Center row of page -->
       <div class="center-row" id="center-row">
-        <section class="time" id="time"></section>
-        <section class="greeting-user-name" id="greetingUserName">
+        <section class="time text-shadow" id="time"></section>
+        <section class="greeting-user-name text-shadow" id="greetingUserName">
           <span id="greeting" class="greeting"></span>
-          <span class="user-name" id="userName" spellcheck="false" contenteditable="false"></span>.
+          <span class="user-name" id="userName" contenteditable="false"></span>
         </section>
 
         <!-- Main Focus -->
-        <section class="focus">
+        <section class="focus text-shadow">
 
           <div id="focus-input-wrapper" class="focus-input-wrapper hidden">
             <p>What is your main focus for today?</p>
-            <input type="text" name="focus" id="focus-input">
+            <input class="border-bottom-shadow" type="text" name="focus" id="focus-input">
             <div id="focus-input-message"></div>
           </div>
 
@@ -69,27 +70,58 @@
 
       <!-- Bottom row of page -->
       <div class="bottom-row" id="bottom-row">
-        <div class="">
-          <span class="fa fa-cog fa-2x settings-icon"></span>
+        <div class="settings-icon-wrapper">
+          <span class="fa fa-cog settings-icon text-shadow-strong"></span>
         </div>
         <section class="settings hidden">
           <ul class="settings-nav">
             <li class="settings-current">General</li>
-            <li>Quotes</li>
+            <!--<li>Quotes</li>-->
             <li>Links</li>
             <li>About</li>
-            <li>T9</li>
+            <!--<li>T9</li>-->
           </ul>
           <div class="settings-subpanel-container" id="settingsSubpanelContainer">
 
             <!-- General -->
             <div class="settings-subpanel settings-general" id="settingsGeneral">
+              <h2>SHOW</h2>
               <ul>
-                <li>Time</li>
-                <li>Greeting</li>
-                <li>Focus</li>
-                <li>To-do</li>
-                <li>Quote</li>
+                <li>
+                  <label class="toggle">
+                    Time
+                    <input type="checkbox">
+                    <div class="toggle-btn"></div>
+                  </label>
+                </li>
+                <li>
+                  <label class="toggle">
+                    Greeting
+                    <input type="checkbox">
+                    <div class="toggle-btn"></div>
+                  </label>
+                </li>
+                <li>
+                  <label class="toggle">
+                    Focus
+                    <input type="checkbox">
+                    <div class="toggle-btn"></div>
+                  </label>
+                </li>
+                <li>
+                  <label class="toggle">
+                    To-do
+                    <input type="checkbox">
+                    <div class="toggle-btn"></div>
+                  </label>
+                </li>
+                <li>
+                  <label class="toggle">
+                    Quote
+                    <input type="checkbox">
+                    <div class="toggle-btn"></div>
+                  </label>
+                </li>
               </ul>
             </div>
 
@@ -129,28 +161,25 @@
 
           </div>
         </section>
-        <section class="floater-box credits">
+        <section class="floater-box credits text-shadow-strong">
           <p id="image-location" class="floater location">image location</p>
           <p id="image-photographer" class="floater photographer">image data</p>
         </section>
-        <section class="floater-box quote">
+        <section class="floater-box quote text-shadow-strong">
           <p id="quote" class="floater quote"></p>
           <p id="quoteLinks" class="floater quoteLinks">
             <!-- Tweet Button -->
-            <button type="button" id="tweet" class="btn btn-default" aria-label="Left Align">
-              <span class="glyphicon fa fa-twitter" aria-hidden="true"></span>
-            </button>
+              <span class="fa fa-twitter" id="tweet" aria-hidden="true"></span>
             <!-- Like Button -->
-            <button type="button" id="saveQuote" class="btn btn-default" aria-label="Left Align">
-              <span class="glyphicon fa fa-heart-o" aria-hidden="true"></span>
-            </button>
+              <span class="fa fa-heart-o" id="saveQuote" aria-hidden="true"></span>
           </p>
         </section>
-        <section>todo</section>
+        <section class="todo">todo</section>
       </div>
 
     </div><!-- end of .main-wrapper -->
     <script src="libs/jquery-3.2.1.min.js"></script>
+    <script src="js/helper-functions.js"></script>
     <script src="js/script.js"></script>
     <script src="js/background-image.js"></script>
     <script src="js/quote.js"></script>

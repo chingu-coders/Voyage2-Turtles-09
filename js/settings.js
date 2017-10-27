@@ -4,24 +4,25 @@
   const settingsIcon = document.querySelector(".settings-icon");
   const settingsPanel = document.querySelector(".settings");
   const settingsNav = document.querySelector(".settings-nav");
-  //const settingsAbout = document.querySelector(".settings-about");
   const aboutText = document.querySelector(".settings-about-text");
   const settingsGeneral = document.querySelector(".settings-general");
   const manifest = chrome.runtime.getManifest();
-  console.log(manifest.version);
 
+  // Toggle settings panel on and off when settings icon (cog) is clicked.
   settingsIcon.addEventListener("click", toggleSettingsPanel);
-
-  settingsNav.addEventListener("click", function() {
-    let target = document.querySelector(`#settings${event.target.innerHTML}`);
-    //console.log(target);
-    hideAllChildrenButOne("settingsSubpanelContainer", target);
-  });
 
   function toggleSettingsPanel() {
     settingsIcon.classList.toggle("clicked");
     settingsPanel.classList.toggle("hidden");
   }
+
+  // Display appropriate settings panel when a nav item is clicked.  
+  settingsNav.addEventListener("click", function() {
+    let target = event.target;
+    addClassToOneChild(".settings-nav", target);
+    let chosenSubpanel = document.querySelector(`#settings${target.innerHTML}`);
+    hideAllChildrenButOne("settingsSubpanelContainer", chosenSubpanel);
+  });
 
   aboutText.innerHTML = `
     <h1>${manifest.name}</h1>
@@ -35,27 +36,5 @@
     </ul>
     <footer>Made with <span class="fa fa-heart"></span> by Chingu developers</footer>
   `;
-
-
-/********************
- * Utility Functions
- ********************/
-  function showElement(element) {
-    element.classList.remove("hidden");
-  }
-
-  function hideElement(element) {
-    element.classList.add("hidden");
-  }
-
-  // Based on 
-  // https://stackoverflow.com/questions/17928816/how-to-get-and-hide-siblings-in-javascript
-  function hideAllChildrenButOne(parentId, toRevealId) {
-    let children = document.getElementById(parentId).children;
-    for (let i = 0; i < children.length; i++) {
-      hideElement(children[i]);
-    }
-    showElement(toRevealId);
-  }
 
 })();
