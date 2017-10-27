@@ -12,6 +12,10 @@
   const recipeSource = document.querySelector(".recipe-source");
   const recipeDietLabels = document.querySelector(".recipe-diet-labels");
   const recipeHealthLabels = document.querySelector(".recipe-health-labels");
+  const recipeReload = document.querySelector(".recipe-reload");
+
+  // Initialize saved recipe object
+  //let savedRecipe;
 
   // Define default recipe search options
   let searchTerms = ["chicken",
@@ -43,21 +47,28 @@
   let range = "&to=" + "5";
   const query = api + search + app_id + app_key + diet + range;
 
-  // Check storage for saved recipe
-  chrome.storage.sync.get("recipe", function(obj){
-    // Error handling
-    let error = chrome.runtime.lastError;
-    if (error) {
-      console.error("Check Chrome storage for saved recipe: " + error);
-    // If there's nothing in storage,
-    // OR the saved recipe is not today's date, run the query
-    } else /*if (!obj.recipe || (obj.recipe && obj.recipe.timestamp !== timestamp))*/ {
-      queryEdamam();
-    }
-    // Display recipe preview in browser
-    recipePreview(obj.recipe);
+  // Action!
+  (function init() {
+    getRecipe();
 
-  });
+  })();
+
+  // Check storage for saved recipe
+  function getRecipe() {
+    chrome.storage.sync.get("recipe", function(obj){
+      // Error handling
+      let error = chrome.runtime.lastError;
+      if (error) {
+        console.error("Check Chrome storage for saved recipe: " + error);
+      // If there's nothing in storage,
+      // OR the saved recipe is not today's date, run the query
+      } else if (!obj.recipe || (obj.recipe && obj.recipe.timestamp !== timestamp)) {
+        queryEdamam();
+      } else {
+        recipePreview(obj.recipe);
+      }
+    });
+  }
 
   // Query Edamam API
   function queryEdamam() {
@@ -88,6 +99,8 @@
 
       // Save to Chrome storage
       chrome.storage.sync.set({"recipe": savedRecipe});
+
+      recipePreview(savedRecipe);
     });
   }
 
@@ -113,6 +126,12 @@
     ary.forEach(function(e){ list += (containerOpen + e + containerClose) })
     return list
   }
+
+  // Event listener for reloading recipe
+  recipeReload.addEventListener("click", function reload() {
+    // TODO: Build new query string before resending the query
+    queryEdamam();
+  })
 
 })();
 // Recipes ends
