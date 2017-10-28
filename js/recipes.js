@@ -12,6 +12,10 @@
   const recipeSource = document.querySelector(".recipe-source");
   const recipeDietLabels = document.querySelector(".recipe-diet-labels");
   const recipeHealthLabels = document.querySelector(".recipe-health-labels");
+  const recipeFat = document.querySelector(".recipe-nutrients-fat .value");
+  const recipeSugar = document.querySelector(".recipe-nutrients-sugar .value");
+  const recipeServes = document.querySelector(".recipe-serves .value");
+  const recipeNotes = document.querySelector(".recipe-notes");
   const recipeReload = document.querySelector(".recipe-reload");
 
   // Action!
@@ -76,6 +80,10 @@
       let edmSourceUrl = json.hits[randomRecipe].recipe.url;
       let edmDietLabels = json.hits[randomRecipe].recipe.dietLabels;
       let edmHealthLabels = json.hits[randomRecipe].recipe.healthLabels;
+      let edmServes = json.hits[randomRecipe].recipe.yield;
+      let edmFat = Math.round(json.hits[randomRecipe].recipe.totalNutrients.FAT.quantity);
+      let edmSugar = Math.round(json.hits[randomRecipe].recipe.totalNutrients.SUGAR.quantity);
+      let edmNotes = json.hits[randomRecipe].recipe.cautions;
 
       // Save query vars
       let savedRecipe = {
@@ -86,7 +94,11 @@
         calories: edmCalories,
         diet: edmDietLabels,
         health: edmHealthLabels,
-        thumbnail: edmImage
+        thumbnail: edmImage,
+        serves: edmServes,
+        fat: edmFat,
+        sugar: edmSugar,
+        notes: edmNotes
       }
 
       // Save to Chrome storage
@@ -103,8 +115,13 @@
     recipeDietLabels.innerHTML = listAry(recipe.diet);
     //recipeHealthLabels.textContent = recipe.health;
     recipeCalories.textContent = recipe.calories;
-    recipeSource.textContent = recipe.source;
+    recipeServes.textContent = recipe.serves;
+    recipeFat.textContent = recipe.fat;
+    recipeSugar.textContent = recipe.sugar;
+    recipeNotes.innerHTML = listAry(recipe.notes);
+    recipeSource.textContent = recipe.source + " >";
     recipeSource.setAttribute("href", recipe.sourceUrl);
+
   }
 
   // Get random number
