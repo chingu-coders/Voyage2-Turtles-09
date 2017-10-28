@@ -118,7 +118,7 @@
     recipeServes.textContent = recipe.serves;
     recipeFat.textContent = recipe.fat;
     recipeSugar.textContent = recipe.sugar;
-    recipeNotes.innerHTML = listAry(recipe.notes);
+    recipeNotes.innerHTML = recipe.notes.length > 0 ? "Notes: " + listAry(recipe.notes) : "";
     recipeSource.innerHTML = recipe.source +
                                ' <i class="fa fa-angle-right" aria-hidden="true"></i>';
     recipeSource.setAttribute("href", recipe.sourceUrl);
