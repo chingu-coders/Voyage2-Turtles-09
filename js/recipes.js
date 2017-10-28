@@ -119,7 +119,8 @@
     recipeFat.textContent = recipe.fat;
     recipeSugar.textContent = recipe.sugar;
     recipeNotes.innerHTML = listAry(recipe.notes);
-    recipeSource.textContent = recipe.source + " >";
+    recipeSource.innerHTML = recipe.source +
+                               ' <i class="fa fa-angle-right" aria-hidden="true"></i>';
     recipeSource.setAttribute("href", recipe.sourceUrl);
 
   }

@@ -84,12 +84,26 @@ body, input {
   /*text-transform: uppercase;*/
 }
 
+.recipe-information {
+  display: flex;
+  flex: 1 auto;
+  flex-flow: column nowrap;
+}
+
+.recipe-header {
+  display: flex;
+  flex: 1 auto;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
 .recipe-title {
   font-size: 1rem;
   margin: 0;
 }
 
-.recipe-title-label {
+.recipe-title-label,
+.recipe-source-label {
   color: #333;
   font-size: 0.6rem;
   letter-spacing: 1px;
