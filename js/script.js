@@ -45,19 +45,20 @@
   });
 
   function getFocus() {
-    /* Is there already a focus in storage? */
+    // Is there already a focus in storage?
     STORAGE.get("focusArray", function(obj){
       let error = chrome.runtime.lastError;
       if (error) {
         console.error("getFocus(): " + error);
       }
       else {
-        /* if there is, display it */
+        // If there is, display it.
         if (obj.focusArray && obj.focusArray.length > 0) {
+          // Store it in a variable so that we can work with it.
           focusArr = obj.focusArray;
           prepareFocusForDisplay();
         }
-        /* if not, get focus from user */
+        // If not, get focus from user.
         else {
           showElement(focusInWrapper);
           markAsIncomplete();

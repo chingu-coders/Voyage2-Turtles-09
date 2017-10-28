@@ -16,10 +16,10 @@ function hideAllChildrenButOne(parentId, toRevealId) {
   showElement(toRevealId);
 }
 
-function addClassToOneChild(parentSelector, toReceiveClass) {
+function addClassToOneChild(parentSelector, toReceiveClass, classToAdd) {
   let children = document.querySelector(parentSelector).children;
   for (let i = 0; i < children.length; i++) {
-    children[i].classList.remove("settings-current");
+    children[i].classList.remove(classToAdd);
   }
-  toReceiveClass.classList.add("settings-current");
+  toReceiveClass.classList.add(classToAdd);
 }
