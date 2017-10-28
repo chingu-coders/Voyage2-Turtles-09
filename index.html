@@ -6,19 +6,20 @@
     <title>New Tab</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
   </head>
 
-  <body>
+  <body spellcheck="false">
     <div class="initial-wrapper" style="display: none;">
       <div class="top-row"></div>
 
       <div class="center-row">
-        <div class="name-entry">
-          <div class="name-entry-greeting" id="nameEntryGreeting"></div>
-          <div>
+        <div class="name-entry text-shadow">
+          <div class="greeting" id="nameEntryGreeting"></div>
+          <div class="greeting">
             <p>What's your name?</p>
           </div>
-          <div class="name-entry-line" id="nameEntryLine" contenteditable="true"></div>
+          <div class="name-entry-line border-bottom-shadow" id="nameEntryLine" contenteditable="true"></div>
         </div>
       </div>
 
@@ -96,18 +97,18 @@
 
       <!-- Center row of page -->
       <div class="center-row" id="center-row">
-        <section class="time" id="time"></section>
-        <section class="greeting-user-name" id="greetingUserName">
+        <section class="time text-shadow" id="time"></section>
+        <section class="greeting-user-name text-shadow" id="greetingUserName">
           <span id="greeting" class="greeting"></span>
-          <span class="user-name" id="userName" spellcheck="false" contenteditable="false"></span>.
+          <span class="user-name" id="userName" contenteditable="false"></span>
         </section>
 
         <!-- Main Focus -->
-        <section class="focus">
+        <section class="focus text-shadow">
 
           <div id="focus-input-wrapper" class="focus-input-wrapper hidden">
             <p>What is your main focus for today?</p>
-            <input type="text" name="focus" id="focus-input">
+            <input class="border-bottom-shadow" type="text" name="focus" id="focus-input">
             <div id="focus-input-message"></div>
           </div>
 
@@ -130,24 +131,21 @@
 
       <!-- Bottom row of page -->
       <div class="bottom-row" id="bottom-row">
-        <section class="floater-box credits">
+        <div class="settings-icon-wrapper"></div>
+        <section class="floater-box credits text-shadow-strong">
           <p id="image-location" class="floater location">image location</p>
           <p id="image-photographer" class="floater photographer">image data</p>
         </section>
-        <section class="floater-box quote">
+        <section class="floater-box quote text-shadow-strong">
           <p id="quote" class="floater quote"></p>
           <p id="quoteLinks" class="floater quoteLinks">
             <!-- Tweet Button -->
-            <button type="button" id="tweet" class="btn btn-default" aria-label="Left Align">
-              <span class="glyphicon fa fa-twitter" aria-hidden="true"></span>
-            </button>
+              <span class="fa fa-twitter" id="tweet" aria-hidden="true"></span>
             <!-- Like Button -->
-            <button type="button" id="saveQuote" class="btn btn-default" aria-label="Left Align">
-              <span class="glyphicon fa fa-heart-o" aria-hidden="true"></span>
-            </button>
+              <span class="fa fa-heart-o" id="saveQuote" aria-hidden="true"></span>
           </p>
         </section>
-        <section>todo</section>
+        <section class="todo">todo</section>
       </div>
 
     </div><!-- end of .main-wrapper -->
