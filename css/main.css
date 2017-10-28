@@ -58,7 +58,7 @@ body, input {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   color: #000;
   font-size: 1rem;
-  /*margin-top: -150px;*/
+  margin-top: -150px;
   min-width: 620px;
   height: 200px;
   padding: 0 15px;
@@ -67,7 +67,7 @@ body, input {
 }
 
 .recipes:hover {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   /*box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22);*/
   margin-top: 0;
 }
@@ -104,11 +104,16 @@ body, input {
 }
 
 .recipe-title-label,
-.recipe-source-label {
+.recipe-source-label,
+.recipe-notes {
   color: #333;
   font-size: 0.6rem;
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+
+.recipe-notes span:not(:first-child):before {
+  content: ", ";
 }
 
 .recipes a:link,
@@ -195,6 +200,7 @@ body, input {
   border-bottom: solid 1px #dedede;
   display: flex;
   flex-flow: row nowrap;
+  margin-top: 10px;
 }
 
 .recipe-stats div {
@@ -204,7 +210,7 @@ body, input {
   display: flex;
   flex-flow: column;
   margin-right: 30px;
-  padding: 10px 10px 15px;
+  padding: 5px 10px 10px;
 }
 
 .recipe-serves,
