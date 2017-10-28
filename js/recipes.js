@@ -59,7 +59,11 @@
                         ]
 
     // Build query url
-    const api = "https://api.edamam.com/search";
+    // TODO - Delete the following line of code (and these comments) before deploying to Chrome Web Store
+    // api prepends a proxy to get around CORS issue (only needed during development)
+    const api = "https://cors-anywhere.herokuapp.com/" + "https://api.edamam.com/search";
+    // TODO uncomment the next line
+    // const api = "https://api.edamam.com/search";
     const app_id = "&app_id=" + "373a2755";
     const app_key = "&app_key=" + "5e414263cb40da6abf1019a550333f43";
     let search = "?q=" + searchTerms[rand(searchTerms.length)];
