@@ -1,8 +1,10 @@
 "use strict";
 (function (){
   $(document).ready(function(){
+      let listPanel = document.getElementsByClassName("todo-multilist-foundation")[0];
       let listCollapsible = document.getElementsByClassName("todo-multilist-item");
       let customList = document.getElementsByClassName("todo-list");
+      let addListInput = document.getElementsByClassName("add-new-todo-list")[0];
 
 
 
@@ -70,12 +72,19 @@
         $(this).find(customList).slideToggle();
       });
 
-      $(addListBtn).on("click", function(e) {
-        addNewList(e.target.value);
+      $(addListInput).on("keydown", function(e) {
+        if (event.which === 13) {
+          renderNewList(e.target.value);
+        }
       });
       // after newListButton on click
-      function addNewList(listName) {
-        listBody.prepend(listName);
+      function renderNewList(listName) {
+        let newList =
+            listName +
+            '<ul class="todo-multilist-item">' +
+            '<li class="todo-list"></li>' +
+            '</ul>';
+        $(listPanel).append(newList);
       }
 
       function addNewTask() {
