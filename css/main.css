@@ -402,6 +402,7 @@ p.photographer a {
 }
 
 .todo {
+  background-color: rgba(0, 0, 0, 0.8);
   border: 1px solid red;
   padding: 0;
   margin: 5px;
@@ -409,20 +410,27 @@ p.photographer a {
   max-width: 250px;
 }
 
-.todo-panel {
-  background-color: rgba(0, 0, 0, 0.8);
+.todo-panel-body {
   color: #fff;
   font-size: 1.2em;
   padding: 0 0 0 10px;
 }
 
-.todo-panel ul {
+.todo-panel-body ul {
   padding: 0;
   margin: 0;
 
 }
 
-.checkbox {
+.todo-list {
+  display: none;
+}
+
+.todo-status {
+  margin: 0;
+}
+
+.task {
   padding: 0.2em 0 0 0;
 }
 

@@ -1,61 +1,97 @@
 "use strict";
 (function (){
-
-  let listBody = document.getElementById("todo-list");
-  let listItems = document.getElementsByClassName("checkbox");
-  let deleteIcons = document.getElementsByClassName("todo-delete");
-  let todoInput = document.getElementById("todo-input");
-  let taskList = [];
-
-  function renderItem(item) {
-    console.log("item passed in is " + item);
-
-    let newItem = '<li class="checkbox"><input type="checkbox">' + item + '</li>';
-    $(listBody).append(newItem);
-
-    $(listItems).on("click", function() {
-      console.log("you've clicked on " + this.innerText);
-    });
-
-    renderDeleteIcon(newItem);
-  }
-
-  function deleteHOnHover() {
-    function handlerIn() {
-      $(this).find(deleteIcons).removeClass("hidden");
-    }
-    function handlerOut() {
-      $(this).find(deleteIcons).addClass("hidden");
-    }
-
-    $(listItems).hover(handlerIn, handlerOut);
-  }
-
-  function renderDeleteIcon(newItem) {
-    $(listItems).last().append('<span class="todo-delete hidden">x</span>');
-    deleteHOnHover();
-    $(deleteIcons).on("click", function(){
-      // console.log("removing " + this.addBack());
-      $(this).parent().fadeOut();
-      event.stopPropagation();
-    });
-  }
+  $(document).ready(function(){
+      let listCollapsible = document.getElementsByClassName("todo-multilist-item");
+      let customList = document.getElementsByClassName("todo-list");
 
 
-  function addTask() {
-    $(todoInput).on("keydown", event => {
-      if (event.which === 13) {
-        taskList.push(event.target.value);
-        console.log(taskList);
-        renderItem(event.target.value);
 
-        todoInput.value = "";
+      let listBody = document.getElementsByClassName("todo-list");
+      let allListItems = document.getElementsByClassName("task");
+      let deleteIcons = document.getElementsByClassName("todo-delete");
+      let todoInput = document.getElementById("todo-input");
+      let addListBtn = document.getElementsByClassName("add-new-todo-list")[0];
+      let numTodos = 0;
+
+// TODO: Add multiple to-do lists
+// TODO: Add list state to chrome.storage
+// TODO: Add Dr. McGregor's list as default list
+// TODO: Style Todo to be consistent with overall design
+
+      function renderTodoStatus() {
+        let todoStatus = document.getElementsByClassName("todo-status")[0];
+        todoStatus.innerText = numTodos + " todos";
       }
-    });
-  }
-  addTask();
 
+      function updateTodoStatus(isDelete) {
+        if (!isDelete) {
+          numTodos++;
+        }
+        if (isDelete) {
+          numTodos--;
+        }
+        renderTodoStatus();
+      }
 
+      function renderItem(newTask) {
+        let newListItem =
+            '<li class="task">' +
+            '<input type="checkbox">'
+            + newTask
+            + '<span class="todo-delete hidden">x</span>'
+            + '</li>';
+        $(listBody).append(newListItem);
+        applyDelete($(allListItems).last().find("span"));
+
+      }
+
+      function deleteHover() {
+
+        function handlerIn() {
+          $(this).find(deleteIcons).removeClass("hidden");
+        }
+        function handlerOut() {
+          $(this).find(deleteIcons).addClass("hidden");
+        }
+        $(allListItems).hover(handlerIn, handlerOut);
+      }
+
+      function applyDelete(task) {
+        console.log("[debug] passed to applyDelete: " + task);
+        $(task).on("click", function(e) {
+          e.stopPropagation();
+          $(e.target).parent().fadeOut();
+          updateTodoStatus(true);
+        });
+        deleteHover();
+      }
+
+      $(listCollapsible).on("click", function(){
+        $(this).find(customList).slideToggle();
+      });
+
+      $(addListBtn).on("click", function(e) {
+        addNewList(e.target.value);
+      });
+      // after newListButton on click
+      function addNewList(listName) {
+        listBody.prepend(listName);
+      }
+
+      function addNewTask() {
+        $(todoInput).on("keydown", function(event) {
+          if (event.which === 13) {
+            let newTask = event.target.value;
+            todoInput.value = "";
+            renderItem(newTask);
+            updateTodoStatus(false);
+          }
+        });
+      }
+
+      addNewTask();
+
+  });
 })();
 
 

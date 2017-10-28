@@ -86,10 +86,52 @@
         </section>
         <section>
           <div class="todo">
-            <div class="todo-panel">
-              <h2 class="todo-status">Todo: List</h2>
-              <ul id="todo-list">
-              </ul>
+              <!--Lists are added to the panel-->
+              <!--Tasks are added to lists-->
+              <h4 class="todo-status">Todo: List</h4>
+              <div class="todo-panel-body">
+                  <ul class="todo-multilist-foundation">
+
+                      <li class="todo-multilist-item">
+
+                          Daily Dozen
+                          <ul class="todo-list">
+                              <li class="task">Eat beans</li>
+                              <li class="task">Eat broccoli</li>
+                              <li class="task">Eat kale</li>
+                          </ul>
+
+                      </li>
+
+                      <li class="todo-multilist-item">
+
+                          Groceries
+                          <ul class="todo-list">
+                              <li class="task">beans</li>
+                              <li class="task">broccoli</li>
+                              <li class="task">kale</li>
+                          </ul>
+
+                      </li>
+
+                      <li class="todo-multilist-item">
+
+                          Dev Tasks
+                          <ul class="todo-list">
+                              <li class="task">code front</li>
+                              <li class="task">code back</li>
+                              <li class="task">code devops</li>
+                          </ul>
+
+                      </li>
+                  </ul>
+
+
+
+
+
+
+                <button class="add-new-todo-list">+ new list</button>
             </div>
             <input type="text" title="to-do" class="new-todo-input" id="todo-input">
           </div>
