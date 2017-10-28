@@ -35,16 +35,19 @@
         renderTodoStatus();
       }
 
-      function renderItem(newTask) {
+      function renderItem(newItem) {
         let newListItem =
             '<li class="task">' +
             '<input type="checkbox">'
-            + newTask
+            + newItem
             + '<span class="todo-delete hidden">x</span>'
             + '</li>';
-        $(listBody).append(newListItem);
         applyDelete($(allListItems).last().find("span"));
+        return newListItem;
+      }
 
+      function addToList(list, newItem) {
+        $(list).append(renderItem(newItem));
       }
 
       function deleteHover() {
@@ -69,6 +72,7 @@
       }
 
       $(listCollapsible).on("click", function(){
+        $(this).find(".todo-list-title").css("font-weight: bold");
         $(this).find(customList).slideToggle();
       });
 
@@ -77,7 +81,7 @@
           renderNewList(e.target.value);
         }
       });
-      // after newListButton on click
+
       function renderNewList(listName) {
         let newList =
             listName +
@@ -90,9 +94,10 @@
       function addNewTask() {
         $(todoInput).on("keydown", function(event) {
           if (event.which === 13) {
-            let newTask = event.target.value;
+            let newItem = event.target.value;
             todoInput.value = "";
-            renderItem(newTask);
+            addToList(list, newItem);
+            renderItem(newItem);
             updateTodoStatus(false);
           }
         });
