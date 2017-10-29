@@ -422,8 +422,16 @@ p.photographer a {
 
 }
 
+.todo-list-selected{
+  font-weight: bolder;
+  color: royalblue;
+}
 .todo-list {
   display: none;
+}
+
+.todo-list-title {
+  margin: 0;
 }
 
 .todo-status {

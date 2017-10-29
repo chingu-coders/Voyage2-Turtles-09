@@ -5,7 +5,8 @@
       let listCollapsible = document.getElementsByClassName("todo-multilist-item");
       let customList = document.getElementsByClassName("todo-list");
       let addListInput = document.getElementsByClassName("add-new-todo-list")[0];
-
+      let listTitle = $(listCollapsible).find(".todo-list-title");
+      let activeList;
 
 
       let listBody = document.getElementsByClassName("todo-list");
@@ -47,6 +48,7 @@
       }
 
       function addToList(list, newItem) {
+        console.log("List: " + list + ", newItem: " + newItem);
         $(list).append(renderItem(newItem));
       }
 
@@ -62,7 +64,6 @@
       }
 
       function applyDelete(task) {
-        console.log("[debug] passed to applyDelete: " + task);
         $(task).on("click", function(e) {
           e.stopPropagation();
           $(e.target).parent().fadeOut();
@@ -70,17 +71,6 @@
         });
         deleteHover();
       }
-
-      $(listCollapsible).on("click", function(){
-        $(this).find(".todo-list-title").css("font-weight: bold");
-        $(this).find(customList).slideToggle();
-      });
-
-      $(addListInput).on("keydown", function(e) {
-        if (event.which === 13) {
-          renderNewList(e.target.value);
-        }
-      });
 
       function renderNewList(listName) {
         let newList =
@@ -91,19 +81,50 @@
         $(listPanel).append(newList);
       }
 
+    function getActiveList() {
+      // The active list is tracked by the selected class
+      if(listTitle.hasClass("todo-list-selected")) {
+        activeList = $("li").find(".todo-list-selected").next();
+        return activeList;
+      } else {
+        return;
+      }
+    }
+
+    // Add new lists to panel
+    $(addListInput).on("keydown", function(e) {
+      if (event.which === 13) {
+        renderNewList(e.target.value);
+      }
+    });
+
+    // Toggle active list
+    $(listCollapsible).on("click", function(){
+      // Removing all classes prevents multiple lists from being selected
+      $(listPanel).find(".todo-list-title").removeClass("todo-list-selected");
+      $(this).find(".todo-list-title").addClass("todo-list-selected");
+      $(this).find(customList).slideToggle();
+    });
+
       function addNewTask() {
         $(todoInput).on("keydown", function(event) {
           if (event.which === 13) {
+
             let newItem = event.target.value;
             todoInput.value = "";
-            addToList(list, newItem);
-            renderItem(newItem);
+
+            addToList(getActiveList(), newItem);
+
+            // Increases # tasks
             updateTodoStatus(false);
           }
         });
       }
 
       addNewTask();
+
+
+
 
   });
 })();
