@@ -23,9 +23,13 @@
     // Indicate which nav item is currently selected.
     let target = event.target;
     addClassToOneChild(".settings-nav", target, "settings-current");
-    // If chosen panel is "About", pull data from manifest
+    // If chosen panel is "About", pull data from manifest.
     if (target.innerHTML === "About") {
       populateAboutTab();
+    }
+    // If chosen panel is "LInks", add event listeners.
+    if (target.innerHTML === "Links") {
+      initLinks();
     }
     // Display the correct panel.
     let chosenSubpanel = document.querySelector(`#settings${target.innerHTML}`);
@@ -57,6 +61,19 @@
     </ul>
     <footer>Made with <span class="fa fa-heart"></span> by Chingu developers</footer>
   `;
+  }
+
+  function initLinks() {
+    const linkToChromeTab = document.querySelector(".link-chrome-tab");
+    const linkToApps = document.querySelector(".link-apps");
+
+    linkToChromeTab.addEventListener("click", function() {
+      chrome.tabs.create({url: "chrome-search://local-ntp/local-ntp.html"});
+    });
+
+    linkToApps.addEventListener("click", function() {
+      chrome.tabs.create({url: "chrome://apps"});
+    });
   }
 
   function getFeaturePreferences() {

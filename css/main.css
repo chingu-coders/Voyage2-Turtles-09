@@ -557,18 +557,21 @@ body, input {
   margin-left: -530px;
 }
 
-.settings-general h2 {
+/* settings "General" tab */
+.settings-subpanel h2 {
   font-size: 1.125rem;
   font-weight: normal;
   margin: 0;
+  text-transform: uppercase;
 }
 
-.settings-general ul {
+.settings-subpanel ul {
   margin-top: 0;
 }
 
-.settings-general h2,
-.settings-general li {
+.settings-subpanel h2,
+.settings-general li,
+.settings-links li {
   border-bottom: 2px solid rgba(255, 255, 255, .1);
   padding: .875rem 0 .625rem;
 }
@@ -620,7 +623,18 @@ input[type=checkbox]:checked + .toggle-btn::before {
   left: 18px;
   opacity: 1;
 }
+/* end settings "General" tab */
 
+/* settings "Links" tab */
+.settings-link {
+  cursor: pointer;
+  font-size: 1.125rem;
+  line-height: 1;
+  opacity: .8;
+}
+/* end settings "Links" tab */
+
+/* settings "About" tab */
 .settings-about {
   align-items: center;
   display: flex;
@@ -695,6 +709,7 @@ input[type=checkbox]:checked + .toggle-btn::before {
   color: #ccc;
   font-size: .875rem;
 }
+/* end settings "About" tab
 
 /* end of settings */
 
