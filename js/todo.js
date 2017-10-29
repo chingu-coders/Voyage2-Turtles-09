@@ -10,7 +10,7 @@
 
 
       let listBody = document.getElementsByClassName("todo-list");
-      let allListItems = document.getElementsByClassName("task");
+      let allTasks = document.getElementsByClassName("task");
       let deleteIcons = document.getElementsByClassName("todo-delete");
       let todoInput = document.getElementById("todo-input");
       let addListBtn = document.getElementsByClassName("add-new-todo-list")[0];
@@ -36,41 +36,30 @@
         renderTodoStatus();
       }
 
-      function renderItem(newItem) {
-        let newListItem =
-            '<li class="task">' +
-            '<input type="checkbox">'
-            + newItem
-            + '<span class="todo-delete hidden">x</span>'
-            + '</li>';
-        applyDelete($(allListItems).last().find("span"));
-        return newListItem;
-      }
+    function applyDelete(task) {
+      $(task).on("click", function(e) {
+        e.stopPropagation();
+        $(e.target).parent().fadeOut();
+        updateTodoStatus(true);
+      });
+      deleteHover();
+    }
 
-      function addToList(list, newItem) {
-        console.log("List: " + list + ", newItem: " + newItem);
-        $(list).append(renderItem(newItem));
-      }
+    function deleteHover() {
 
-      function deleteHover() {
-
-        function handlerIn() {
-          $(this).find(deleteIcons).removeClass("hidden");
-        }
-        function handlerOut() {
-          $(this).find(deleteIcons).addClass("hidden");
-        }
-        $(allListItems).hover(handlerIn, handlerOut);
+      function handlerIn() {
+        console.log("hover");
+        $(this).find(deleteIcons).removeClass("hidden");
       }
-
-      function applyDelete(task) {
-        $(task).on("click", function(e) {
-          e.stopPropagation();
-          $(e.target).parent().fadeOut();
-          updateTodoStatus(true);
-        });
-        deleteHover();
+      function handlerOut() {
+        $(this).find(deleteIcons).addClass("hidden");
       }
+      $(allTasks).hover(handlerIn, handlerOut);
+    }
+
+
+
+
 
       function renderNewList(listName) {
         let newList =
@@ -99,12 +88,27 @@
     });
 
     // Toggle active list
-    $(listCollapsible).on("click", function(){
+    $(listCollapsible).on("click", function(e){
+      // e.stopPropagation();
       // Removing all classes prevents multiple lists from being selected
       $(listPanel).find(".todo-list-title").removeClass("todo-list-selected");
       $(this).find(".todo-list-title").addClass("todo-list-selected");
       $(this).find(customList).slideToggle();
     });
+
+    function renderItem(newItem) {
+      let newListItem =
+          '<li class="task">' +
+          '<input type="checkbox">'
+          + newItem
+          + '<span class="todo-delete hidden">x</span>'
+          + '</li>';
+      return newListItem;
+    }
+
+    function addToList(list, newItem) {
+      $(list).append(renderItem(newItem));
+    }
 
       function addNewTask() {
         $(todoInput).on("keydown", function(event) {
@@ -114,6 +118,7 @@
             todoInput.value = "";
 
             addToList(getActiveList(), newItem);
+            applyDelete($(allTasks).last().find("span"));
 
             // Increases # tasks
             updateTodoStatus(false);
