@@ -402,16 +402,38 @@ p.photographer a {
 }
 
 .todo {
+  display: flex;
+  flex-flow: row wrap;
   background-color: rgba(0, 0, 0, 0.8);
   border: 1px solid red;
   padding: 0;
   margin: 5px;
-  width: 25vw;
-  max-width: 250px;
+  width: 45vw;
+  max-width: 500px;
 }
 
 .todo-panel-body {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
   color: #fff;
+  font-size: 1.2em;
+  width: 100%;
+  padding: 0;
+}
+.todo-panel-body.left{
+  border: 1px solid darkviolet;
+  color: #fff;
+  flex-flow: column;
+  flex: 1 0 0;
+  font-size: 1.2em;
+  padding: 0 0 0 10px;
+}
+.todo-panel-body.right{
+  border: 1px solid blue;
+  color: #fff;
+  flex-flow: column;
+  flex: 2 0 50%;
   font-size: 1.2em;
   padding: 0 0 0 10px;
 }
@@ -436,6 +458,8 @@ p.photographer a {
 
 .todo-status {
   margin: 0;
+  flex-direction: row;
+  flex: 1 0 100%;
 }
 
 .task {
