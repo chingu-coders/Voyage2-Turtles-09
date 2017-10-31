@@ -446,6 +446,9 @@ body, input {
 
 .todo {
   flex: 5 0 0;
+  /* next 2 styles are temporary (to improve screenshots) */
+  text-align: right;
+  margin: 1rem 1.25rem 1.125rem -1.25rem;
 }
 
 /* Settings */

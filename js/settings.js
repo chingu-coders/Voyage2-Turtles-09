@@ -22,19 +22,31 @@
 
   addListenerToSettingsNavigation()
 
+  // Add a listener to each toggle switch in Settings - General
   let keys = Object.keys(toggleFeatures);
   keys.forEach(function(key) {
     toggleFeatures[key].children[0].addEventListener("click", function() {
-      console.log(this.id);
-      console.log(featurePreferences);
+      // If checkbox is checked (toggle switch is on).
+      // Uncheck checkbox (set toggle switch to off).
+      // And update featurePreferences object.
       if (this.hasAttribute("checked")) {
-        //console.log("true");
         this.removeAttribute("checked");
+        featurePreferences[this.id] = false;
+        console.log(featurePreferences);
       }
+      // If checkbox is unchecked (toggle switch is off)
+      // Check checkbox (set toggle switch to on)
+      // And update featurePreferences object.
       else {
-        //console.log("false");
         this.setAttribute("checked", "checked");
+        featurePreferences[this.id] = true;
       }
+      STORAGE.set({"featurePreferences": featurePreferences}, function() {
+      let error = chrome.runtime.lastError;
+      if (error) {
+        console.error("save featurePreferences: " + error);
+      }
+    });
     });
   });
 
