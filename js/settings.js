@@ -5,47 +5,70 @@
   const settingsIcon = document.querySelector(".settings-icon");
   const settingsPanel = document.querySelector(".settings");
   const settingsNav = document.querySelector(".settings-nav");
-  //const generalFeatureList = document.querySelector("#settingsGeneral ul");
-  //const generalFeatureArray = document.querySelectorAll(".toggle-feature");
+  const displayRecipe = document.querySelector("#displayRecipe");
+  const displayTime = document.querySelector("#displayTime");
+  const displayGreeting = document.querySelector("#displayGreeting");
+  const displayFocus = document.querySelector("#displayFocus");
+  const displayTodo = document.querySelector("#displayTodo");
+  const displayQuote = document.querySelector("#displayQuote");
   const aboutText = document.querySelector(".settings-about-text");
   const settingsGeneral = document.querySelector(".settings-general");
+  const toggleFeatures = document.querySelectorAll(".toggle-feature");
   const manifest = chrome.runtime.getManifest();
   let featurePreferences = {};
-
-  // Check if feature preferences have been set.
-  getFeaturePreferences();
 
   // Toggle settings panel on and off when settings icon (cog) is clicked.
   settingsIcon.addEventListener("click", toggleSettingsPanel);
 
-  // Display appropriate settings panel when a nav item is clicked.  
-  settingsNav.addEventListener("click", function() {
-    // Indicate which nav item is currently selected.
-    let target = event.target;
-    addClassToOneChild(".settings-nav", target, "settings-current");
-    // If chosen panel is "About", pull data from manifest.
-    if (target.innerHTML === "About") {
-      populateAboutTab();
-    }
-    // If chosen panel is "LInks", add event listeners.
-    if (target.innerHTML === "Links") {
-      initLinks();
-    }
-    // Display the correct panel.
-    let chosenSubpanel = document.querySelector(`#settings${target.innerHTML}`);
-    hideAllChildrenButOne("settingsSubpanelContainer", chosenSubpanel);
-  });
+  addListenerToSettingsNavigation()
 
-  // Watch general feature list for changes.
-  /*console.log(generalFeatureList);
-  generalFeatureList.addEventListener("click", function() {
-    let target = event.target;
-    console.log("boo: " + target.control);
-  });*/
+  let keys = Object.keys(toggleFeatures);
+  keys.forEach(function(key) {
+    toggleFeatures[key].children[0].addEventListener("click", function() {
+      console.log(this.id);
+      console.log(featurePreferences);
+      if (this.hasAttribute("checked")) {
+        //console.log("true");
+        this.removeAttribute("checked");
+      }
+      else {
+        //console.log("false");
+        this.setAttribute("checked", "checked");
+      }
+    });
+  });
 
   function toggleSettingsPanel() {
     settingsIcon.classList.toggle("clicked");
     settingsPanel.classList.toggle("hidden");
+    if (! settingsPanel.classList.contains("hidden")) {
+      // Check if feature preferences have been set.
+      getFeaturePreferences();
+    }
+  }
+
+  function addListenerToSettingsNavigation() {    
+    // Display appropriate settings panel when a nav item is clicked.  
+    settingsNav.addEventListener("click", function() {
+
+      // Indicate which nav item is currently selected.
+      let target = event.target;
+      addClassToOneChild(".settings-nav", target, "settings-current");
+
+      // If chosen panel is "About", pull data from manifest.
+      if (target.innerHTML === "About") {
+        populateAboutTab();
+      }
+
+      // If chosen panel is "Links", add event listeners.
+      if (target.innerHTML === "Links") {
+        initLinks();
+      }
+
+      // Display the correct panel.
+      let chosenSubpanel = document.querySelector(`#settings${target.innerHTML}`);
+      hideAllChildrenButOne("settingsSubpanelContainer", chosenSubpanel);
+    });
   }
 
   function populateAboutTab() {
@@ -79,7 +102,6 @@
   function getFeaturePreferences() {
     // Is there already a featurePreferences array in storage?
     STORAGE.get("featurePreferences", function(obj){
-      //console.log(`foobar: ${JSON.stringify(obj.featurePreferences)}`);
       let error = chrome.runtime.lastError;
       if (error) {
         console.error("getFeaturePreferences(): " + error);
@@ -89,7 +111,6 @@
         if (obj.featurePreferences) {
           // Store it in a variable so that we can work with it.
           featurePreferences = obj.featurePreferences;
-          console.log(featurePreferences);
           displayPreferencesInSettings();
         }
         /* if not, set defaults */
@@ -102,22 +123,21 @@
            "displayTodo": true, 
            "displayQuote": true
           };
-          console.log(featurePreferences);
         }
       }
     });
   }
 
   function displayPreferencesInSettings() {
-    let key;
     let keys = Object.keys(featurePreferences);
-    console.log(keys);
-    for (key in keys) {
-    console.log(keys[key]);
-  }
-    for (let i = 0; i < featurePreferences.length; i++) {
-      console.log(featurePreferences[i]);
-    }
+    keys.forEach(function(key) {
+      if (featurePreferences[key] === false) {
+        document.getElementById(key).checked = false;
+      }
+      else {
+        document.getElementById(key).checked = true;
+      }
+    });
   }
 
 })();
