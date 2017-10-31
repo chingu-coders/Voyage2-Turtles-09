@@ -73,55 +73,42 @@ body, input {
   justify-content: center;
 }
 
+/* Container for the entire recipe panel */
 
-.recipes {
+.recipe-panel {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
   background: rgba(255, 255, 255, 0.6);
   border-radius: 0 0 5px 5px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  color: #000;
-  font-size: 1rem;
   margin-top: -150px;
   min-width: 620px;
   height: 200px;
-  padding: 0 15px;
+  padding: 0 15px 10px;
   width: 50%;
   transition: all 0.5s cubic-bezier(.25,.8,.25,1);
 }
 
-.recipes:hover {
+.recipe-panel:hover {
   background: rgba(255, 255, 255, 0.95);
-  /*box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22);*/
   margin-top: 0;
 }
 
-.recipes h2 {
+/* Positioning and styling for the main recipe title */
+
+.recipe-pull-tab h2 {
   color: #222;
   display: flex;
   flex-flow: row nowrap;
   font-size: 0.6rem;
-  /*font-weight: normal;*/
   justify-content: space-between;
-  /*letter-spacing: 1px;*/
   margin: 0;
   padding: 0;
-  /*text-transform: uppercase;*/
-}
-
-.recipe-information {
-  display: flex;
-  flex: 1 auto;
-  flex-flow: column nowrap;
-}
-
-.recipe-header {
-  display: flex;
-  flex: 1 auto;
-  justify-content: space-between;
-  margin: 10px 0;
 }
 
 .recipe-title {
-  font-size: 1rem;
+  font-size: 1.2rem;
   margin: 0;
 }
 
@@ -134,39 +121,61 @@ body, input {
   text-transform: uppercase;
 }
 
+/* This section is hidden until hovering over the title/pull-tab */
+.recipe-reveal {
+  display: flex;
+}
+
+/* Recipe image */
+.recipe-thumbnail {
+  margin-right: 10px;
+  max-height: 140px;
+}
+
+/* Container for all the recipe information to the right of the image */
+.recipe-information {
+  display: flex;
+  flex: 1 auto;
+  flex-flow: column nowrap;
+}
+
+/* Container for the recipe source and reload button */
+.recipe-header {
+  display: flex;
+  flex: 1 auto;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+/* Recipe source is the referral website, and where the recipe method lives */
+.recipe-source a:link,
+.recipe-source a:visited,
+.recipe-source a:active {
+  color: #aaa;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.recipe-source a:hover {
+  color: #000;
+}
+
+/* These are cautionary notes eg. "Contains Gluten" that display above the stats */
 .recipe-notes span:not(:first-child):before {
   content: ", ";
 }
 
-.recipes a:link,
-.recipes a:visited,
-.recipes a:hover,
-.recipes a:active {
-  color: #666;
-  font-weight: bold;
-  text-decoration: none;
-}
+/* Recipe reload button: the refresh icon in the top right corner ---------*/
 
-.recipe-preview {
-  display: flex;
-  flex-flow: column;
-  justify-content: space-between;
-  height: 100%;
-  padding: 0 0 10px;
-}
-
-.recipe-pull-tab {
-
-}
-
-.recipe-reveal {
-  display: flex;
+.recipe-reload {
+  margin-top: 3px;
 }
 
 .recipe-reload a:link,
 .recipe-reload a:visited,
 .recipe-reload a:active {
-  color: #555;
+  color: #aaa;
   transition: all 0.3s;
 }
 
@@ -174,15 +183,11 @@ body, input {
   color: #000;
 }
 
-.recipe-thumbnail {
-  background: rgba(0, 0, 0, 0.4);
-  margin-right: 10px;
-  max-height: 140px;
-}
+/* Recipe diet labels: the coloured tags following the title ---------*/
 
 .recipe-diet-labels * {
   position: relative;
-  top: -.1rem;
+  top: -0.2rem;
   background: #333;
   border-radius: .2rem;
   color: #fff;
@@ -193,29 +198,15 @@ body, input {
   text-transform: uppercase;
 }
 
-.balanced {
-  background-color:#02C3E2;
-}
+/* Set background colors on each tag */
+.balanced { background-color:#02C3E2; }
+.high-protein { background-color: #F97A66; }
+.high-fiber { background-color:#FCC04E; }
+.low-fat { background-color:#5F6C90; }
+.low-carb { background-color: #C1CBDF; }
+.low-sodium { background-color: #D4793D; }
 
-.high-protein {
-  background-color: #F97A66;
-}
-
-.high-fiber {
-  background-color:#FCC04E;
-}
-
-.low-fat {
-  background-color:#5F6C90;
-}
-
-.low-carb {
-  background-color: #C1CBDF;
-}
-
-.low-sodium {
-  background-color: #D4793D;
-}
+/* Recipe statistics: borders, positioning and text styling ---------*/
 
 .recipe-stats {
   border-top: solid 1px #eee;
@@ -225,6 +216,7 @@ body, input {
   margin-top: 10px;
 }
 
+/* "Box" styling for each stat */
 .recipe-stats div {
   align-items: center;
   border-top: solid 3px #999;
@@ -235,6 +227,7 @@ body, input {
   padding: 5px 10px;
 }
 
+/* Small stats labels */
 .recipe-serves,
 .recipe-calories,
 .recipe-nutrients-fat,
@@ -245,6 +238,7 @@ body, input {
   text-transform: uppercase;
 }
 
+/* Big stat numbers */
 .recipe-serves .value,
 .recipe-calories .value,
 .recipe-nutrients-fat .value,

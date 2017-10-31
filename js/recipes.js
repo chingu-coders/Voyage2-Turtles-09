@@ -9,7 +9,7 @@
   const recipeThumbnail = document.querySelector(".recipe-thumbnail");
   const recipeTitle = document.querySelector(".recipe-title");
   const recipeCalories = document.querySelector(".recipe-calories .value");
-  const recipeSource = document.querySelector(".recipe-source");
+  const recipeSource = document.querySelector(".recipe-source a");
   const recipeDietLabels = document.querySelector(".recipe-diet-labels");
   const recipeHealthLabels = document.querySelector(".recipe-health-labels");
   const recipeFat = document.querySelector(".recipe-nutrients-fat .value");
