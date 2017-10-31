@@ -81,15 +81,15 @@ function queryUnsplash () {
 // FOCUS BACKGROUND
 (function () {
   const mouseOverFocus = () => {
-    $("#bottom-row").siblings().fadeOut();
-    $(".credits").siblings().fadeOut();
+    $("#bottom-row").siblings().not(".settings-icon-wrapper").fadeTo("slow", 0);
+    $(".credits").siblings().not(".settings-icon-wrapper").fadeTo("slow", 0);
   };
 
   let timer ;
 
   const mouseOutFocus = () => {
-    $("#bottom-row").siblings().fadeIn();
-    $(".credits").siblings().fadeIn();
+    $("#bottom-row").siblings().not(".settings-icon-wrapper").fadeTo("slow", 100);
+    $(".credits").siblings().not(".settings-icon-wrapper").fadeTo("slow", 100);
     clearTimeout(timer);
   };
 
