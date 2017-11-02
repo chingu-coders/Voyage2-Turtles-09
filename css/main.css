@@ -404,6 +404,10 @@ p.photographer a {
 .list-selected {
   color: blueviolet;
 }
+
+.task-inactive {
+  visibility: hidden;
+}
 .todo {
   background-color: rgba(0, 0, 0, 0.8);
   border: 1px solid red;
@@ -431,16 +435,6 @@ p.photographer a {
   background: rgb(0, 0, 0);
 }
 
-.list-input {
-  border: transparent;
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
-  font-size: 1em;
-  width: 100%;
-  height: 2.5em;
-
-}
-
 .list-panel {
   border: 2px solid blueviolet;
   flex: 1 0 0;
@@ -449,11 +443,28 @@ p.photographer a {
 
 .task-panel {
   border: 2px solid dodgerblue;
-  flex: 2 0 0;
+  display: flex;
+  flex-flow: row;
   height: 100%;
 }
 
+.list-input {
+  border: transparent;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  font-size: 1em;
+  width: 100%;
+  height: 2.5em;
+}
 
+.task-input {
+  align-self: flex-end;
+  background: rgba(0, 0, 0, 0.9);
+  border: transparent;
+  color: white;
+  font-size: 1em;
+  height: 2em;
+}
 
 .todo-delete {
   float: right;

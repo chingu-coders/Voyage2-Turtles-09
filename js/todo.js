@@ -10,6 +10,7 @@
       let todoInput = document.getElementById("todo-input");
       let addListBtn = document.getElementsByClassName("add-new-todo-list")[0];
       let numTodos = 0;
+      let numLists = 0;
 
 //TODO: Clicking on a task name opens the task list on the right side
 
@@ -26,6 +27,15 @@
           numTodos--;
         }
         renderTodoStatus();
+      }
+
+      function updateListNum(isDelete) {
+        if(!isDelete) {
+          numLists++;
+        }
+        if(isDelete) {
+          numLists--;
+        }
       }
 
     function applyDelete(task) {
@@ -79,11 +89,23 @@
     //     return activeList;
     // }
 
-    // Add new lists to panel
+    // Adds a hidden ul to task panel
+    function prepareTaskList(){
+        let prepUl = `<ul data-target="${numLists}" class="task-inactive"></ul>`;
+        $(".task-panel").append(prepUl);
+    }
+
+    // Adds new lists to list panel
     $(".list-input").on("keydown", function(e) {
       if (event.which === 13) {
-        let list = `<li>${e.target.value}</li>`;
+        // List's data-target# attribute == listNum
+        updateListNum(false);
+
+        let list = `<li data-target="${numLists}">${e.target.value}</li>`;
         $(".list-panel").find("ul").append(list);
+
+        prepareTaskList();
+
         // Clear the input after user hits enter
         $(".list-input").val("");
       }
@@ -91,7 +113,6 @@
 
 
     $(".list-panel").find("li").on("click", function(){
-      console.log("click");
       $(".list-panel li").removeClass("list-selected");
       $(this).addClass("list-selected");
     });
