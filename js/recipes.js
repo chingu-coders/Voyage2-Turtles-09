@@ -15,6 +15,8 @@
   const recipeFat = document.querySelector(".recipe-nutrients-fat .value");
   const recipeSugar = document.querySelector(".recipe-nutrients-sugar .value");
   const recipeServes = document.querySelector(".recipe-serves .value");
+  const recipeCarbs = document.querySelector(".recipe-nutrients-carbs .value");
+  const recipeProtein = document.querySelector(".recipe-nutrients-protein .value");
   const recipeNotes = document.querySelector(".recipe-notes");
   const recipeReload = document.querySelector(".recipe-reload");
 
@@ -87,6 +89,8 @@
       let edmServes = json.hits[randomRecipe].recipe.yield;
       let edmFat = Math.round(json.hits[randomRecipe].recipe.totalNutrients.FAT.quantity);
       let edmSugar = Math.round(json.hits[randomRecipe].recipe.totalNutrients.SUGAR.quantity);
+      let edmCarbs = Math.round(json.hits[randomRecipe].recipe.totalNutrients.CHOCDF.quantity);
+      let edmProtein = Math.round(json.hits[randomRecipe].recipe.totalNutrients.PROCNT.quantity);
       let edmNotes = json.hits[randomRecipe].recipe.cautions;
 
       // Save query vars
@@ -102,6 +106,8 @@
         serves: edmServes,
         fat: edmFat,
         sugar: edmSugar,
+        carbs: edmCarbs,
+        protein: edmProtein,
         notes: edmNotes
       }
 
@@ -122,6 +128,8 @@
     recipeServes.textContent = recipe.serves;
     recipeFat.textContent = recipe.fat;
     recipeSugar.textContent = recipe.sugar;
+    recipeCarbs.textContent = recipe.carbs;
+    recipeProtein.textContent = recipe.protein;
     recipeNotes.innerHTML = recipe.notes.length > 0 ? "Contains: " + listAry(recipe.notes) : "";
     recipeSource.innerHTML = recipe.source +
                                ' <i class="fa fa-angle-right" aria-hidden="true"></i>';
