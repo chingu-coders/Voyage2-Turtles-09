@@ -84,8 +84,16 @@
       if (event.which === 13) {
         let list = `<li>${e.target.value}</li>`;
         $(".list-panel").find("ul").append(list);
+        // Clear the input after user hits enter
         $(".list-input").val("");
       }
+    });
+
+
+    $(".list-panel").find("li").on("click", function(){
+      console.log("click");
+      $(".list-panel li").removeClass("list-selected");
+      $(this).addClass("list-selected");
     });
 
     function renderItem(newItem) {
