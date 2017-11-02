@@ -81,15 +81,15 @@ function queryUnsplash () {
 // FOCUS BACKGROUND
 (function () {
   const mouseOverFocus = () => {
-    $("#bottom-row").siblings().fadeOut();
-    $(".credits").siblings().fadeOut();
+    $("#bottom-row").siblings().animate({opacity: 0});
+    $(".credits").siblings().animate({opacity: 0});
   };
 
   let timer ;
 
   const mouseOutFocus = () => {
-    $("#bottom-row").siblings().fadeIn();
-    $(".credits").siblings().fadeIn();
+    $("#bottom-row").siblings().animate({opacity: 1});
+    $(".credits").siblings().animate({opacity: 1});
     clearTimeout(timer);
   };
 

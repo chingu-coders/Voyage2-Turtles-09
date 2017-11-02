@@ -402,69 +402,54 @@ p.photographer a {
 }
 
 .todo {
-  display: flex;
-  flex-flow: row wrap;
   background-color: rgba(0, 0, 0, 0.8);
   border: 1px solid red;
-  padding: 0;
-  margin: 5px;
-  width: 45vw;
-  max-width: 500px;
-}
-
-.todo-panel-body {
+  font-size: 1rem;
   display: flex;
-  flex-flow: row;
-  justify-content: flex-start;
-  color: #fff;
-  font-size: 1.2em;
+  flex-flow: row wrap;
+  max-width: 500px;
+  width: 75vw;
+  height: 300px;
+  margin: 5px;
+  padding: 0;
+}
+
+.todo ul {
+  margin: 5px 0;
+  padding: 0;
+}
+
+.todo li {
+  margin-top: 0.2em;
   width: 100%;
-  padding: 0;
 }
-.todo-panel-body.left{
-  border: 1px solid darkviolet;
-  color: #fff;
-  flex-flow: column;
+
+.todo li:hover {
+  background: rgb(0, 0, 0);
+}
+
+.list-input {
+  border: transparent;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  font-size: 1em;
+  width: 100%;
+  height: 2.5em;
+
+}
+
+.list-panel {
+  border: 2px solid blueviolet;
   flex: 1 0 0;
-  font-size: 1.2em;
-  padding: 0 0 0 10px;
-}
-.todo-panel-body.right{
-  border: 1px solid blue;
-  color: #fff;
-  flex-flow: column;
-  flex: 2 0 50%;
-  font-size: 1.2em;
-  padding: 0 0 0 10px;
+  height: 100%;
 }
 
-.todo-panel-body ul {
-  padding: 0;
-  margin: 0;
-
+.task-panel {
+  border: 2px solid dodgerblue;
+  flex: 2 0 0;
+  height: 100%;
 }
 
-.todo-list-selected{
-  font-weight: bolder;
-  color: royalblue;
-}
-.todo-list {
-  display: none;
-}
-
-.todo-list-title {
-  margin: 0;
-}
-
-.todo-status {
-  margin: 0;
-  flex-direction: row;
-  flex: 1 0 100%;
-}
-
-.task {
-  padding: 0.2em 0 0 0;
-}
 
 
 .todo-delete {
@@ -495,5 +480,5 @@ p.photographer a {
   font-size: 1.2em;
   padding: 5px 10px;
   width: 100%;
-  height: 2.5em;
+  height: 1.5em;
 }
