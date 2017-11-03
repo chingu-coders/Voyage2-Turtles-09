@@ -406,7 +406,7 @@ p.photographer a {
 }
 
 .task-inactive {
-  visibility: hidden;
+  display: none;
 }
 .todo {
   background-color: rgba(0, 0, 0, 0.8);

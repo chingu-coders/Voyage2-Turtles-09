@@ -1,6 +1,7 @@
 "use strict";
 (function (){
   $(document).ready(function(){
+    let targetNum;
 
 
 
@@ -12,7 +13,6 @@
       let numTodos = 0;
       let numLists = 0;
 
-//TODO: Clicking on a task name opens the task list on the right side
 
       // function renderTodoStatus() {
       //   let todoStatus = document.getElementsByClassName("todo-status")[0];
@@ -91,23 +91,24 @@
 
     // Adds a hidden ul to task panel
     function prepareTaskList(){
-        let prepUl = `<ul data-target="${numLists}" class="task-inactive"></ul>`;
+        let prepUl = `<ul data-target="${numLists}" class="task-inactive"><li>New List Added!</li></ul>`;
         $(".task-panel").append(prepUl);
     }
 
 
     function applySelectToggle() {
-      $(".list-panel ~ li").off().on("click", function(e){
+      $(".list-panel li").off().on("click", function(e){
         e.stopPropagation();
         $(".list-panel li").removeClass("list-selected");
-        $(e.target).addClass("list-selected");
+        $(this).addClass("list-selected");
         taskReveal();
       });
     }
 
     function taskReveal() {
-      let targetNum = $(".list-panel").find(".list-selected").attr("data-target");
-      $("ul[data-target=" + targetNum + "]").removeClass("task-inactive");
+      targetNum = $(".list-panel").find(".list-selected").attr("data-target");
+      $(".task-panel ul").addClass("task-inactive");
+      $(`ul[data-target=${targetNum}]`).removeClass("task-inactive");
     }
 
     // Adds new lists to list panel
@@ -154,7 +155,7 @@
               ${event.target.value}
               <span class="todo-delete hidden">x</span></li>`;
 
-            $(".task-panel").find("ul").append(newItem);
+            $(".task-panel").find(`[data-target=${targetNum}]`).append(newItem);
 
             $(".task-input").val("");
 
