@@ -97,7 +97,8 @@
 
 
     function applySelectToggle() {
-      $(".list-panel").last().on("click", function(e){
+      $(".list-panel ~ li").off().on("click", function(e){
+        e.stopPropagation();
         $(".list-panel li").removeClass("list-selected");
         $(e.target).addClass("list-selected");
         taskReveal();
@@ -106,8 +107,6 @@
 
     function taskReveal() {
       let targetNum = $(".list-panel").find(".list-selected").attr("data-target");
-      console.log(targetNum);
-      console.log("task revealed!");
       $("ul[data-target=" + targetNum + "]").removeClass("task-inactive");
     }
 
