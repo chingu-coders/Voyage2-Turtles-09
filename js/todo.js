@@ -38,11 +38,11 @@
         }
       }
 
-    function applyDelete(task) {
+    function applyDelete() {
       // .off() to prevent multiple listeners from being added to a single task
-      $(task).off().on("click", function(e) {
-        e.stopPropagation();
-        $(e.target).parent().fadeOut();
+      $(".task-panel li").find(deleteIcons).off().on("click", function(e) {
+        // e.stopPropagation();
+        $(this).parent().fadeOut();
         updateTodoStatus(true);
       });
       deleteHover();
@@ -156,7 +156,7 @@
               <span class="todo-delete hidden">x</span></li>`;
 
             $(".task-panel").find(`[data-target=${targetNum}]`).append(newItem);
-
+            applyDelete();
             $(".task-input").val("");
 
 
