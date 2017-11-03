@@ -224,8 +224,7 @@ body, input {
   border-bottom: solid 2px #999;
   display: flex;
   flex-flow: column;
-  /*margin-right: 30px;*/
-  padding: 5px 8px;
+  padding: 10px 5px;
 }
 
 /* Small stats labels */
