@@ -14,10 +14,10 @@
 
 //TODO: Clicking on a task name opens the task list on the right side
 
-      function renderTodoStatus() {
-        let todoStatus = document.getElementsByClassName("todo-status")[0];
-        todoStatus.innerText = numTodos + " todos";
-      }
+      // function renderTodoStatus() {
+      //   let todoStatus = document.getElementsByClassName("todo-status")[0];
+      //   todoStatus.innerText = numTodos + " todos";
+      // }
 
       function updateTodoStatus(isDelete) {
         if (!isDelete) {
@@ -26,7 +26,7 @@
         if (isDelete) {
           numTodos--;
         }
-        renderTodoStatus();
+        // renderTodoStatus();
       }
 
       function updateListNum(isDelete) {
@@ -100,8 +100,17 @@
       $(".list-panel").last().on("click", function(e){
         $(".list-panel li").removeClass("list-selected");
         $(e.target).addClass("list-selected");
+        taskReveal();
       });
     }
+
+    function taskReveal() {
+      let targetNum = $(".list-panel").find(".list-selected").attr("data-target");
+      console.log(targetNum);
+      console.log("task revealed!");
+      $("ul[data-target=" + targetNum + "]").removeClass("task-inactive");
+    }
+
     // Adds new lists to list panel
     $(".list-input").on("keydown", function(e) {
       if (event.which === 13) {
@@ -112,15 +121,15 @@
         // Append list to list panel
         $(".list-panel").find("ul").append(list);
         applySelectToggle();
-
         prepareTaskList();
+
 
         // Clear the input after user hits enter
         $(".list-input").val("");
       }
     });
 
-
+    // For testing --- delete later
     $(".list-panel").find("li").on("click", function(){
       $(".list-panel li").removeClass("list-selected");
       $(this).addClass("list-selected");
@@ -136,19 +145,6 @@
       return newListItem;
     }
 
-    // function addToList(list, newItem) {
-    //   $(list).append(renderItem(newItem));
-    // }
-
-      function taskReveal() {
-        let targetNum = $(".list-panel").find(".list-selected").attr("data-target");
-        console.log(targetNum);
-
-        // $(".task-panel").find("ul").attr("data-target[value=" + targetNum + "]\"").removeClass("task-inactive");
-
-        console.log($(".list-panel").find(".list-selected").attr("data-target"));
-      }
-
       function addNewTask() {
         $(".task-input").on("keydown", function(event) {
           if (event.which === 13) {
@@ -159,12 +155,9 @@
               ${event.target.value}
               <span class="todo-delete hidden">x</span></li>`;
 
-            taskReveal();
             $(".task-panel").find("ul").append(newItem);
 
-
-
-            todoInput.value = "";
+            $(".task-input").val("");
 
 
 
