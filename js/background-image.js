@@ -30,7 +30,7 @@ function queryUnsplash () {
 
     // SET BG
     console.log(data);
-    document.body.style.background = `#f3f3f3 url('${bgUrl}') center center fixed / cover no-repeat`;
+    $(".loaded-wrapper").css("background", `#f3f3f3 url('${bgUrl}') center center fixed / cover no-repeat`);
 
     // IMAGE DATA
     bg.renderLocation.innerHTML =`${imageLocationData}` || `{imageDescriptionData}`;
