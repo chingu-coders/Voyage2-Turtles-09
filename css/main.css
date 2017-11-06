@@ -261,7 +261,7 @@ body, input {
   justify-content: flex-end;
 }
 
-.loading {
+.loading-text {
   color: black;
   font-size: 4rem;
 }
