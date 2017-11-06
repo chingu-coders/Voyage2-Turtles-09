@@ -540,7 +540,7 @@ body, input {
   min-height: 450px;
 }
 
-.settings-subpanel {  
+.settings-subpanel {
   width: 530px;
 }
 
@@ -549,7 +549,8 @@ body, input {
 .settings-links,
 .settings-todo,
 .settings-about,
-.settings-t9 {
+.settings-t9,
+.settings-recipes {
   height: 100%;
   padding: 2rem;
 }
@@ -558,7 +559,8 @@ body, input {
 .settings-links,
 .settings-todo,
 .settings-about,
-.settings-t9 {
+.settings-t9,
+.settings-recipes {
   margin-left: -530px;
 }
 
