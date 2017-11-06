@@ -15,48 +15,57 @@
   const settingsGeneral = document.querySelector(".settings-general");
   const toggleFeatures = document.querySelectorAll(".toggle-feature");
   const manifest = chrome.runtime.getManifest();
-  let featurePreferences = {};
+  let userPreferences = {};
+
+  // Check if feature preferences have been set.
+  getUserPreferences();
 
   // Toggle settings panel on and off when settings icon (cog) is clicked.
   settingsIcon.addEventListener("click", toggleSettingsPanel);
 
+  // Change Settings panel when nav is clicked
   addListenerToSettingsNavigation()
 
-  // Add a listener to each toggle switch in Settings - General
-  let keys = Object.keys(toggleFeatures);
-  keys.forEach(function(key) {
-    toggleFeatures[key].children[0].addEventListener("click", function() {
-      // If checkbox is checked (toggle switch is on).
-      // Uncheck checkbox (set toggle switch to off).
-      // And update featurePreferences object.
-      if (this.hasAttribute("checked")) {
-        this.removeAttribute("checked");
-        featurePreferences[this.id] = false;
-        console.log(featurePreferences);
-      }
-      // If checkbox is unchecked (toggle switch is off)
-      // Check checkbox (set toggle switch to on)
-      // And update featurePreferences object.
-      else {
-        this.setAttribute("checked", "checked");
-        featurePreferences[this.id] = true;
-      }
-      STORAGE.set({"featurePreferences": featurePreferences}, function() {
+  // listen for changes to visibility of Widgets in General Settings
+  addListenersToGeneralSettings();
+
+  function addListenersToGeneralSettings() {
+    // Add a listener to each toggle switch in General Settings
+    let keys = Object.keys(toggleFeatures);
+    keys.forEach(function(key) {
+      toggleFeatures[key].children[0].addEventListener("click", showHideWidgets);
+    });
+  }
+
+  function showHideWidgets() {
+    // If checkbox is checked (toggle switch is on).
+    // Uncheck checkbox (set toggle switch to off).
+    // And update userPreferences object.
+    if (this.hasAttribute("checked")) {
+      this.removeAttribute("checked");
+      userPreferences[this.id] = false;
+      hideWidget(this.id);
+    }
+    // If checkbox is unchecked (toggle switch is off)
+    // Check checkbox (set toggle switch to on)
+    // And update userPreferences object.
+    else {
+      this.setAttribute("checked", "checked");
+      userPreferences[this.id] = true;
+      showWidget(this.id);
+    }
+    // Save userPreferences to chrome.storage.sync
+    STORAGE.set({"userPreferences": userPreferences}, function() {
       let error = chrome.runtime.lastError;
       if (error) {
-        console.error("save featurePreferences: " + error);
+        console.error("save userPreferences: " + error);
       }
     });
-    });
-  });
+  }
 
   function toggleSettingsPanel() {
     settingsIcon.classList.toggle("clicked");
     settingsPanel.classList.toggle("hidden");
-    if (! settingsPanel.classList.contains("hidden")) {
-      // Check if feature preferences have been set.
-      getFeaturePreferences();
-    }
   }
 
   function addListenerToSettingsNavigation() {    
@@ -111,23 +120,25 @@
     });
   }
 
-  function getFeaturePreferences() {
-    // Is there already a featurePreferences array in storage?
-    STORAGE.get("featurePreferences", function(obj){
+  function getUserPreferences() {
+    // Is there already a userPreferences array in storage?
+    STORAGE.get("userPreferences", function(obj){
       let error = chrome.runtime.lastError;
       if (error) {
-        console.error("getFeaturePreferences(): " + error);
+        console.error("getUserPreferences(): " + error);
       }
       else {
-        // if there is, display it
-        if (obj.featurePreferences) {
-          // Store it in a variable so that we can work with it.
-          featurePreferences = obj.featurePreferences;
-          displayPreferencesInSettings();
+        // if preferences exist in storage
+        if (obj.userPreferences) {
+          // Store them in a variable so that we can work with them.
+          userPreferences = obj.userPreferences;
+          // if there is, use it to set toggle switches in General Settings
+          // and show/hide widgets as appropriate
+          displayPreferences();
         }
         /* if not, set defaults */
-        else {
-          featurePreferences =  {
+        /*else {
+          userPreferences =  {
            "displayRecipe": true, 
            "displayTime": true, 
            "displayGreeting": true, 
@@ -135,21 +146,35 @@
            "displayTodo": true, 
            "displayQuote": true
           };
-        }
+        }*/
       }
     });
   }
 
-  function displayPreferencesInSettings() {
-    let keys = Object.keys(featurePreferences);
+  function displayPreferences() {
+    let keys = Object.keys(userPreferences);
     keys.forEach(function(key) {
-      if (featurePreferences[key] === false) {
-        document.getElementById(key).checked = false;
+      if (userPreferences[key] === false) {
+        document.getElementById(key).removeAttribute("checked");
+        hideWidget(key);
       }
       else {
-        document.getElementById(key).checked = true;
+        document.getElementById(key).setAttribute("checked", "checked");
+        showWidget(key);
       }
     });
+  }
+
+  function showWidget(element) {
+    let trigger = document.getElementById(element); // targets the input
+    let target = document.getElementsByClassName(trigger.dataset[element.toLowerCase()]); // targets the widget container
+    showElement(target[0]);
+  }
+
+  function hideWidget(element) {
+    let trigger = document.getElementById(element); // targets the input
+    let target = document.getElementsByClassName(trigger.dataset[element.toLowerCase()]); // targets the widget container
+    hideElement(target[0]);
   }
 
 })();
