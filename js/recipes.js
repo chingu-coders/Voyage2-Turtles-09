@@ -81,16 +81,16 @@
       let randomRecipe = rand(json.hits.length);
       let edmTitle = json.hits[randomRecipe].recipe.label;
       let edmImage = json.hits[randomRecipe].recipe.image;
-      let edmCalories = Math.round(json.hits[randomRecipe].recipe.calories);
+      let edmServes = json.hits[randomRecipe].recipe.yield;
+      let edmCalories = Math.round(json.hits[randomRecipe].recipe.calories/edmServes);
       let edmSource = json.hits[randomRecipe].recipe.source;
       let edmSourceUrl = json.hits[randomRecipe].recipe.url;
       let edmDietLabels = json.hits[randomRecipe].recipe.dietLabels;
       let edmHealthLabels = json.hits[randomRecipe].recipe.healthLabels;
-      let edmServes = json.hits[randomRecipe].recipe.yield;
-      let edmFat = Math.round(json.hits[randomRecipe].recipe.totalNutrients.FAT.quantity);
-      let edmSugar = Math.round(json.hits[randomRecipe].recipe.totalNutrients.SUGAR.quantity);
-      let edmCarbs = Math.round(json.hits[randomRecipe].recipe.totalNutrients.CHOCDF.quantity);
-      let edmProtein = Math.round(json.hits[randomRecipe].recipe.totalNutrients.PROCNT.quantity);
+      let edmFat = Math.round(json.hits[randomRecipe].recipe.totalNutrients.FAT.quantity/edmServes);
+      let edmSugar = Math.round(json.hits[randomRecipe].recipe.totalNutrients.SUGAR.quantity/edmServes);
+      let edmCarbs = Math.round(json.hits[randomRecipe].recipe.totalNutrients.CHOCDF.quantity/edmServes);
+      let edmProtein = Math.round(json.hits[randomRecipe].recipe.totalNutrients.PROCNT.quantity/edmServes);
       let edmNotes = json.hits[randomRecipe].recipe.cautions;
 
       // Save query vars
