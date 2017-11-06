@@ -70,7 +70,7 @@
     const app_key = "&app_key=" + "5e414263cb40da6abf1019a550333f43";
     let search = "?q=" + searchTerms[rand(searchTerms.length)];
     let diet = "&diet=" + dietOptions[rand(dietOptions.length)];
-    let range = "&to=" + "5";
+    let range = "&to=" + "100";
     const query = api + search + app_id + app_key + diet + range;
 
     // Query Edamam
