@@ -20,6 +20,29 @@
   const recipeNotes = document.querySelector(".recipe-notes");
   const recipeReload = document.querySelector(".recipe-reload");
 
+  // Set up user prefs
+  // The following section is early implementation for allowing user prefs
+  // in diet and allergies tags. However, the Edamam API is broken, so this
+  // is in hiatus.
+
+  let dietVeggie = false;
+  let dietVegan = false;
+  let dietPaleo = false;
+  let glutenAllergy = false;
+  let dairyAllergy = false;
+  let peanutAllergy = false;
+  let shellfishAllergy = false;
+
+  let recipeSettings = {
+    vegetarian: dietVeggie === true ? "&health=vegetarian" : "",
+    vegan: dietVegan === true ? "&health=vegan" : "",
+    paleo: dietPaleo === true ? "&health=paleo" : "",
+    gluten: glutenAllergy === true ? "&health=gluten-free" : "",
+    dairy: dairyAllergy === true ? "&health=dairy-free" : "",
+    peanuts: peanutAllergy === true ? "&health=peanut-free" : "",
+    shellfish: shellfishAllergy === true ? "&health=shellfish-free" : ""
+  }
+
   // Action!
   getRecipe();
 
@@ -69,12 +92,21 @@
     const app_id = "&app_id=" + "373a2755";
     const app_key = "&app_key=" + "5e414263cb40da6abf1019a550333f43";
     let search = "?q=" + searchTerms[rand(searchTerms.length)];
-    let diet = "&diet=" + dietOptions[rand(dietOptions.length)];
+    let diet1 = "&diet=" + dietOptions[rand(dietOptions.length)];
+    let diet2 = recipeSettings.vegetarian;
+    let diet3 = recipeSettings.vegan;
+    let diet4 = recipeSettings.paleo;
+    let allergy1 = recipeSettings.gluten;
+    let allergy2 = recipeSettings.dairy;
+    let allergy3 = recipeSettings.peanuts;
+    let allergy4 = recipeSettings.shellfish;
     let range = "&to=" + "100";
-    const query = api + search + app_id + app_key + diet + range;
+    const query = api + search + app_id + app_key + diet1 + diet2 + diet3 + diet4 +
+                  allergy1 + allergy2 + allergy3 + allergy4 + range;
 
     // Query Edamam
     $.getJSON(query, function(json) {
+      console.log(query);
       console.log(json);
 
       // Set data variables (edm == edamam)
