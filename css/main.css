@@ -69,8 +69,192 @@ body, input {
  ***********************/
 .top-row {
   display: flex;
-  flex: 1 1 100px;
+  flex: 0 1 auto;
+  justify-content: center;
+}
+
+/* Container for the entire recipe panel */
+
+.recipe-panel {
+  display: flex;
+  flex-flow: column;
   justify-content: space-between;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  margin-top: -140px;
+  width: 620px;
+  min-height: 200px;
+  padding: 0 15px;
+  transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+}
+
+.recipe-panel:hover {
+  background: rgba(255, 255, 255, 0.95);
+  margin-top: 0;
+}
+
+/* Positioning and styling for the main recipe title */
+
+.recipe-pull-tab {
+  padding: 5px 0 10px;
+}
+
+.recipe-pull-tab h2 {
+  color: #222;
+  display: flex;
+  flex-flow: row nowrap;
+  font-size: 0.6rem;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+}
+
+/* Title container */
+.recipe-title-container {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.recipe-title {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  padding: 0 0.4rem 0 0;
+}
+
+.recipe-title-label,
+.recipe-source-label,
+.recipe-notes {
+  color: #333;
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* This section is hidden until hovering over the title/pull-tab */
+.recipe-reveal {
+  display: flex;
+}
+
+/* Recipe image */
+.recipe-thumbnail {
+  margin-right: 10px;
+  max-height: 140px;
+}
+
+/* Container for all the recipe information to the right of the image */
+.recipe-information {
+  display: flex;
+  flex: 1 auto;
+  flex-flow: column nowrap;
+}
+
+/* Container for the recipe source and reload button */
+.recipe-header {
+  display: flex;
+  flex: 1 auto;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+/* Recipe source is the referral website, and where the recipe method lives */
+.recipe-source a:link,
+.recipe-source a:visited,
+.recipe-source a:active {
+  color: #aaa;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.recipe-source a:hover {
+  color: #000;
+}
+
+/* These are cautionary notes eg. "Contains Gluten" that display above the stats */
+.recipe-notes span:not(:first-child):before {
+  content: ", ";
+}
+
+/* Recipe reload button: the refresh icon in the top right corner ---------*/
+
+.recipe-reload {
+  margin-top: 3px;
+}
+
+.recipe-reload a:link,
+.recipe-reload a:visited,
+.recipe-reload a:active {
+  color: #aaa;
+  transition: all 0.3s;
+}
+
+.recipe-reload a:hover {
+  color: #000;
+}
+
+/* Recipe diet labels: the coloured tags following the title ---------*/
+
+.recipe-diet-labels {
+  flex-flow: row nowrap;
+  margin-bottom: 5px;
+}
+
+.recipe-diet-labels * {
+  background: #333;
+  border-radius: .2rem;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-right: .4rem;
+  padding: .2rem .4rem;
+  text-transform: uppercase;
+}
+
+/* Set background colors on each tag */
+.balanced { background-color:#02C3E2; }
+.high-protein { background-color: #F97A66; }
+.high-fiber { background-color:#FCC04E; }
+.low-fat { background-color:#5F6C90; }
+.low-carb { background-color: #C1CBDF; }
+.low-sodium { background-color: #D4793D; }
+
+/* Recipe statistics: borders, positioning and text styling ---------*/
+
+.recipe-stats {
+  border-top: solid 1px #eee;
+  border-bottom: solid 1px #eee;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/* "Box" styling for each stat */
+.recipe-stats div {
+  align-items: center;
+  border-top: solid 2px #999;
+  border-bottom: solid 2px #999;
+  display: flex;
+  flex-flow: column;
+  padding: 10px 5px;
+}
+
+/* Small stats labels */
+.recipe-stats div span:nth-of-type(2) {
+  color: #888;
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Big stat numbers */
+.recipe-stats div .value {
+  color: #555;
+  letter-spacing: 0px;
+  font-size: 1.6rem;
+  font-weight: bold;
 }
 
 /***********************

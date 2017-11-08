@@ -60,34 +60,6 @@
       $(allTasks).hover(handlerIn, handlerOut);
     }
 
-    // function applyListToggle() {
-    //   // Toggle active list
-    //   console.log("applyListToggle is running");
-    //   // Applying listener to last element only so each elements gets 1 listener only
-    //   $(listCollapsible).last().on("click", function(e){
-    //     e.stopPropagation();
-    //     // Removing all classes prevents multiple lists from being selected
-    //     $(listCollapsible).find(".todo-list-title").removeClass("todo-list-selected");
-    //     $(this).find(".todo-list-title").addClass("todo-list-selected");
-    //     $(this).find(".todo-list").slideToggle();
-    //   });
-    // }
-
-      // function renderNewList(listName) {
-      //   let newList =
-      //       '<li class="todo-multilist-item">' +
-      //       '<h4 class="todo-list-title">' + listName + '</h4>' +
-      //       '<ul class="todo-list"></ul>' +
-      //       '</li>';
-      //   $(listPanel).append(newList);
-      //   applyListToggle();
-      // }
-
-    // function getActiveList() {
-    //   // The active list is tracked by the selected class
-    //     activeList = $(listCollapsible).find(".todo-list-selected");
-    //     return activeList;
-    // }
 
     // Adds a hidden ul to task panel
     function prepareTaskList(){
