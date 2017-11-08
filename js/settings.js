@@ -4,7 +4,7 @@
   const STORAGE = chrome.storage.sync;
   const settingsIcon = document.querySelector(".settings-icon");
   const settingsPanel = document.querySelector(".settings");
-  const settingsNav = document.querySelector(".settings-nav");
+  const settingsNav = document.querySelectorAll(".settings-nav li");
   const displayRecipe = document.querySelector("#displayRecipe");
   const displayTime = document.querySelector("#displayTime");
   const displayGreeting = document.querySelector("#displayGreeting");
@@ -14,6 +14,7 @@
   const aboutText = document.querySelector(".settings-about-text");
   const settingsGeneral = document.querySelector(".settings-general");
   const toggleFeatures = document.querySelectorAll(".toggle-feature");
+  const overlay = document.querySelector(".overlay");
   const manifest = chrome.runtime.getManifest();
   let userPreferences = {};
 
@@ -22,6 +23,8 @@
 
   // Toggle settings panel on and off when settings icon (cog) is clicked.
   settingsIcon.addEventListener("click", toggleSettingsPanel);
+  overlay.addEventListener("click", toggleSettingsPanel);
+  
 
   // Change Settings panel when nav is clicked
   addListenerToSettingsNavigation()
@@ -65,30 +68,36 @@
 
   function toggleSettingsPanel() {
     settingsIcon.classList.toggle("clicked");
+    overlay.classList.toggle("hidden");
     settingsPanel.classList.toggle("hidden");
   }
 
-  function addListenerToSettingsNavigation() {    
-    // Display appropriate settings panel when a nav item is clicked.  
-    settingsNav.addEventListener("click", function() {
+  function addListenerToSettingsNavigation() {
+    let keys = Object.keys(settingsNav);
+    keys.forEach(function(key) {
+      // Display appropriate settings panel when a nav item is clicked.  
+      settingsNav[key].addEventListener("click", function() {
 
-      // Indicate which nav item is currently selected.
-      let target = event.target;
-      addClassToOneChild(".settings-nav", target, "settings-current");
+        // Indicate which nav item is currently selected.
+        let target = event.target;
+        addClassToOneChild(".settings-nav", target, "settings-current");
 
-      // If chosen panel is "About", pull data from manifest.
-      if (target.innerHTML === "About") {
-        populateAboutTab();
-      }
+        // If chosen panel is "About", pull data from manifest.
+        if (target.innerHTML === "About") {
+          populateAboutTab();
+        }
 
-      // If chosen panel is "Links", add event listeners.
-      if (target.innerHTML === "Links") {
-        initLinks();
-      }
+        // If chosen panel is "Links", add event listeners.
+        if (target.innerHTML === "Links") {
+          initLinks();
+        }
 
-      // Display the correct panel.
-      let chosenSubpanel = document.querySelector(`#settings${target.innerHTML}`);
-      hideAllChildrenButOne("settingsSubpanelContainer", chosenSubpanel);
+        // Display the correct panel.
+        if (target.innerHTML) {
+          let chosenSubpanel = document.querySelector(`#settings${target.innerHTML}`);
+          hideAllChildrenButOne("settingsSubpanelContainer", chosenSubpanel);
+        }
+      });
     });
   }
 

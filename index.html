@@ -134,7 +134,28 @@
         <div class="settings-icon-wrapper">
           <span class="fa fa-cog settings-icon text-shadow-strong"></span>
         </div>
-        <section class="settings hidden">
+        
+        <section class="floater-box credits text-shadow-strong">
+          <p id="image-location" class="floater location">image location</p>
+          <p id="image-photographer" class="floater photographer">image data</p>
+        </section>
+        <section class="floater-box quote text-shadow-strong">
+          <p id="quote" class="floater quote"></p>
+          <p id="quoteLinks" class="floater quoteLinks">
+            <!-- Tweet Button -->
+              <span class="fa fa-twitter" id="tweet" aria-hidden="true"></span>
+            <!-- Like Button -->
+              <span class="fa fa-heart-o" id="saveQuote" aria-hidden="true"></span>
+          </p>
+        </section>
+        <section class="todo">todo</section>
+      </div>
+
+    </div><!-- end of .main-wrapper -->
+
+    <div class="overlay hidden"></div>
+
+    <section class="settings hidden">
           <ul class="settings-nav">
             <li class="settings-current">General</li>
             <!--<li>Quotes</li>-->
@@ -230,23 +251,6 @@
 
           </div>
         </section>
-        <section class="floater-box credits text-shadow-strong">
-          <p id="image-location" class="floater location">image location</p>
-          <p id="image-photographer" class="floater photographer">image data</p>
-        </section>
-        <section class="floater-box quote text-shadow-strong">
-          <p id="quote" class="floater quote"></p>
-          <p id="quoteLinks" class="floater quoteLinks">
-            <!-- Tweet Button -->
-              <span class="fa fa-twitter" id="tweet" aria-hidden="true"></span>
-            <!-- Like Button -->
-              <span class="fa fa-heart-o" id="saveQuote" aria-hidden="true"></span>
-          </p>
-        </section>
-        <section class="todo">todo</section>
-      </div>
-
-    </div><!-- end of .main-wrapper -->
 
     <script src="libs/jquery-3.2.1.min.js"></script>
     <script src="js/helper-functions.js"></script>
