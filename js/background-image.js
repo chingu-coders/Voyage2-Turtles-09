@@ -81,31 +81,24 @@ function queryUnsplash () {
 // FOCUS BACKGROUND
 (function () {
   const mouseOverFocus = () => {
-<<<<<<< HEAD
-    $("#bottom-row").siblings().animate({opacity: 0});
-    $(".credits").siblings().animate({opacity: 0});
-=======
+
     $("#bottom-row").siblings().not(".settings-icon-wrapper").fadeTo("slow", 0);
     $(".credits").siblings().not(".settings-icon-wrapper").fadeTo("slow", 0);
->>>>>>> 0ee02fe9cfcbba6607d50438c154dffc3cceed3d
   };
 
   let timer ;
 
   const mouseOutFocus = () => {
-<<<<<<< HEAD
-    $("#bottom-row").siblings().animate({opacity: 1});
-    $(".credits").siblings().animate({opacity: 1});
-=======
+
     $("#bottom-row").siblings().not(".settings-icon-wrapper", "#focus-encouragement").fadeTo("slow", 100);
     $(".credits").siblings().not(".settings-icon-wrapper", "#focus-encouragement").fadeTo("slow", 100);
->>>>>>> 0ee02fe9cfcbba6607d50438c154dffc3cceed3d
     clearTimeout(timer);
   };
 
   $(".credits").mouseenter( () => {
     timer = window.setTimeout(mouseOverFocus, 3000);
   });
+
   $(".credits").mouseleave( () => {
     clearTimeout(timer);
     window.setTimeout(mouseOutFocus, 500);

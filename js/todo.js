@@ -2,22 +2,18 @@
 (function (){
   $(document).ready(function(){
     let targetNum;
+    let allTasks = document.getElementsByClassName("task");
+    let deleteIcons = document.getElementsByClassName("todo-delete");
+    let todoInput = document.getElementById("todo-input");
+    let addListBtn = document.getElementsByClassName("add-new-todo-list")[0];
+    let taskPanel = $(".task-panel");
+    let listPanel = $(".list-panel");
+    let todoStatus = document.getElementsByClassName("todo-status")[0];
+    let numTodos = 0;
 
-
-
-      let listBody = document.getElementsByClassName("todo-list");
-      let allTasks = document.getElementsByClassName("task");
-      let deleteIcons = document.getElementsByClassName("todo-delete");
-      let todoInput = document.getElementById("todo-input");
-      let addListBtn = document.getElementsByClassName("add-new-todo-list")[0];
-      let numTodos = 0;
-      let numLists = 0;
-
-
-      // function renderTodoStatus() {
-      //   let todoStatus = document.getElementsByClassName("todo-status")[0];
-      //   todoStatus.innerText = numTodos + " todos";
-      // }
+      function renderTodoStatus() {
+        todoStatus.innerText = numTodos + " todos";
+      }
 
       function updateTodoStatus(isDelete) {
         if (!isDelete) {
@@ -26,30 +22,20 @@
         if (isDelete) {
           numTodos--;
         }
-        // renderTodoStatus();
-      }
-
-      function updateListNum(isDelete) {
-        if(!isDelete) {
-          numLists++;
-        }
-        if(isDelete) {
-          numLists--;
-        }
+        renderTodoStatus();
       }
 
     function applyDelete() {
       // .off() to prevent multiple listeners from being added to a single task
       $(".task-panel li").find(deleteIcons).off().on("click", function(e) {
-        // e.stopPropagation();
         $(this).parent().fadeOut();
         updateTodoStatus(true);
       });
+      // The delete hover function is stripped then reapplied to all li's for consistent handler application
       deleteHover();
     }
 
     function deleteHover() {
-
       function handlerIn() {
         console.log("hover");
         $(this).find(deleteIcons).removeClass("hidden");
@@ -67,7 +53,6 @@
         $(".task-panel").append(prepUl);
     }
 
-
     function applySelectToggle() {
       $(".list-panel li").off().on("click", function(e){
         e.stopPropagation();
@@ -84,28 +69,24 @@
     }
 
     // Adds new lists to list panel
-    $(".list-input").on("keydown", function(e) {
-      if (event.which === 13) {
-        // List's data-target# attribute == listNum
-        updateListNum(false);
+    function addNewList() {
+      $(".list-input").on("keydown", function(e) {
+        if (event.which === 13) {
+          // List's data-target# attribute == listNum
+          updateListNum(false);
 
-        let list = `<li data-target="${numLists}">${e.target.value}</li>`;
-        // Append list to list panel
-        $(".list-panel").find("ul").append(list);
-        applySelectToggle();
-        prepareTaskList();
+          let list = `<li data-target="${numLists}">${e.target.value}</li>`;
+          // Append list to list panel
+          $(".list-panel").find("ul").append(list);
+          applySelectToggle();
+          prepareTaskList();
 
+          // Clear the input after user hits enter
+          $(".list-input").val("");
+        }
+      });
+    }
 
-        // Clear the input after user hits enter
-        $(".list-input").val("");
-      }
-    });
-
-    // For testing --- delete later
-    $(".list-panel").find("li").on("click", function(){
-      $(".list-panel li").removeClass("list-selected");
-      $(this).addClass("list-selected");
-    });
 
     function renderItem(newItem) {
       let newListItem =
@@ -119,8 +100,8 @@
 
       function addNewTask() {
         $(".task-input").on("keydown", function(event) {
+          console.log("key press");
           if (event.which === 13) {
-
             let newItem =
               `<li class="task">
               <input type="checkbox">
@@ -131,24 +112,45 @@
             applyDelete();
             $(".task-input").val("");
 
-
-
-
-
-
-
-
-            // addToList(getActiveList(), newItem);
-            //
-            // applyDelete($(allTasks).find("span"));
-
             // Increases # tasks
             updateTodoStatus(false);
+            storeTodo();
           }
         });
       }
 
-      addNewTask();
+
+    function getStoredTodo() {
+      chrome.storage.sync.get(null, function (data) {
+        if (data["list_panel"] !== undefined) {
+
+          let savedLists = data["list_panel"];
+          let savedTasks = data["task_panel"];
+          let savedNumTodos = data["todo_status"];
+
+          listPanel.html(savedLists);
+          taskPanel.html(savedTasks);
+          todoStatus.innerHTML = savedNumTodos;
+
+          addNewTask();
+          addNewList();
+          applySelectToggle();
+          applyDelete();
+        }
+      });
+    }
+
+    getStoredTodo();
+
+    function storeTodo() {
+      listPanel = $(".list-panel").html();
+      taskPanel = $(".task-panel").html();
+      chrome.storage.sync.set ({
+        "list_panel": listPanel,
+        "task_panel": taskPanel,
+        "todo_status": numTodos
+      });
+    }
 
 
 
