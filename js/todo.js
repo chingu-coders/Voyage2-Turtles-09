@@ -10,6 +10,7 @@
     let listPanel = $(".list-panel");
     let todoStatus = document.getElementsByClassName("todo-status")[0];
     let numTodos = 0;
+    let numLists = 0;
 
       function renderTodoStatus() {
         todoStatus.innerText = numTodos + " todos";
@@ -24,6 +25,18 @@
         }
         renderTodoStatus();
       }
+
+      function updateListNum(isDelete) {
+        if (!isDelete) {
+          numLists++;
+        }
+        if (isDelete) {
+          numLists--;
+        }
+
+      }
+
+
 
     function applyDelete() {
       // .off() to prevent multiple listeners from being added to a single task
@@ -49,7 +62,7 @@
 
     // Adds a hidden ul to task panel
     function prepareTaskList(){
-        let prepUl = `<ul data-target="${numLists}" class="task-inactive"><li>New List Added!</li></ul>`;
+        let prepUl = `<ul data-target="${numLists}" class="task-inactive"></ul>`;
         $(".task-panel").append(prepUl);
     }
 
@@ -87,16 +100,7 @@
       });
     }
 
-
-    function renderItem(newItem) {
-      let newListItem =
-          '<li class="task">' +
-          '<input type="checkbox">'
-          + newItem
-          + '<span class="todo-delete hidden">x</span>'
-          + '</li>';
-      return newListItem;
-    }
+    addNewList();
 
       function addNewTask() {
         $(".task-input").on("keydown", function(event) {
@@ -114,47 +118,45 @@
 
             // Increases # tasks
             updateTodoStatus(false);
-            storeTodo();
+            // storeTodo();
           }
         });
       }
 
-
-    function getStoredTodo() {
-      chrome.storage.sync.get(null, function (data) {
-        if (data["list_panel"] !== undefined) {
-
-          let savedLists = data["list_panel"];
-          let savedTasks = data["task_panel"];
-          let savedNumTodos = data["todo_status"];
-
-          listPanel.html(savedLists);
-          taskPanel.html(savedTasks);
-          todoStatus.innerHTML = savedNumTodos;
-
-          addNewTask();
-          addNewList();
-          applySelectToggle();
-          applyDelete();
-        }
-      });
-    }
-
-    getStoredTodo();
-
-    function storeTodo() {
-      listPanel = $(".list-panel").html();
-      taskPanel = $(".task-panel").html();
-      chrome.storage.sync.set ({
-        "list_panel": listPanel,
-        "task_panel": taskPanel,
-        "todo_status": numTodos
-      });
-    }
+      addNewTask();
 
 
+    // function getStoredTodo() {
+    //   chrome.storage.sync.get(null, function (data) {
+    //     if (data["list_panel"] !== undefined) {
+    //
+    //       let savedLists = data["list_panel"];
+    //       let savedTasks = data["task_panel"];
+    //       let savedNumTodos = data["todo_status"];
+    //
+    //       listPanel.html(savedLists);
+    //       taskPanel.html(savedTasks);
+    //       todoStatus.innerHTML = savedNumTodos;
+    //
+    //       addNewTask();
+    //       addNewList();
+    //       applySelectToggle();
+    //       applyDelete();
+    //     }
+    //   });
+    // }
 
+    // getStoredTodo();
 
+    // function storeTodo() {
+    //   listPanel = $(".list-panel").html();
+    //   taskPanel = $(".task-panel").html();
+    //   chrome.storage.sync.set ({
+    //     "list_panel": listPanel,
+    //     "task_panel": taskPanel,
+    //     "todo_status": numTodos
+    //   });
+    // }
   });
 })();
 
