@@ -22,6 +22,19 @@
         width: 5120,
         height: 3418
       }
+
+//Backup quotes
+  const backupQuotes = [
+    {1: {
+      quoteAuthor: "Coach Brule",
+      quoteText: "It's for your health!"
+    }},
+    {2: {
+      quoteAuthor: "Warcraft 2 Elf",
+      quoteText: "Time is of the essence"
+    }}
+  ];
+
     }
 
     function selectBgRes() {
