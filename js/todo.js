@@ -10,37 +10,51 @@
     let numTodos = 0;
     let numLists = 0;
 
+    function todoHandler() {
+      // All event handlers to be added to dynamically created elements
+
+      applyDelete();
+      addNewList();
+      addNewTask();
+      applySelectToggle();
+      renderTodoStatus();
+      taskReveal();
+    }
+
     function getStoredTodo() {
       chrome.storage.sync.get(null, function (data) {
-        if (data["list_panel"] !== undefined) {
+        if (data["task_panel"] !== undefined) {
 
           let savedLists = data["list_panel"];
           let savedTasks = data["task_panel"];
           let savedNumTodos = data["todo_num"];
           let savedNumLists = data["list_num"];
 
-          numTodos = savedNumTodos;
-          // console.log("num todo's from storage is " + savedNumTodos);
-          numLists = savedNumLists;
           listPanel.html(savedLists);
+          numLists = savedNumLists;
+          numTodos = savedNumTodos;
           taskPanel.html(savedTasks);
-          taskReveal();
-          applySelectToggle();
-          applyDelete();
-          addNewList();
-          addNewTask();
-          renderTodoStatus();
         }
+          todoHandler();
+      });
+    }
+    getStoredTodo();
 
-
+    function storeTodo() {
+      // Content html string is stored when applyDelete() and addTask() fires
+      // TODO: store content when tab is closed
+      listPanel = $(".list-panel").html();
+      taskPanel = $(".task-panel").html();
+      chrome.storage.sync.set ({
+        "list_panel": listPanel,
+        "task_panel": taskPanel,
+        "todo_num": numTodos,
+        "list_num": numLists
       });
     }
 
-    getStoredTodo();
-
       function renderTodoStatus() {
-        console.log("Todo status rendered");
-        $(".todo-status").html(numTodos + " todos.");
+        $(".todo-status").html(numTodos + " todos");
       }
 
       function updateTodoStatus(isDelete) {
@@ -50,7 +64,6 @@
         if (isDelete) {
           numTodos--;
         }
-        console.log("todo status updated to: " + numTodos + ". The type of numTodo is: " + typeof numTodos);
         renderTodoStatus();
       }
 
@@ -61,7 +74,6 @@
         if (isDelete) {
           numLists--;
         }
-
       }
 
     function applyDelete() {
@@ -70,7 +82,7 @@
         $(this).parent().fadeOut();
         updateTodoStatus(true);
       });
-      // The delete hover function is stripped then reapplied to all li's for consistent handler application
+      // The delete hover function is stripped then reapplied to all li's for consistent application of event handlers
       deleteHover();
     }
 
@@ -86,13 +98,13 @@
     }
 
 
-    // Adds a hidden ul to task panel
     function prepareTaskList(){
-        let prepUl = `<ul data-target="${numLists}" class="task-inactive"></ul>`;
-        $(".task-panel").append(prepUl);
+      // Adds a hidden ul to task panel
+        $(".task-panel").append(`<ul data-target="${numLists}" class="task-inactive"></ul>`);
     }
 
     function taskReveal() {
+      // The lists on the left panel are linked to the tasks on the right panel via data-target
       targetNum = $(".list-panel").find(".list-selected").attr("data-target");
       $(".task-panel ul").addClass("task-inactive");
       $(`ul[data-target=${targetNum}]`).removeClass("task-inactive");
@@ -113,9 +125,8 @@
         if (event.which === 13) {
           // List's data-target# attribute == listNum
           updateListNum(false);
-          console.log("Num of new list is " + numLists);
-
           let list = `<li data-target="${numLists}">${e.target.value}</li>`;
+
           // Append list to list panel
           $(".list-panel").find("ul").append(list);
           applySelectToggle();
@@ -130,8 +141,7 @@
     addNewList();
 
       function addNewTask() {
-        $(".task-input").on("keydown", function(event) {
-          console.log("key press");
+        $(".task-input").off().on("keydown", function(event) {
           if (event.which === 13) {
             let newItem =
               `<li class="task">
@@ -151,21 +161,6 @@
       }
 
     addNewTask();
-
-
-
-
-    function storeTodo() {
-      listPanel = $(".list-panel").html();
-      taskPanel = $(".task-panel").html();
-      console.log("Im storing this many todo's " + numTodos );
-      chrome.storage.sync.set ({
-        "list_panel": listPanel,
-        "task_panel": taskPanel,
-        "todo_num": numTodos,
-        "list_num": numLists
-      });
-    }
   });
 })();
 
