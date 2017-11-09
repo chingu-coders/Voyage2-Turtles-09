@@ -68,6 +68,11 @@
   }];
 
     function selectBgRes() {
+  const storedData = {
+    background: null,
+    quote: null,
+    recipe: null
+  };
       switch (true) {
         case windowWidth <= defaultBg.lowRes.width || windowHeight <= defaultBg.lowRes.height:
           return defaultBg.lowRes.url;
