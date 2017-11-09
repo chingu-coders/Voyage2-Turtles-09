@@ -61,7 +61,7 @@ function queryUnsplash () {
           let savedLocation = data["location"];
           let savedLinkToUser = data["link"];
           let savedUsername = data["username"];
-          document.body.style.background = `#f3f3f3 url('${savedBg}') center center fixed / cover no-repeat`;
+          $(".loaded-wrapper").css("background", `#f3f3f3 url('${savedBg}') center center fixed / cover no-repeat`);
           bg.renderLocation.innerHTML = `${savedLocation}` || `{imageDescriptionData}`;
           bg.renderPhotographer.innerHTML = `<a href="${savedLinkToUser}">${savedPhotographer}</a>` || `<a href="{linkToUser}">${savedUsername}</a>`;
           console.log("Using last saved BG");
