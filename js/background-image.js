@@ -88,8 +88,8 @@ function queryUnsplash () {
   let timer ;
 
   const mouseOutFocus = () => {
-    $("#bottom-row").siblings().not(".settings-icon-wrapper", "#focus-encouragement").fadeTo("slow", 100);
-    $(".credits").siblings().not(".settings-icon-wrapper", "#focus-encouragement").fadeTo("slow", 100);
+    $("#bottom-row").siblings().not(".settings-icon-wrapper", "#focus-encouragement").fadeTo("slow", 1);
+    $(".credits").siblings().not(".settings-icon-wrapper", "#focus-encouragement").fadeTo("slow", 1);
     clearTimeout(timer);
   };
 

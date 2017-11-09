@@ -3,6 +3,7 @@
  ******************/
 html {
   box-sizing: border-box;
+  position: relative;
 }
 
 *,
@@ -74,7 +75,7 @@ body, input {
 .quote,
 .todo {
   opacity: 1;
-  transition: opacity 1000ms ease-in-out;
+  transition: opacity 500ms ease-in-out;
 }
 
 /***********************
@@ -353,6 +354,11 @@ body, input {
 .focus-input-wrapper,
 .focus-output-wrapper {
   height: 150px;
+  position: relative;
+}
+
+.focus-input-wrapper {
+  z-index: 1;
 }
 
 .focus-output-wrapper {
@@ -385,8 +391,10 @@ body, input {
 }
 
 .fa-check-square-o {
-  margin-left: -26px;
+  margin-left: -24px;
   margin-right: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .focus-output.focus-completed {
