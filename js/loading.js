@@ -35,7 +35,37 @@
     }}
   ];
 
+//Backup recipes
+  const backupRecipes = [{
+    1: {
+      title: "Seafood Chowder",
+      timestamp: "6-11-2017",
+      source: "http://www.saveur.com/article/Recipes/Seafood-Chowder",
+      calories: 2405,
+      diet: ["Low-Carb"],
+      thumbnail: "https://www.edamam.com/web-img/b7a/b7a109912573f48845caf1bc242ce3f4.jpg",
+      serves: 6,
+      fat: 169,
+      sugar: 23,
+      carbs: "edmCarbs",
+      protein: "edmProtein",
+      notes: []
+    },
+    2: {
+      title: "Easy Bacon Wrapped Dates",
+      timestamp: "6-11-2017",
+      source:	"http://www.foodista.com/recipe/SLVGRM3L/easy-bacon-wrapped-dates",
+      calories: 126,
+      diet:	["Low-​Sodium", "Dairy-​Free", "Gluten-​Free"],
+      thumbnail: "https://www.edamam.com/web-img/572/572501149c4d1b27aa5736a6dae7f778.jpg",
+      serves: 12,
+      fat: 6,
+      sugar: 16,
+      carbs: 18,
+      protein: 2,
+      notes: []
     }
+  }];
 
     function selectBgRes() {
       switch (true) {
