@@ -166,7 +166,9 @@
     }
   };
 
-  backgroundBackup();
+//Function for running through backupChecker for a certain interval
+  backupChecker.startTimeout();
+
 // Execute when decision to print which data has been made
 
   function showWrapperToDisplay() {
