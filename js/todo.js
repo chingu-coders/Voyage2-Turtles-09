@@ -100,7 +100,7 @@
 
     function prepareTaskList(){
       // Adds a hidden ul to task panel
-        $(".task-panel").append(`<ul data-target="${numLists}" class="task-inactive"></ul>`);
+        $(".task-panel").append(`<ul data-target="${numLists}"></ul>`);
     }
 
     function taskReveal() {
@@ -134,6 +134,7 @@
           $(".list-panel").find("ul").append(list);
           applySelectToggle();
           prepareTaskList();
+          taskReveal();
 
           // Clear the input after user hits enter
           $(".list-input").val("");
