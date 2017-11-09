@@ -85,6 +85,35 @@
     }
   };
 
+  const backups = {
+    background: ()=>{
+      console.log("Hi, I'm the backgroundBackup func!");
+      let bgUrl = "url(";
+
+      bgUrl += defaultBg.selectBgRes();
+      bgUrl += ") center center fixed / cover no-repeat";
+      $("#loaded-wrapper").css("background", bgUrl);
+    },
+
+    quote: ()=>{
+      console.log("Hi, I'm the quoteBackup func!");
+      let n = rand(backupQuotes.length);
+      let data = backupQuotes[n][n + 1];
+      chrome.storage.sync.set({"quotes": data});
+      wrapData(data);
+    },
+
+    recipe: ()=>{
+      console.log("Hi, I'm the recipeBackup func!");
+      let n = rand(backupRecipes.length);
+      let savedRecipe = backupRecipes[n][n + 1];
+      chrome.storage.sync.set({"recipe": savedRecipe});
+      recipePreview(savedRecipe);
+      //Need to find proper way to call this function, currently reads
+      //as 'undefined'. Most likely b/c recipes is in in an IIFE, so defs are
+      //block-scoped.
+    }
+  };
   };
 
   backgroundBackup();
