@@ -13,12 +13,12 @@
   const displayQuote = document.querySelector("#displayQuote");
   const aboutText = document.querySelector(".settings-about-text");
   const settingsGeneral = document.querySelector(".settings-general");
-  const toggleFeatures = document.querySelectorAll(".toggle-feature");
+  const toggleWidgets = document.querySelectorAll(".toggle-widget");
   const overlay = document.querySelector(".overlay");
   const manifest = chrome.runtime.getManifest();
   let userPreferences = {};
 
-  // Check if feature preferences have been set.
+  // Check if widget preferences have been set.
   getUserPreferences();
 
   // Toggle settings panel on and off when settings icon (cog) is clicked.
@@ -34,9 +34,9 @@
 
   function addListenersToGeneralSettings() {
     // Add a listener to each toggle switch in General Settings
-    let keys = Object.keys(toggleFeatures);
+    let keys = Object.keys(toggleWidgets);
     keys.forEach(function(key) {
-      toggleFeatures[key].children[0].addEventListener("click", showHideWidgets);
+      toggleWidgets[key].children[0].addEventListener("click", showHideWidgets);
     });
   }
 
