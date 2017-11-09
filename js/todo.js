@@ -121,11 +121,14 @@
 
     // Adds new lists to list panel
     function addNewList() {
-      $(".list-input").on("keydown", function(e) {
+      $(".list-input").off().on("keydown", function(e) {
         if (event.which === 13) {
           // List's data-target# attribute == listNum
           updateListNum(false);
-          let list = `<li data-target="${numLists}">${e.target.value}</li>`;
+
+          // Removes selected class from all li's so newest list is selected
+          $(".list-panel li").removeClass("list-selected");
+          let list = `<li data-target="${numLists}" class="list-selected">${e.target.value}</li>`;
 
           // Append list to list panel
           $(".list-panel").find("ul").append(list);
