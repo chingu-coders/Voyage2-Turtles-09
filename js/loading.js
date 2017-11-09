@@ -114,6 +114,56 @@
       //block-scoped.
     }
   };
+
+  const backupChecker = {
+    startTimeout: () => {
+      let timerId = setTimeout(function runChecker() {
+        backupChecker.storageCheck();
+        if (backupChecker.complete) {
+          console.log("Check complete!");
+          clearTimeout(timerId);
+          showWrapperToDisplay();
+        } else {
+          timerId = setTimeout(runChecker, 10);
+        }
+      }, 10);
+
+      setTimeout(() => {
+        clearTimeout(timerId);
+        if (!backupChecker.complete){
+          backupChecker.runBackup();
+          showWrapperToDisplay();
+        }
+      }, 1500);
+    },
+
+    storageCheck: () => {
+      chrome.storage.sync.get(null, (obj) => {
+        let error = chrome.runtime.lastError;
+        if (error) {
+          console.error(error);
+        } else {
+          storedData.background = obj["bg_url"];
+          storedData.quote = obj.quotes;
+          storedData.recipe = obj.recipe;
+
+          if (storedData.background && storedData.quote && storedData.recipe) {
+            backupChecker.complete = true;
+          } else {
+            backupChecker.complete = false;
+          }
+        }
+      });
+    },
+
+    runBackup: () => {
+      $.each(storedData, (key, value) => {
+        if (!value) {
+          console.log("Running backups method for:", key);
+          backups[key]();
+        }
+      });
+    }
   };
 
   backgroundBackup();
