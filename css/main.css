@@ -747,7 +747,7 @@ input[type=checkbox]:checked + .toggle-btn::before {
 * Utility classes and Helpers
 ******************************/
 .hidden {
-  opacity: 0;
+  opacity: 0!important;
   //visibility: hidden;
   z-index: -1;
 }
