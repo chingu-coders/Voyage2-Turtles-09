@@ -145,17 +145,6 @@
           // and show/hide widgets as appropriate
           displayPreferences();
         }
-        /* if not, set defaults */
-        /*else {
-          userPreferences =  {
-           "displayRecipe": true, 
-           "displayTime": true, 
-           "displayGreeting": true, 
-           "displayFocus": true, 
-           "displayTodo": true, 
-           "displayQuote": true
-          };
-        }*/
       }
     });
   }
