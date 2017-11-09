@@ -167,4 +167,16 @@
   };
 
   backgroundBackup();
+// Execute when decision to print which data has been made
+
+  function showWrapperToDisplay() {
+    let wrapperToDisplay = window.localStorage.getItem("wrapperToDisplay");
+    localStorage.removeItem("wrapperToDisplay");
+    $("#loading-wrapper").fadeOut("fast", () => {
+      $("#loaded-wrapper").fadeIn("slow", () => {
+        $(wrapperToDisplay).show();
+      });
+    });
+  }
+
 })();
