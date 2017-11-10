@@ -50,7 +50,8 @@ function recipes() {
 
   function getRecipe() {
     // Check storage for saved recipe
-    chrome.storage.sync.get("recipe", function(obj){
+    chrome.storage.sync.get(null, function(obj){
+      let recipe = obj.recipe;
       // Error handling
       let error = chrome.runtime.lastError;
       if (error) {
