@@ -601,7 +601,8 @@ body, input {
 
 .settings-subpanel h2,
 .settings-general li,
-.settings-links li {
+.settings-links li,
+.t9-link {
   border-bottom: 2px solid rgba(255, 255, 255, .1);
   padding: .875rem 0 .625rem;
 }
@@ -739,7 +740,44 @@ input[type=checkbox]:checked + .toggle-btn::before {
   color: #ccc;
   font-size: .875rem;
 }
-/* end settings "About" tab
+/* end settings "About" tab */
+
+/* settings "T9" tab */
+.settings-t9 p {
+  color: #ccc;
+  //font-size: 1.125rem;
+  //margin: 1.5rem;
+}
+
+.settings-t9 p strong {
+  color: #fff;
+  font-weight: normal;
+}
+
+.settings-t9 p a {
+  text-decoration: none;
+}
+
+.settings-t9 p a:hover,
+.settings-t9 p a:active {
+  text-decoration: underline;
+}
+
+.settings-t9 li a {
+  text-decoration: none;
+  padding-left: 1rem;
+}
+
+.settings-t9 li a:link,
+.settings-t9 a:visited {
+  color: #ccc;
+}
+
+.settings-t9 li a:hover,
+.settings-t9 a:active {
+  color: #fff;
+}
+/* end settings "T9" tab */
 
 /* end of settings */
 
