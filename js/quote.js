@@ -22,6 +22,28 @@ const quote = {
 
 };
 
+const handleQuote = {
+    render: (data) => {
+        quote.renderQuote.innerText = data.quoteText;
+        quote.renderDetails.prepend("- " + (data.quoteAuthor || 'Anonymous'));
+        // Data is returned in order to resolve the promise triggering getTweet() in the promise chain
+
+    },
+    tweet: () => window.open(quote.twitter + quote.renderQuote.innerText.trim() + " - " + (data.quoteAuthor || 'Anonymous'), "_blank"),
+    save: () => {
+        // BTW SAVE ISN'T WORKING YET
+        // Parses YYYY-MM-DD format
+        let time = new Date().toISOString().slice(0, 10);
+        let savedQuotes = JSON.parse(localStorage.getItem("quotes")) || [];
+        let newQuote = {[time]: data.quoteText + " - " + (data.quoteAuthor || 'Anonymous')};
+
+        chrome.storage.local.set({"quotes": newQuote});
+        chrome.storage.sync.get("quotes", function (storage) {
+            console.log(storage);
+        });
+
+    }
+};
 
 const getQuote = (data) => {
     quote.renderQuote.innerText = data.quoteText;
@@ -34,31 +56,9 @@ const getQuote = (data) => {
 
 // Renders API data, handles tweet and like functionality
 const wrapData = function (data) {
-    const handleQuote = {
-        render: () => {
-            quote.renderQuote.innerText = data.quoteText;
-            quote.renderDetails.prepend("- " + (data.quoteAuthor || 'Anonymous'));
-            // Data is returned in order to resolve the promise triggering getTweet() in the promise chain
 
-        },
-        tweet: () => window.open(quote.twitter + quote.renderQuote.innerText.trim() + " - " + (data.quoteAuthor || 'Anonymous'), "_blank"),
-        save: () => {
-            // BTW SAVE ISN'T WORKING YET
-            // Parses YYYY-MM-DD format
-            let time = new Date().toISOString().slice(0, 10);
-            let savedQuotes = JSON.parse(localStorage.getItem("quotes")) || [];
-            let newQuote = {[time]: data.quoteText + " - " + (data.quoteAuthor || 'Anonymous')};
-
-            chrome.storage.local.set({"quotes": newQuote});
-            chrome.storage.sync.get("quotes", function (storage) {
-                console.log(storage);
-            });
-
-        }
-    };
 
     // Display Quote
-    wrapData.render = handleQuote.render;
 
     // Fire button functionality
     $("#tweet").on("click", handleQuote.tweet);
