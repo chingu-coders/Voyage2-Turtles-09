@@ -58,16 +58,12 @@ const wrapData = function (data) {
     };
 
     // Display Quote
-    handleQuote.render();
+    wrapData.render = handleQuote.render;
 
     // Fire button functionality
     $("#tweet").on("click", handleQuote.tweet);
     $("#saveQuote").on("click", handleQuote.save);
 
 };
-
-
 // wrapData() passes API data to all handleQuote methods
 $.getJSON(quote.settings).then(data => wrapData(data)).fail(quote.handleErr);
-
-
