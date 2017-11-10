@@ -1,4 +1,4 @@
-(function recipes() {
+function recipes() {
   "use strict";
 
   // Create date timestamp for daily recipe
@@ -21,43 +21,42 @@
   const recipeReload = document.querySelector(".recipe-reload");
   const ingredientPref = document.querySelectorAll(".ingredients-list .ingredient a");
 
-  // Set up user prefs
-  // The following section is early implementation for allowing user prefs
-  // in diet and allergies tags. However, the Edamam API is broken, so this
-  // is in hiatus. The code is dormant, pining for lost loves...
-
-  let dietVeggie = false;
-  let dietVegan = false;
-  let dietPaleo = false;
-  let glutenAllergy = false;
-  let dairyAllergy = false;
-  let peanutAllergy = false;
-  let shellfishAllergy = false;
-
-  let recipeSettings = {
-    vegetarian: dietVeggie === true ? "&health=vegetarian" : "",
-    vegan: dietVegan === true ? "&health=vegan" : "",
-    paleo: dietPaleo === true ? "&health=paleo" : "",
-    gluten: glutenAllergy === true ? "&health=gluten-free" : "",
-    dairy: dairyAllergy === true ? "&health=dairy-free" : "",
-    peanuts: peanutAllergy === true ? "&health=peanut-free" : "",
-    shellfish: shellfishAllergy === true ? "&health=shellfish-free" : ""
-  }
-
   // Display/edit recipe preferences
   let defaultSearchIngredients = ["chicken", "beef", "bacon", "brussel"];
-  let searchIngredients = [];
-  getRecipePrefs();
+  let searchIngredients;
 
+  // ----------------------------------------------------------------------
+  // Listeners
+  //
+
+  // Add listeners to recipe settings ingredients icons
+  ingredientPref.forEach(function(item) {
+    item.addEventListener("click", function() {
+      // Grab the ingredient from the class name
+      let ingredient = this.classList[0];
+      // Toggle whether the ingredient appears as selected
+      this.classList.toggle("selected");
+      // Toggle ingredient in saved array
+      searchIngredients.indexOf(ingredient) > -1 ? removeFromAry(ingredient, searchIngredients) : searchIngredients.push(ingredient);
+      // Save to Chrome storage
+      chrome.storage.sync.set({"recipeSettings": searchIngredients});
+      // Test that the array is correct
+      console.log(searchIngredients);
+    });
+  })
+
+  // Listen for recipe reset
+  recipeReload.addEventListener("click", function reload() {
+    queryEdamam();
+  });
 
   // ----------------------------------------------------------------------
   // Functions
   //
 
-  function getRecipePrefs() {
+  (function getRecipePrefs() {
     // Get recipe settings from storage
     chrome.storage.sync.get("recipeSettings", function(obj){
-      let searchIngredients = obj.recipeSettings;
       // Error handling
       let error = chrome.runtime.lastError;
       if (error) {
@@ -65,44 +64,29 @@
       // If there are recipe settings in storage...
       } else if (obj.recipeSettings) {
         // For each ingredient in the display...
-        ingredientPref.forEach(function(item) {
-          // Grab the class name...
-          let ingredient = item.classList[0];
-          // And toggle (remove) the "selected" class, if not in saved settings
-          if (searchIngredients.indexOf(ingredient) === -1) {
-            item.classList.toggle("selected");
-          }
-        })
+        displayRecipePrefs(obj.recipeSettings);
         // Add listeners and toggle array based on saved settings
-        editRecipePrefs(searchIngredients);
-        return searchIngredients;
+        searchIngredients = obj.recipeSettings;
       } else {
         // Add listeners and toggle based on everything being selected
-        editRecipePrefs(defaultSearchIngredients);
-        return searchIngredients = defaultSearchIngredients;
+        searchIngredients = defaultSearchIngredients;
       }
     });
-  };
+  })();
 
-  function editRecipePrefs(searchIngredients) {
-    // When feature ingredient is clicked...
-    ingredientPref.forEach(function(item) {
-      item.addEventListener("click", function() {
-        // Grab the ingredient from the class name
-        let ingredient = this.classList[0];
-        // Toggle whether the ingredient appears as selected
-        this.classList.toggle("selected");
-        // Toggle ingredient in saved array
-        searchIngredients.indexOf(ingredient) > -1 ? removeFromAry(ingredient, searchIngredients) : searchIngredients.push(ingredient);
-        // Save to Chrome storage
-        chrome.storage.sync.set({"recipeSettings": searchIngredients});
-        // Test that the array is correct
-        console.log(searchIngredients);
-      });
+  function displayRecipePrefs(recipePrefs) {
+    ingredientPref.forEach(function(a) {
+      // Grab the class name...
+      let ingredient = a.classList[0];
+      // And toggle (remove) the "selected" class, if not in saved settings
+      if (recipePrefs.indexOf(ingredient) === -1) {
+        a.classList.toggle("selected");
+      }
     })
   }
 
-  function getRecipe(searchIngredients) {
+
+  (function getRecipe() {
     // Check storage for saved recipe
     chrome.storage.sync.get("recipe", function(obj){
       // Error handling
@@ -117,15 +101,12 @@
         displayRecipe(obj.recipe);
       }
     });
-  }
+  })();
 
   // Query Edamam API
   function queryEdamam() {
 
-    getRecipePrefs();
-
     // Define default recipe search options
-    let searchTerms = searchIngredients;
     let dietOptions = ["balanced", "high-protein", "low-fat", "low-carb"]
 
     // Build query url
@@ -136,57 +117,35 @@
     // const api = "https://api.edamam.com/search";
     const app_id = "&app_id=" + "373a2755";
     const app_key = "&app_key=" + "5e414263cb40da6abf1019a550333f43";
-    let search = "?q=" + searchTerms[rand(searchTerms.length)];
+    let search = "?q=" + searchIngredients[rand(searchIngredients.length)];
     let diet1 = "&diet=" + dietOptions[rand(dietOptions.length)];
-    let diet2 = recipeSettings.vegetarian;
-    let diet3 = recipeSettings.vegan;
-    let diet4 = recipeSettings.paleo;
-    let allergy1 = recipeSettings.gluten;
-    let allergy2 = recipeSettings.dairy;
-    let allergy3 = recipeSettings.peanuts;
-    let allergy4 = recipeSettings.shellfish;
     let range = "&to=" + "100";
-    const query = api + search + app_id + app_key + diet1 + diet2 + diet3 + diet4 +
-                  allergy1 + allergy2 + allergy3 + allergy4 + range;
+    const query = api + search + app_id + app_key + diet1 + range;
 
     // Query Edamam
     $.getJSON(query, function(json) {
       console.log(query);
       console.log(json);
 
-      // Set data variables (edm == edamam)
-      let randomRecipe = rand(json.hits.length);
-      let edmTitle = json.hits[randomRecipe].recipe.label;
-      let edmImage = json.hits[randomRecipe].recipe.image;
-      let edmServes = json.hits[randomRecipe].recipe.yield;
-      let edmCalories = Math.round(json.hits[randomRecipe].recipe.calories/edmServes);
-      let edmSource = json.hits[randomRecipe].recipe.source;
-      let edmSourceUrl = json.hits[randomRecipe].recipe.url;
-      let edmDietLabels = json.hits[randomRecipe].recipe.dietLabels;
-      let edmHealthLabels = json.hits[randomRecipe].recipe.healthLabels;
-      let edmFat = Math.round(json.hits[randomRecipe].recipe.totalNutrients.FAT.quantity/edmServes);
-      let edmSugar = Math.round(json.hits[randomRecipe].recipe.totalNutrients.SUGAR.quantity/edmServes);
-      let edmCarbs = Math.round(json.hits[randomRecipe].recipe.totalNutrients.CHOCDF.quantity/edmServes);
-      let edmProtein = Math.round(json.hits[randomRecipe].recipe.totalNutrients.PROCNT.quantity/edmServes);
-      let edmNotes = json.hits[randomRecipe].recipe.cautions;
-
       // Save query vars
+      let randomRecipe = rand(json.hits.length);
+      let servesNum = json.hits[randomRecipe].recipe.yield;
       let savedRecipe = {
-        title: edmTitle,
+        title: json.hits[randomRecipe].recipe.label,
         timestamp: timestamp,
-        source: edmSource,
-        sourceUrl: edmSourceUrl,
-        calories: edmCalories,
-        diet: edmDietLabels,
-        health: edmHealthLabels,
-        thumbnail: edmImage,
-        serves: edmServes,
-        fat: edmFat,
-        sugar: edmSugar,
-        carbs: edmCarbs,
-        protein: edmProtein,
-        notes: edmNotes
-      }
+        source: json.hits[randomRecipe].recipe.source,
+        sourceUrl: json.hits[randomRecipe].recipe.url,
+        calories: Math.round(json.hits[randomRecipe].recipe.calories/servesNum),
+        diet: json.hits[randomRecipe].recipe.dietLabels,
+        health: json.hits[randomRecipe].recipe.healthLabels,
+        thumbnail: json.hits[randomRecipe].recipe.image,
+        serves: servesNum,
+        fat: Math.round(json.hits[randomRecipe].recipe.totalNutrients.FAT.quantity/servesNum),
+        sugar: Math.round(json.hits[randomRecipe].recipe.totalNutrients.SUGAR.quantity/servesNum),
+        carbs: Math.round(json.hits[randomRecipe].recipe.totalNutrients.CHOCDF.quantity/servesNum),
+        protein: Math.round(json.hits[randomRecipe].recipe.totalNutrients.PROCNT.quantity/servesNum),
+        notes: json.hits[randomRecipe].recipe.cautions
+      };
 
       // Save to Chrome storage
       chrome.storage.sync.set({"recipe": savedRecipe});
@@ -194,6 +153,9 @@
       displayRecipe(savedRecipe);
     });
   }
+
+  // Make display recipe function available to other scripts
+  recipes.recipePreview = displayRecipe;
 
   // Display recipe preview with recipe data saved from API
   function displayRecipe(recipe) {
@@ -213,12 +175,6 @@
     recipeSource.setAttribute("href", recipe.sourceUrl);
 
   }
-
-
-  // Listen for recipe reset
-  recipeReload.addEventListener("click", function reload() {
-    queryEdamam();
-  });
 
   // Get random number
   function rand(num) {
@@ -241,5 +197,8 @@
     }
   }
 
-})();
-// Recipes ends
+};
+// recipes() ends
+// Call it
+recipes();
+
