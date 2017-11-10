@@ -89,10 +89,12 @@
     background: ()=>{
       console.log("Hi, I'm the backgroundBackup func!");
       let bgUrl = "url(";
-
       bgUrl += defaultBg.selectBgRes();
       bgUrl += ") center center fixed / cover no-repeat";
+
       $("#loaded-wrapper").css("background", bgUrl);
+      bg.renderLocation.innerHTML = "Leeds";
+      bg.renderPhotographer.innerHTML = "<a href='https://unsplash.com/joannakosinska/portfolio'>Joanna Kosinska</a>" || "<a href='https://unsplash.com/@joannakosinska'>@joannakosinska</a>";
     },
 
     quote: ()=>{
