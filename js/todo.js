@@ -2,17 +2,16 @@
 (function (){
   $(document).ready(function(){
     let targetNum;
-    let allTasks = document.getElementsByClassName("task");
-    let deleteIcons = document.getElementsByClassName("todo-delete");
+    let deleteIcons = $(".todo-delete");
     let taskPanel = $(".task-panel");
     let listPanel = $(".list-panel");
-    //removed todoStatus
     let numTodos = 0;
     let numLists = 0;
 
     function todoHandler() {
       // All event handlers to be added to dynamically created elements
 
+      applyCheck();
       applyDelete();
       addNewList();
       addNewTask();
@@ -41,7 +40,7 @@
     getStoredTodo();
 
     function storeTodo() {
-      // Content html string is stored when applyDelete() and addTask() fires
+      // Content html string is stored when applyDelete(), addTask(), addList() fires
       // TODO: store content when tab is closed
       listPanel = $(".list-panel").html();
       taskPanel = $(".task-panel").html();
@@ -76,11 +75,27 @@
         }
       }
 
+      function deleteCascade(e) {
+        targetNum = $(e.target).parent().attr("data-target");
+        let taskNumToDelete = $(`ul[data-target=${targetNum}]`).find(".task").length;
+        console.log(taskNumToDelete);
+        numTodos -= taskNumToDelete;
+        renderTodoStatus();
+        $(`ul[data-target=${targetNum}]`).remove();
+      }
     function applyDelete() {
       // .off() to prevent multiple listeners from being added to a single task
-      $(".task-panel li").find(deleteIcons).off().on("click", function(e) {
-        $(this).parent().fadeOut();
-        updateTodoStatus(true);
+      $(".item").find(".todo-delete").off().on("click", function(e) {
+        deleteCascade(e);
+        // Prevents todoNum from being altered by deleting a list
+        if(!$(e.target).parent().hasClass("list")) {
+          updateTodoStatus(true);
+        } else {
+          updateListNum(true);
+        }
+        e.stopPropagation();
+        $(e.target).parent().fadeOut();
+        storeTodo();
       });
       // The delete hover function is stripped then reapplied to all li's for consistent application of event handlers
       deleteHover();
@@ -89,18 +104,28 @@
     function deleteHover() {
       function handlerIn() {
         console.log("hover");
-        $(this).find(deleteIcons).removeClass("hidden");
+        $(this).find(".todo-delete").removeClass("hidden");
       }
       function handlerOut() {
-        $(this).find(deleteIcons).addClass("hidden");
+        $(this).find(".todo-delete").addClass("hidden");
       }
-      $(allTasks).hover(handlerIn, handlerOut);
+      $(".item").hover(handlerIn, handlerOut);
     }
 
+    function applyCheck() {
+      let check = (e) => {
+        // consistent behavior when user clicks either the task value or the checkbox
+        let target = $(e.target);
+        if(!target.is(":checked")){
+          target.prop("checked", false);
+          target.parent().toggleClass("checked", "");
+        }else {
+          target.prop("checked", true);
+          target.parent().toggleClass("checked", "");
+        }
+      };
 
-    function prepareTaskList(){
-      // Adds a hidden ul to task panel
-        $(".task-panel").append(`<ul data-target="${numLists}"></ul>`);
+      $(".task > input").off().on("click", check);
     }
 
     function taskReveal() {
@@ -112,7 +137,6 @@
 
     function applySelectToggle() {
       $(".list-panel li").off().on("click", function(e){
-        e.stopPropagation();
         $(".list-panel li").removeClass("list-selected");
         $(this).addClass("list-selected");
         taskReveal();
@@ -128,16 +152,24 @@
 
           // Removes selected class from all li's so newest list is selected
           $(".list-panel li").removeClass("list-selected");
-          let list = `<li data-target="${numLists}" class="list-selected">${e.target.value}</li>`;
+          let list = `<li data-target="${numLists}" class="item list list-selected">${e.target.value}
+          <span class="todo-delete hidden">x</span>
+          </li>`;
+
 
           // Append list to list panel
-          $(".list-panel").find("ul").append(list);
+          $(".list-panel").find("ul").prepend(list);
           applySelectToggle();
-          prepareTaskList();
+          applyDelete();
+
+          // Append an empty ul with matching data-target to task panel
+          $(".task-panel").append(`<ul data-target="${numLists}"></ul>`);
           taskReveal();
 
           // Clear the input after user hits enter
           $(".list-input").val("");
+
+          storeTodo();
         }
       });
     }
@@ -145,16 +177,17 @@
     addNewList();
 
       function addNewTask() {
-        $(".task-input").off().on("keydown", function(event) {
-          if (event.which === 13) {
+        $(".task-input").off().on("keydown", function(e) {
+          if (e.which === 13) {
             let newItem =
-              `<li class="task">
+              `<label><li class="item task">
               <input type="checkbox">
-              ${event.target.value}
-              <span class="todo-delete hidden">x</span></li>`;
+              ${e.target.value}
+              <span class="todo-delete hidden">x</span></li></label>`;
 
             $(".task-panel").find(`[data-target=${targetNum}]`).append(newItem);
             applyDelete();
+            applyCheck();
             $(".task-input").val("");
 
             // Increases # tasks
