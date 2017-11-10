@@ -20,6 +20,19 @@ function recipes() {
   const recipeNotes = document.querySelector(".recipe-notes");
   const recipeReload = document.querySelector(".recipe-reload");
 
+
+  // Get random number
+  function rand(num) {
+    return Math.floor(Math.random() * num);
+  }
+
+  // Return list of array items wrapped in a container
+  function listAry(ary) {
+    let list = "";
+    ary.forEach(function(e){ list += ('<span class="' + e.toLowerCase() + '">' + e + '</span>') })
+    return list
+  }
+
   // Action!
   getRecipe();
 
@@ -134,18 +147,6 @@ function recipes() {
                                ' <i class="fa fa-angle-right" aria-hidden="true"></i>';
     recipeSource.setAttribute("href", recipe.sourceUrl);
 
-  }
-
-  // Get random number
-  function rand(num) {
-    return Math.floor(Math.random() * num);
-  }
-
-  // Return list of array items wrapped in a container
-  function listAry(ary) {
-    let list = "";
-    ary.forEach(function(e){ list += ('<span class="' + e.toLowerCase() + '">' + e + '</span>') })
-    return list
   }
 
 };
