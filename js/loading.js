@@ -108,7 +108,7 @@
       let n = rand(backupRecipes.length);
       let savedRecipe = backupRecipes[n][n + 1];
       chrome.storage.sync.set({"recipe": savedRecipe});
-      recipePreview(savedRecipe);
+      recipes.recipePreview(savedRecipe);
       //Need to find proper way to call this function, currently reads
       //as 'undefined'. Most likely b/c recipes is in in an IIFE, so defs are
       //block-scoped.

@@ -1,4 +1,4 @@
-(function recipes() {
+function recipes() {
   "use strict";
 
   // Create date timestamp for daily recipe
@@ -44,7 +44,7 @@
       } else if (!obj.recipe || (obj.recipe.timestamp !== timestamp)) {
         queryEdamam();
       } else {
-        recipePreview(obj.recipe);
+        recipes.recipePreview(obj.recipe);
       }
     });
   }
@@ -114,9 +114,10 @@
       // Save to Chrome storage
       chrome.storage.sync.set({"recipe": savedRecipe});
 
-      recipePreview(savedRecipe);
+      recipes.recipePreview(savedRecipe);
     });
   }
+  recipes.recipePreview = recipePreview;
 
   // Display recipe preview with recipe data saved from API
   function recipePreview(recipe) {
@@ -149,5 +150,6 @@
     return list
   }
 
-})();
+};
+recipes();
 // Recipes ends
