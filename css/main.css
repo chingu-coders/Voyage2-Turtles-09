@@ -581,12 +581,11 @@ p.photographer a {
  * To-do Utility Classes
  ***********************/
 .checked {
-    text-decoration: line-through;
     color: #65615b;
 }
 
 .list-selected {
-  color: blueviolet;
+  color: #65615b;
 }
 
 .task-inactive {
@@ -594,7 +593,6 @@ p.photographer a {
 }
 .todo {
   background-color: rgba(0, 0, 0, 0.8);
-  border: 1px solid red;
   font-size: 1rem;
   display: flex;
   max-width: 500px;
@@ -620,13 +618,12 @@ p.photographer a {
 }
 
 .list-panel {
-  border: 2px solid blueviolet;
   flex: 1 0 0;
   height: 100%;
 }
 
 .task-panel {
-  border: 2px solid dodgerblue;
+  border-left: 3px solid #000;
   display: flex;
   flex-flow: row wrap;
   flex: 2 0 0;
@@ -668,9 +665,9 @@ p.photographer a {
 .todo-delete:hover {
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.5);
-  /*-webkit-transition: all 0.5s ease;*/
-  /*-moz-transition: all 0.5s ease;*/
-  /*-o-transition: all 0.5s ease-in, ease-out;*/
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease-in, ease-out;
   transition: all 0.3s ease;
 }
 

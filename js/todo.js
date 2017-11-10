@@ -76,9 +76,9 @@
       }
 
       function deleteCascade(e) {
+      // Finds the corresponsing task list via data-target, counts the number of tasks and adjusts the numOfTasks var
         targetNum = $(e.target).parent().attr("data-target");
         let taskNumToDelete = $(`ul[data-target=${targetNum}]`).find(".task").length;
-        console.log(taskNumToDelete);
         numTodos -= taskNumToDelete;
         renderTodoStatus();
         $(`ul[data-target=${targetNum}]`).remove();
