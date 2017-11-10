@@ -134,7 +134,10 @@
       });
     },
     recipe: () => {
-      chrome.storage.sync.get("recipe", (recipe) => {recipes.recipePreview(recipe);});
+      chrome.storage.sync.get(null, (obj) => {
+        let recipe = obj.recipe;
+        recipes.recipePreview(recipe);
+      });
     }
   };
 
