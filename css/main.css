@@ -522,6 +522,7 @@ body, input {
   transition: opacity 200ms ease-in,
               visibility 200ms ease-in;
   visibility: visible;
+  z-index: 100;
 }
 
 /* speech bubble effect */
@@ -574,7 +575,8 @@ body, input {
 .settings-links,
 .settings-todo,
 .settings-about,
-.settings-t9 {
+.settings-t9,
+.settings-credits {
   height: 100%;
   padding: 2rem;
 }
@@ -583,7 +585,8 @@ body, input {
 .settings-links,
 .settings-todo,
 .settings-about,
-.settings-t9 {
+.settings-t9,
+.settings-credits {
   margin-left: -530px;
 }
 
@@ -595,14 +598,23 @@ body, input {
   text-transform: uppercase;
 }
 
+.settings-subpanel h3 {
+  font-size: 1.125rem;
+  font-weight: normal;
+  margin: 2rem 0 0 0;
+  //text-decoration: underline;
+}
+
 .settings-subpanel ul {
   margin-top: 0;
 }
 
 .settings-subpanel h2,
+.settings-subpanel h3,
 .settings-general li,
 .settings-links li,
-.t9-link {
+.t9-link,
+.credits-link {
   border-bottom: 2px solid rgba(255, 255, 255, .1);
   padding: .875rem 0 .625rem;
 }
@@ -759,22 +771,29 @@ input[type=checkbox]:checked + .toggle-btn::before {
 }
 
 .settings-t9 p a:hover,
-.settings-t9 p a:active {
+.settings-t9 p a:active,
+.settings-credits p a:hover,
+.settings-credits p a:active {
   text-decoration: underline;
 }
 
-.settings-t9 li a {
+.settings-t9 li a,
+.settings-credits li a {
   text-decoration: none;
   padding-left: 1rem;
 }
 
 .settings-t9 li a:link,
-.settings-t9 a:visited {
+.settings-t9 li a:visited,
+.settings-credits li a:link,
+.settings-credits li a:visited {
   color: #ccc;
 }
 
 .settings-t9 li a:hover,
-.settings-t9 a:active {
+.settings-t9 li a:active,
+.settings-credits li a:hover,
+.settings-credits li a:active {
   color: #fff;
 }
 /* end settings "T9" tab */
