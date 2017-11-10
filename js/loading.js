@@ -46,7 +46,7 @@
     }
   }];
 
-  const storedData = {
+  const dataCheck = {
     background: null,
     quote: null,
     recipe: null
@@ -134,7 +134,7 @@
   };
 
   const backupChecker = {
-    startTimeout: () => {
+    timeout: () => {
       let timerId = setTimeout(function runChecker() {
         backupChecker.storageCheck();
         if (backupChecker.complete) {
@@ -161,11 +161,11 @@
         if (error) {
           console.error(error);
         } else {
-          storedData.background = obj["bg_url"];
-          storedData.quote = obj.quotes;
-          storedData.recipe = obj.recipe;
+          dataCheck.background = obj["bg_url"];
+          dataCheck.quote = obj.quotes;
+          dataCheck.recipe = obj.recipe;
 
-          if (storedData.background && storedData.quote && storedData.recipe) {
+          if (dataCheck.background && dataCheck.quote && dataCheck.recipe) {
             backupChecker.complete = true;
           } else {
             backupChecker.complete = false;
@@ -175,7 +175,7 @@
     },
 
     runBackup: () => {
-      $.each(storedData, (key, value) => {
+      $.each(dataCheck, (key, value) => {
         if (!value) {
           console.log("Running backups method for:", key);
           backups[key]();
@@ -185,7 +185,7 @@
   };
 
 //Function for running through backupChecker for a certain interval
-  backupChecker.startTimeout();
+  backupChecker.timeout();
 
 // Execute when decision to print which data has been made
 
