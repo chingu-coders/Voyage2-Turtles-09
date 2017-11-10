@@ -112,6 +112,12 @@
       //Need to find proper way to call this function, currently reads
       //as 'undefined'. Most likely b/c recipes is in in an IIFE, so defs are
       //block-scoped.
+  const printAPIData = {
+    background: () => {
+    },
+    quote: () => {
+    },
+    recipe: () => {
     }
   };
 
