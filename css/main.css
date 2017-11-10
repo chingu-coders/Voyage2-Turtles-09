@@ -641,6 +641,18 @@ input[type=checkbox]:checked + .toggle-btn::before {
 }
 /* end settings "Links" tab */
 
+/* settings "Recipes" tab */
+.ingredients-list .ingredient a {
+  color: #666;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ingredients-list a.selected {
+  color: #eee;
+}
+/* end settings "Recipes" tab */
+
 /* settings "About" tab */
 .settings-about {
   align-items: center;

@@ -68,8 +68,8 @@
     settingsPanel.classList.toggle("hidden");
   }
 
-  function addListenerToSettingsNavigation() {    
-    // Display appropriate settings panel when a nav item is clicked.  
+  function addListenerToSettingsNavigation() {
+    // Display appropriate settings panel when a nav item is clicked.
     settingsNav.addEventListener("click", function() {
 
       // Indicate which nav item is currently selected.
@@ -139,11 +139,11 @@
         /* if not, set defaults */
         /*else {
           userPreferences =  {
-           "displayRecipe": true, 
-           "displayTime": true, 
-           "displayGreeting": true, 
-           "displayFocus": true, 
-           "displayTodo": true, 
+           "displayRecipe": true,
+           "displayTime": true,
+           "displayGreeting": true,
+           "displayFocus": true,
+           "displayTodo": true,
            "displayQuote": true
           };
         }*/
@@ -176,5 +176,7 @@
     let target = document.getElementsByClassName(trigger.dataset[element.toLowerCase()]); // targets the widget container
     hideElement(target[0]);
   }
+
+
 
 })();
