@@ -39,6 +39,9 @@ function recipes() {
   // Listen for recipe reset
   recipeReload.addEventListener("click", function reload() {
     queryEdamam();
+    chrome.storage.sync.get("recipe", (obj) => {
+      recipes.recipePreview(obj.recipe)
+    });
   })
 
   // ----------------------------------------------------------------------
