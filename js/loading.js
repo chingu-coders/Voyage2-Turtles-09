@@ -206,9 +206,6 @@
     });
   }
 
-// Code from other scripts that render api data when a successful call is made
-  // Display Quote
-  // handleQuote.render();
   function rand(num) {
     return Math.floor(Math.random() * num);
   }
