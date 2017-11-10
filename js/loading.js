@@ -160,7 +160,7 @@
           backupChecker.runBackup();
           showWrapperToDisplay();
         }
-      }, 1500);
+      }, 3000);
     },
 
     storageCheck: () => {
