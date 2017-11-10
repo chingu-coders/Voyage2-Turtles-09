@@ -102,7 +102,7 @@
       let n = rand(backupQuotes.length);
       let data = backupQuotes[n][n + 1];
       chrome.storage.sync.set({"quotes": data});
-      wrapData.render(data);
+      handleQuote.render(data);
     },
 
     recipe: ()=>{
@@ -128,7 +128,10 @@
       });
     },
     quote: () => {
-      chrome.storage.sync.get("quote", (data) => {wrapData.render(data);});
+      chrome.storage.sync.get(null, (obj) => {
+        let quote = obj.quotes;
+        handleQuote.render(quote);
+      });
     },
     recipe: () => {
       chrome.storage.sync.get("recipe", (recipe) => {recipes.recipePreview(recipe);});
