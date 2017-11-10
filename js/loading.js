@@ -129,6 +129,7 @@
       chrome.storage.sync.get("quote", (data) => {wrapData.render(data);});
     },
     recipe: () => {
+      chrome.storage.sync.get("recipe", (recipe) => {recipes.recipePreview(recipe);});
     }
   };
 

@@ -113,8 +113,6 @@ function recipes() {
 
       // Save to Chrome storage
       chrome.storage.sync.set({"recipe": savedRecipe});
-
-      recipes.recipePreview(savedRecipe);
     });
   }
   recipes.recipePreview = recipePreview;
