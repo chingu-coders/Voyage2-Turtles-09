@@ -26,8 +26,8 @@
       serves: 6,
       fat: 169,
       sugar: 23,
-      carbs: "edmCarbs",
-      protein: "edmProtein",
+      carbs: 9,
+      protein: 28,
       notes: []
     },
     2: {
