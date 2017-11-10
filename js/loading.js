@@ -169,6 +169,9 @@
 
           if (dataCheck.background && dataCheck.quote && dataCheck.recipe) {
             backupChecker.complete = true;
+            $.each(printAPIData, (key) => {
+              printAPIData[key]();
+            });
           } else {
             backupChecker.complete = false;
           }
@@ -181,9 +184,11 @@
         if (!value) {
           console.log("Running backups method for:", key);
           backups[key]();
+        } else {
+          printAPIData[key]();
         }
       });
-    }
+    },
   };
 
 //Function for running through backupChecker for a certain interval
