@@ -2,7 +2,7 @@
 
 const bg = {
   defaultBgUrl: "https://images.unsplash.com/photo-1473800447596-01729482b8eb?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=40eba4c15ec393c84db9c76380d26869",
-  query: "https://api.unsplash.com/photos/random?collections=1291922" + "&client_id=" + "51eeacda52a858956883fcd86384424f78d38da8fb4f8b61b65723e41223d6b1",
+  query: "https://api.unsplash.com/photos/random?collections=1291922" + "&client_id=" + "51eeacda52a858956883fcd86384424f78d38da8fb4f8b61b65723e41223d6b1" + "&orientation=landscape",
   renderPhotographer: document.querySelector("#image-photographer"),
   renderLocation: document.querySelector("#image-location"),
 };
@@ -81,7 +81,6 @@ function queryUnsplash () {
 // FOCUS BACKGROUND
 (function () {
   const mouseOverFocus = () => {
-
     $("#bottom-row").siblings().not(".settings-icon-wrapper").fadeTo("slow", 0);
     $(".credits").siblings().not(".settings-icon-wrapper").fadeTo("slow", 0);
   };
@@ -89,16 +88,14 @@ function queryUnsplash () {
   let timer ;
 
   const mouseOutFocus = () => {
-
-    $("#bottom-row").siblings().not(".settings-icon-wrapper", "#focus-encouragement").fadeTo("slow", 100);
-    $(".credits").siblings().not(".settings-icon-wrapper", "#focus-encouragement").fadeTo("slow", 100);
+    $("#bottom-row").siblings().not(".settings-icon-wrapper", "#focus-encouragement").fadeTo("slow", 1);
+    $(".credits").siblings().not(".settings-icon-wrapper", "#focus-encouragement").fadeTo("slow", 1);
     clearTimeout(timer);
   };
 
   $(".credits").mouseenter( () => {
     timer = window.setTimeout(mouseOverFocus, 3000);
   });
-
   $(".credits").mouseleave( () => {
     clearTimeout(timer);
     window.setTimeout(mouseOutFocus, 500);

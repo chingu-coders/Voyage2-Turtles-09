@@ -8,7 +8,15 @@
     let numTodos = 0;
     let numLists = 0;
 
-    function dayElapsed() {
+    function activateTodo() {
+      console.log("activated");
+      $(".activate-todo").on("click", function(e){
+        $(".todo-slider").slideToggle("slow");
+      });
+    }
+    activateTodo();
+
+    function dayElapsed(timeConstraint) {
       let currentTimeStamp = Date.now();
       let flag;
       chrome.storage.sync.get("todo_time_stamp", function(data) {
@@ -16,7 +24,7 @@
         // Querying local storage first to see if last time is available
         if (prevTimeStamp !== undefined) {
           // Checking if 30s have elapsed since the time recorded in storage
-          if (currentTimeStamp - prevTimeStamp >= 86400000) {
+          if (currentTimeStamp - prevTimeStamp >= timeConstraint) {
             //* Updating the previous time stamp in storage to the current time
             prevTimeStamp = currentTimeStamp;
             chrome.storage.sync.set({"todo_time_stamp": prevTimeStamp});
@@ -38,6 +46,18 @@
       });
     }
 
+    function storeTodo() {
+      listPanel = $(".list-panel").html();
+      taskPanel = $(".task-panel").html();
+      chrome.storage.sync.set ({
+        "todo": {
+          "list_panel": listPanel,
+          "task_panel": taskPanel,
+          "todo_num": numTodos,
+          "list_num": numLists
+        }
+      });
+    }
 
     function getStoredTodo() {
       chrome.storage.sync.get(null, function (data) {
@@ -66,47 +86,24 @@
     }
 
     function todoHandler() {
-      dayElapsed();
+      dayElapsed(86400000);
       chrome.storage.sync.get("day_elapsed", function(data) {
         if(data["day_elapsed"]) {
-          console.log(data["day_elapsed"]);
-          console.log("day has elapsed");
+          console.log("You todo list has been reset");
           deleteTodo();
         } else {
-          console.log(data["day_elapsed"]);
           console.log("day has not elapsed");
           getStoredTodo();
         }
       });
     }
-
     todoHandler();
-
-
-    // getStoredTodo();
-
-    function storeTodo() {
-      // Content html string is stored when applyDelete(), addTask(), addList() fires
-      // TODO: store content when tab is closed
-      listPanel = $(".list-panel").html();
-      taskPanel = $(".task-panel").html();
-      chrome.storage.sync.set ({
-        "todo": {
-          "list_panel": listPanel,
-          "task_panel": taskPanel,
-          "todo_num": numTodos,
-          "list_num": numLists
-        }
-
-      });
-    }
 
     function deleteTodo() {
       chrome.storage.sync.get(null, function(storage){
         console.log(storage["todo"]);
       });
     }
-    // deleteTodo();
 
       function renderTodoStatus() {
         $(".todo-status").html(numTodos + " todos");
@@ -132,35 +129,18 @@
       }
 
       function deleteCascade(e) {
-      // Finds the corresponsing task list via data-target, counts the number of tasks and adjusts the numOfTasks var
+        // List name is linked to it's corresponding <ul> via same data-target num
         targetNum = $(e.target).parent().attr("data-target");
-        let taskNumToDelete = $(`ul[data-target=${targetNum}]`).find(".task").length;
-        numTodos -= taskNumToDelete;
+        let linkedList = $(`ul[data-target=${targetNum}]`);
+        let numTodosToDelete = linkedList.find(".task").length;
+        numTodos -= numTodosToDelete;
+        linkedList.remove();
         renderTodoStatus();
-        $(`ul[data-target=${targetNum}]`).remove();
       }
+
     function applyDefaultListSelect() {
         $(".list-panel").find("li[data-target='general']").addClass("list-selected");
     }
-    function applyDelete() {
-      // .off() to prevent multiple listeners from being added to a single task
-      $(".item").find(".todo-delete").off().on("click", function(e) {
-        deleteCascade(e);
-        // Prevents todoNum from being altered by deleting a list
-        if(!$(e.target).parent().hasClass("list")) {
-          updateTodoStatus(true);
-        } else {
-          updateListNum(true);
-        }
-        e.stopPropagation();
-        $(e.target).parent().fadeOut(function(){
-          applyDefaultListSelect();
-        });
-      });
-      // The delete hover function is stripped then reapplied to all li's for consistent application of event handlers
-      deleteHover();
-    }
-
 
     function deleteHover() {
       function handlerIn() {
@@ -170,6 +150,24 @@
         $(this).find(".todo-delete").addClass("hidden");
       }
       $(".item").hover(handlerIn, handlerOut);
+    }
+
+    function applyDelete() {
+      // .off() prevents multiple listeners from being added to a single task
+      $(".item").find(".todo-delete").off().on("click", function(e) {
+        deleteCascade(e);
+        // Prevents todoNum from being altered when deleting a list
+        if($(e.target).parent().hasClass("list")) {
+          updateListNum(true);
+        } else {
+          updateTodoStatus(true);
+        }
+        // e.stopPropagation();
+        $(e.target).parent().fadeOut(function(){
+          applyDefaultListSelect();
+        });
+      });
+      deleteHover();
     }
 
     function applyCheck() {
@@ -184,7 +182,6 @@
           target.parent().toggleClass("checked", "");
         }
       };
-
       $(".task > input").off().on("click", check);
     }
 
@@ -203,19 +200,19 @@
       });
     }
 
-    // Adds new lists to list panel
     function addNewList() {
       $(".list-input").off().on("keydown", function(e) {
         if (event.which === 13 && e.target.value.trim() !== "") {
-          // List's data-target# attribute == listNum
           updateListNum(false);
 
           // Removes selected class from all li's so newest list is selected
           $(".list-panel li").removeClass("list-selected");
-          let list = `<label><li data-target="${numLists}" class="item list list-selected">${e.target.value}
-          <span class="todo-delete hidden">x</span>
-          </li></label>`;
-
+          let list = `
+            <label>
+            <li data-target="${numLists}" class="item list list-selected">${e.target.value}
+            <span class="todo-delete hidden">x</span>
+            </li>
+            </label>`;
 
           // Append list to list panel
           $(".list-panel").find("ul").prepend(list);
@@ -231,7 +228,6 @@
         }
       });
     }
-
     addNewList();
 
       function addNewTask() {
@@ -254,15 +250,8 @@
           }
         });
       }
-
     addNewTask();
 
-    function activateTodo() {
-      $(".activate-todo").on("click", function(e){
-        $(".todo-slider").slideToggle("slow");
-      });
-    }
-    activateTodo();
     applyDefaultListSelect();
 
     $(window).on("unload", function(){

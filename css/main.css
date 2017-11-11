@@ -3,6 +3,7 @@
  ******************/
 html {
   box-sizing: border-box;
+  position: relative;
 }
 
 *,
@@ -17,6 +18,7 @@ input:focus {
 
 ul {
   list-style: none;
+  padding: 0;
 }
 
 /***********
@@ -59,11 +61,23 @@ body, input {
                0px 0px 30px rgba(0, 0, 0, .25),
                0px 0px 150px #000;
 }
+
 .text-shadow-strong {
   text-shadow: 0px 1px 1px rgba(0, 0, 0, .75),
                0px 0px 12px rgba(0, 0, 0, .5),
                0px 0px 25px rgba(0,0,0,.5);
 }
+
+.recipes,
+.time,
+.greeting-user-name,
+.focus,
+.quote,
+.todo {
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+}
+
 /***********************
  * Top row of page
  ***********************/
@@ -340,6 +354,11 @@ body, input {
 .focus-input-wrapper,
 .focus-output-wrapper {
   height: 150px;
+  position: relative;
+}
+
+.focus-input-wrapper {
+  z-index: 1;
 }
 
 .focus-output-wrapper {
@@ -372,8 +391,10 @@ body, input {
 }
 
 .fa-check-square-o {
-  margin-left: -26px;
+  margin-left: -24px;
   margin-right: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .focus-output.focus-completed {
@@ -433,6 +454,7 @@ body, input {
   display: flex;
   flex: 1 1 100px;
   justify-content: space-between;
+  position: relative;
 }
 
 .settings-icon-wrapper {
@@ -443,13 +465,6 @@ body, input {
   flex: 4 0 0;
 }
 
-.fa-twitter,
-.fa-heart-o {
-  cursor: pointer;
-  font-size: 1.25rem;
-  margin-left: 10px;
-}
-
 .quote {
   flex: 15 0 0;
   text-align: center;
@@ -457,13 +472,393 @@ body, input {
 
 .todo {
   flex: 5 0 0;
+  /* next 2 styles are temporary (to improve screenshots) */
+  /*text-align: right;*/
+  /*margin: 1rem 1.25rem 1.125rem -1.25rem;*/
 }
+
+/* Settings */
+
+/* animate cog icon */
+.settings-icon {
+  margin: 0 1rem 1rem;
+}
+
+.fa-cog {
+  display: inline-block;
+  font-size: 1.5rem;
+  opacity: .5;
+  transition: opacity 200ms ease-in-out,
+              transform 200ms ease-in;
+}
+
+.fa-cog:hover {
+  opacity: .7;
+}
+
+.clicked,
+.clicked:hover {
+  opacity: 1;
+  transform: rotate(45deg)
+             scale(1.2);
+}
+/* end animate cog icon */
+
+.overlay {
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+}
+
+.settings {
+  background-color: rgba(15, 15, 15, .9);
+  border-radius: 3px;
+  bottom: 100px;
+  display: flex;
+  left: .5rem;
+  opacity: 1;
+  position: absolute;
+  transition: opacity 200ms ease-in,
+              visibility 200ms ease-in;
+  visibility: visible;
+  z-index: 100;
+}
+
+/* speech bubble effect */
+.settings::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 25px;
+  border-width: 6px 8px 0;
+  border-style: solid;
+  border-color: rgba(15, 15, 15, .9) transparent;
+  display: block;
+  width: 0;
+}
+
+.settings-nav {
+  border-right: 2px solid rgba(255, 255, 255, .1);
+  display: block;
+  margin: 0;
+  padding: 30px 0;
+  width: 170px;
+}
+
+.settings-nav li {
+  color: #ccc;
+  font-size: 1.125rem;
+  padding: .5rem 1.5rem;
+}
+
+.settings-nav li:hover {
+  color: #ddd;
+  cursor: pointer;
+}
+
+.settings-nav .settings-current {
+  color: #fff;
+}
+
+.settings-subpanel-container {
+  display: flex;
+  min-height: 450px;
+}
+
+.settings-subpanel {
+  width: 530px;
+}
+
+.settings-general,
+.settings-quotes,
+.settings-links,
+.settings-todo,
+.settings-about,
+.settings-t9,
+.settings-credits,
+.settings-recipes {
+  height: 100%;
+  padding: 2rem;
+}
+
+.settings-quotes,
+.settings-links,
+.settings-todo,
+.settings-about,
+.settings-t9,
+.settings-credits,
+.settings-recipes {
+  margin-left: -530px;
+}
+
+/* settings "General" tab */
+.settings-subpanel h2 {
+  font-size: 1.125rem;
+  font-weight: normal;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.settings-subpanel h3 {
+  font-size: 1.125rem;
+  font-weight: normal;
+  margin: 2rem 0 0 0;
+  //text-decoration: underline;
+}
+
+.settings-subpanel ul {
+  margin-top: 0;
+}
+
+.settings-subpanel h2,
+.settings-subpanel h3,
+.settings-general li,
+.settings-links li,
+.t9-link,
+.credits-link {
+  border-bottom: 2px solid rgba(255, 255, 255, .1);
+  padding: .875rem 0 .625rem;
+}
+
+.settings-general .toggle {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.125rem;
+  line-height: 1;
+  opacity: .8;
+}
+
+.settings-general input[type=checkbox] {
+  opacity: 0;
+}
+
+.toggle-btn {
+  background-color: rgba(255, 255, 255, .25);
+  border-radius: 20px;
+  cursor: pointer;
+  height: 20px;
+  position: relative;
+  top: -2px;
+  width: 36px;
+}
+
+.toggle:hover {
+  opacity: 1;
+}
+
+.toggle:hover .toggle-btn {
+  background-color: rgba(255, 255, 255, .45);
+}
+
+.toggle-btn::before {
+  background-color: #fff;
+  border-radius: 50%;
+  content: "";
+  height: 16px;
+  left: 2px;
+  opacity: .45;
+  position: absolute;
+  top: 2px;
+  transition: all 150ms ease-out;
+  width: 16px;
+}
+
+input[type=checkbox]:checked + .toggle-btn::before {
+  left: 18px;
+  opacity: 1;
+}
+/* end settings "General" tab */
+
+/* settings "Links" tab */
+.settings-link {
+  cursor: pointer;
+  font-size: 1.125rem;
+  line-height: 1;
+  opacity: .8;
+}
+/* end settings "Links" tab */
+
+/* settings "Recipes" tab */
+.settings-recipes {
+  background-color: rgba(15, 15, 15, 0.75);
+  height: 450px;
+  overflow-y: scroll;
+}
+
+.settings-recipes h3 {
+  border-bottom: none;
+  margin: 0;
+}
+
+.ingredients-list {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.ingredients-list .ingredient {
+  width: 75px;
+  height: 100px;
+}
+
+.ingredients-list .ingredient a {
+  align-items: center;
+  color: #eee;
+  display: flex;
+  flex-flow: column nowrap;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ingredients-list .ingredient a span {
+  display: none;
+}
+
+.ingredients-list .ingredient a:hover span {
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.ingredients-list img {
+  opacity: 0.3;
+  width: 50px;
+}
+
+.ingredients-list a.selected img,
+.ingredients-list a:hover img {
+  opacity: 1;
+}
+/* end settings "Recipes" tab */
+
+/* settings "About" tab */
+.settings-about {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.settings .image-wrapper {
+  //background-color: rgba(255, 255, 255, .8);
+  //border-radius: 5px;
+}
+
+.settings-about img {
+  width: 80px;
+  height: 80px;
+}
+
+.settings-about-text {
+  text-align: center;
+}
+
+.settings-about-text h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.settings-about-text p {
+  color: #ccc;
+  font-size: 1.125rem;
+  margin: 1.5rem;
+}
+
+.settings-about-text p.settings-version {
+  font-size: .875rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.settings-version span {
+  color: #999;
+  font-size: .75rem;
+}
+
+.settings-about-text ul {
+  border-top: 1px solid rgba(255, 255, 255, .3);
+  border-bottom: 1px solid rgba(255, 255, 255, .3);
+  display: flex;
+  justify-content: center;
+  padding: 0 2rem;
+}
+
+.settings-about-text li {
+  font-size: 1rem;
+  padding: .75rem .5rem;
+}
+
+.settings-about-text li a {
+  text-decoration: none;
+}
+
+.settings-about-text li a:link,
+.settings-about-text li a:visited {
+  color: #ccc;
+}
+
+.settings-about-text li a:hover,
+.settings-about-text li a:active {
+  color: #fff;
+}
+
+.settings-about-text footer {
+  color: #ccc;
+  font-size: .875rem;
+}
+/* end settings "About" tab */
+
+/* settings "T9" tab */
+.settings-t9 p {
+  color: #ccc;
+  //font-size: 1.125rem;
+  //margin: 1.5rem;
+}
+
+.settings-t9 p strong {
+  color: #fff;
+  font-weight: normal;
+}
+
+.settings-t9 p a {
+  text-decoration: none;
+}
+
+.settings-t9 p a:hover,
+.settings-t9 p a:active,
+.settings-credits p a:hover,
+.settings-credits p a:active {
+  text-decoration: underline;
+}
+
+.settings-t9 li a,
+.settings-credits li a {
+  text-decoration: none;
+  padding-left: 1rem;
+}
+
+.settings-t9 li a:link,
+.settings-t9 li a:visited,
+.settings-credits li a:link,
+.settings-credits li a:visited {
+  color: #ccc;
+}
+
+.settings-t9 li a:hover,
+.settings-t9 li a:active,
+.settings-credits li a:hover,
+.settings-credits li a:active {
+  color: #fff;
+}
+/* end settings "T9" tab */
+
+/* end of settings */
+
 /*****************************
 * Utility classes and Helpers
 ******************************/
 .hidden {
-  opacity: 0;
-  visibility: hidden;
+  opacity: 0!important;
+  //visibility: hidden;
   z-index: -1;
 }
 
@@ -562,6 +957,13 @@ p.photographer a {
   transition-delay: 250ms;
 }
 
+.fa-twitter,
+.fa-heart-o {
+  cursor: pointer;
+  font-size: 1.25rem;
+  margin-left: 10px;
+}
+
 .floater:last-child {
   opacity: 0;
   bottom: 2.3rem;
@@ -612,7 +1014,6 @@ p.photographer a {
   height: 300px;
   margin: 5px;
   padding: 0;
-  z-index: -9999;
 }
 
 .todo ul {
