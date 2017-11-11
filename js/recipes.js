@@ -1,4 +1,4 @@
-(function recipes() {
+function recipes() {
   "use strict";
 
   // Create date timestamp for daily recipe
@@ -19,20 +19,110 @@
   const recipeProtein = document.querySelector(".recipe-nutrients-protein .value");
   const recipeNotes = document.querySelector(".recipe-notes");
   const recipeReload = document.querySelector(".recipe-reload");
+  const ingredientPref = document.querySelectorAll(".ingredients-list .ingredient a");
 
-  // Action!
-  getRecipe();
+  // Display/edit recipe preferences
+  let defaultSearchIngredients = ["apple",
+                                  "artichoke",
+                                  "aubergine",
+                                  "avocado",
+                                  "bacon",
+                                  "bean",
+                                  "cheese",
+                                  "carrot",
+                                  "cherry",
+                                  "chili",
+                                  "chocolate",
+                                  "chicken",
+                                  "corn",
+                                  "crab",
+                                  "fish",
+                                  "egg",
+                                  "garlic",
+                                  "honey",
+                                  "ice-cream",
+                                  "lemon",
+                                  "lettuce",
+                                  "melon",
+                                  "mushroom",
+                                  "mussel",
+                                  "noodle",
+                                  "olive",
+                                  "pasta",
+                                  "peach",
+                                  "pepper",
+                                  "pumpkin",
+                                  "raspberry",
+                                  "rice",
+                                  "sausage",
+                                  "steak",
+                                  "strawberry",
+                                  "tomato"
+                                 ];
+  let searchIngredients;
+
+  // ----------------------------------------------------------------------
+  // Listeners
+  //
+
+  // Add listeners to recipe settings ingredients icons
+  ingredientPref.forEach(function(item) {
+    item.addEventListener("click", function() {
+      // Grab the ingredient from the class name
+      let ingredient = this.classList[0];
+      // Toggle whether the ingredient appears as selected
+      this.classList.toggle("selected");
+      // Toggle ingredient in saved array
+      searchIngredients.indexOf(ingredient) > -1 ? removeFromAry(ingredient, searchIngredients) : searchIngredients.push(ingredient);
+      // Save to Chrome storage
+      chrome.storage.sync.set({"recipeSettings": searchIngredients});
+      // Test that the array is correct
+      console.log(searchIngredients);
+    });
+  })
 
   // Listen for recipe reset
   recipeReload.addEventListener("click", function reload() {
     queryEdamam();
-  })
+  });
 
   // ----------------------------------------------------------------------
   // Functions
   //
 
-  function getRecipe() {
+  (function getRecipePrefs() {
+    // Get recipe settings from storage
+    chrome.storage.sync.get("recipeSettings", function(obj){
+      // Error handling
+      let error = chrome.runtime.lastError;
+      if (error) {
+        console.error("Check Chrome storage for 'recipeSettings': " + error);
+      // If there are recipe settings in storage...
+      } else if (obj.recipeSettings) {
+        // For each ingredient in the display...
+        displayRecipePrefs(obj.recipeSettings);
+        // Add listeners and toggle array based on saved settings
+        searchIngredients = obj.recipeSettings;
+      } else {
+        // Add listeners and toggle based on everything being selected
+        searchIngredients = defaultSearchIngredients;
+      }
+    });
+  })();
+
+  function displayRecipePrefs(recipePrefs) {
+    ingredientPref.forEach(function(a) {
+      // Grab the class name...
+      let ingredient = a.classList[0];
+      // And toggle (remove) the "selected" class, if not in saved settings
+      if (recipePrefs.indexOf(ingredient) === -1) {
+        a.classList.toggle("selected");
+      }
+    })
+  }
+
+
+  (function getRecipe() {
     // Check storage for saved recipe
     chrome.storage.sync.get("recipe", function(obj){
       // Error handling
@@ -44,21 +134,16 @@
       } else if (!obj.recipe || (obj.recipe.timestamp !== timestamp)) {
         queryEdamam();
       } else {
-        recipePreview(obj.recipe);
+        displayRecipe(obj.recipe);
       }
     });
-  }
+  })();
 
   // Query Edamam API
   function queryEdamam() {
+
     // Define default recipe search options
-    let searchTerms = ["chicken", "beef", "pork", "fish", "seafood",
-                        "vegetable", "pasta", "roast", "risotto",
-                        "stew", "curry"
-                        ]
-    let dietOptions = ["balanced", "high-protein", "high-fiber",
-                        "low-fat", "low-carb", "low-sodium"
-                        ]
+    let dietOptions = ["balanced", "high-protein", "low-fat", "low-carb"]
 
     // Build query url
     // TODO - Delete the following line of code (and these comments) before deploying to Chrome Web Store
@@ -68,58 +153,48 @@
     // const api = "https://api.edamam.com/search";
     const app_id = "&app_id=" + "373a2755";
     const app_key = "&app_key=" + "5e414263cb40da6abf1019a550333f43";
-    let search = "?q=" + searchTerms[rand(searchTerms.length)];
-    let diet = "&diet=" + dietOptions[rand(dietOptions.length)];
-    let range = "&to=" + "5";
-    const query = api + search + app_id + app_key + diet + range;
+    let search = "?q=" + searchIngredients[rand(searchIngredients.length)];
+    let diet1 = "&diet=" + dietOptions[rand(dietOptions.length)];
+    let range = "&to=" + "100";
+    const query = api + search + app_id + app_key + diet1 + range;
 
     // Query Edamam
     $.getJSON(query, function(json) {
+      console.log(query);
       console.log(json);
 
-      // Set data variables (edm == edamam)
-      let randomRecipe = rand(json.hits.length);
-      let edmTitle = json.hits[randomRecipe].recipe.label;
-      let edmImage = json.hits[randomRecipe].recipe.image;
-      let edmServes = json.hits[randomRecipe].recipe.yield;
-      let edmCalories = Math.round(json.hits[randomRecipe].recipe.calories/edmServes);
-      let edmSource = json.hits[randomRecipe].recipe.source;
-      let edmSourceUrl = json.hits[randomRecipe].recipe.url;
-      let edmDietLabels = json.hits[randomRecipe].recipe.dietLabels;
-      let edmHealthLabels = json.hits[randomRecipe].recipe.healthLabels;
-      let edmFat = Math.round(json.hits[randomRecipe].recipe.totalNutrients.FAT.quantity/edmServes);
-      let edmSugar = Math.round(json.hits[randomRecipe].recipe.totalNutrients.SUGAR.quantity/edmServes);
-      let edmCarbs = Math.round(json.hits[randomRecipe].recipe.totalNutrients.CHOCDF.quantity/edmServes);
-      let edmProtein = Math.round(json.hits[randomRecipe].recipe.totalNutrients.PROCNT.quantity/edmServes);
-      let edmNotes = json.hits[randomRecipe].recipe.cautions;
-
       // Save query vars
+      let randomRecipe = rand(json.hits.length);
+      let servesNum = json.hits[randomRecipe].recipe.yield;
       let savedRecipe = {
-        title: edmTitle,
+        title: json.hits[randomRecipe].recipe.label,
         timestamp: timestamp,
-        source: edmSource,
-        sourceUrl: edmSourceUrl,
-        calories: edmCalories,
-        diet: edmDietLabels,
-        health: edmHealthLabels,
-        thumbnail: edmImage,
-        serves: edmServes,
-        fat: edmFat,
-        sugar: edmSugar,
-        carbs: edmCarbs,
-        protein: edmProtein,
-        notes: edmNotes
-      }
+        source: json.hits[randomRecipe].recipe.source,
+        sourceUrl: json.hits[randomRecipe].recipe.url,
+        calories: Math.round(json.hits[randomRecipe].recipe.calories/servesNum),
+        diet: json.hits[randomRecipe].recipe.dietLabels,
+        health: json.hits[randomRecipe].recipe.healthLabels,
+        thumbnail: json.hits[randomRecipe].recipe.image,
+        serves: servesNum,
+        fat: Math.round(json.hits[randomRecipe].recipe.totalNutrients.FAT.quantity/servesNum),
+        sugar: Math.round(json.hits[randomRecipe].recipe.totalNutrients.SUGAR.quantity/servesNum),
+        carbs: Math.round(json.hits[randomRecipe].recipe.totalNutrients.CHOCDF.quantity/servesNum),
+        protein: Math.round(json.hits[randomRecipe].recipe.totalNutrients.PROCNT.quantity/servesNum),
+        notes: json.hits[randomRecipe].recipe.cautions
+      };
 
       // Save to Chrome storage
       chrome.storage.sync.set({"recipe": savedRecipe});
 
-      recipePreview(savedRecipe);
+      displayRecipe(savedRecipe);
     });
   }
 
+  // Make display recipe function available to other scripts
+  recipes.recipePreview = displayRecipe;
+
   // Display recipe preview with recipe data saved from API
-  function recipePreview(recipe) {
+  function displayRecipe(recipe) {
     recipeThumbnail.setAttribute("src", recipe.thumbnail);
     recipeTitle.textContent = recipe.title;
     recipeDietLabels.innerHTML = listAry(recipe.diet);
@@ -149,5 +224,17 @@
     return list
   }
 
-})();
-// Recipes ends
+  // Remove an element from an array
+  function removeFromAry(el, ary) {
+    for (let i = ary.length-1; i >= 0; i--) {
+      if (ary[i] === el) {
+        ary.splice(i, 1);
+      }
+    }
+  }
+
+};
+// recipes() ends
+// Call it
+recipes();
+

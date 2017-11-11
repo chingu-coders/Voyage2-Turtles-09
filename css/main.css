@@ -566,7 +566,7 @@ body, input {
   min-height: 450px;
 }
 
-.settings-subpanel {  
+.settings-subpanel {
   width: 530px;
 }
 
@@ -576,7 +576,8 @@ body, input {
 .settings-todo,
 .settings-about,
 .settings-t9,
-.settings-credits {
+.settings-credits,
+.settings-recipes {
   height: 100%;
   padding: 2rem;
 }
@@ -586,7 +587,8 @@ body, input {
 .settings-todo,
 .settings-about,
 .settings-t9,
-.settings-credits {
+.settings-credits,
+.settings-recipes {
   margin-left: -530px;
 }
 
@@ -676,6 +678,57 @@ input[type=checkbox]:checked + .toggle-btn::before {
   opacity: .8;
 }
 /* end settings "Links" tab */
+
+/* settings "Recipes" tab */
+.settings-recipes {
+  background-color: rgba(15, 15, 15, 0.75);
+  height: 450px;
+  overflow-y: scroll;
+}
+
+.settings-recipes h3 {
+  border-bottom: none;
+  margin: 0;
+}
+
+.ingredients-list {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.ingredients-list .ingredient {
+  width: 75px;
+  height: 100px;
+}
+
+.ingredients-list .ingredient a {
+  align-items: center;
+  color: #eee;
+  display: flex;
+  flex-flow: column nowrap;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ingredients-list .ingredient a span {
+  display: none;
+}
+
+.ingredients-list .ingredient a:hover span {
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.ingredients-list img {
+  opacity: 0.3;
+  width: 50px;
+}
+
+.ingredients-list a.selected img,
+.ingredients-list a:hover img {
+  opacity: 1;
+}
+/* end settings "Recipes" tab */
 
 /* settings "About" tab */
 .settings-about {
