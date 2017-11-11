@@ -95,7 +95,6 @@
         }
         e.stopPropagation();
         $(e.target).parent().fadeOut();
-        storeTodo();
       });
       // The delete hover function is stripped then reapplied to all li's for consistent application of event handlers
       deleteHover();
@@ -168,8 +167,6 @@
 
           // Clear the input after user hits enter
           $(".list-input").val("");
-
-          storeTodo();
         }
       });
     }
@@ -192,7 +189,7 @@
 
             // Increases # tasks
             updateTodoStatus(false);
-            storeTodo();
+
           }
         });
       }
@@ -205,6 +202,10 @@
       });
     }
     activateTodo();
+
+    $(window).on("unload", function(){
+      storeTodo();
+    });
 
   });
 })();
