@@ -6,19 +6,20 @@
     <title>New Tab</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
   </head>
 
-  <body>
+  <body spellcheck="false">
     <div class="initial-wrapper" style="display: none;">
       <div class="top-row"></div>
 
       <div class="center-row">
-        <div class="name-entry">
-          <div class="name-entry-greeting" id="nameEntryGreeting"></div>
-          <div>
+        <div class="name-entry text-shadow">
+          <div class="greeting" id="nameEntryGreeting"></div>
+          <div class="greeting">
             <p>What's your name?</p>
           </div>
-          <div class="name-entry-line" id="nameEntryLine" contenteditable="true"></div>
+          <div class="name-entry-line border-bottom-shadow" id="nameEntryLine" contenteditable="true"></div>
         </div>
       </div>
 
@@ -29,24 +30,85 @@
 
       <!-- Top row of page -->
       <div class="top-row" id="top-row">
-        <section></section>
-        <section></section>
+
+        <!-- Recipes -->
+        <section class="recipes">
+          <div class="recipe-panel">
+            <div class="recipe-reveal">
+              <img class="recipe-thumbnail" src="">
+              <div class="recipe-information">
+                <div class="recipe-header">
+                  <div class="recipe-source">
+                    <span class="recipe-source-label">Get the recipe at</span><br>
+                    <a href="#"></a>
+                  </div>
+                  <div class="recipe-reload">
+                    <a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                  </div>
+                </div>
+                <div class="recipe-notes">
+                </div>
+                <div class="recipe-stats">
+                  <div class="recipe-serves">
+                    <span class="value"></span>
+                    <span>Serves</span>
+                  </div>
+                  <div class="recipe-calories">
+                    <span class="value"></span>
+                    <span>Calories</span>
+                  </div>
+                  <div class="recipe-nutrients-fat">
+                    <span class="value"></span>
+                    <span>Fat (g)</span>
+                  </div>
+                  <div class="recipe-nutrients-sugar">
+                    <span class="value"></span>
+                    <span>Sugar (g)</span>
+                  </div>
+                  <div class="recipe-nutrients-carbs">
+                    <span class="value"></span>
+                    <span>Carbs (g)</span>
+                  </div>
+                  <div class="recipe-nutrients-protein">
+                    <span class="value"></span>
+                    <span>Protein (g)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="recipe-pull-tab">
+              <span class="recipe-title-label">Recipe of the Day</span>
+              <h2>
+                <span class="recipe-title-container">
+                  <span class="recipe-title"></span>
+                  <span class="recipe-diet-labels"></span>
+                </span>
+                <span class="recipe-reveal-pull">
+                  <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </span>
+              </h2>
+            </div><!-- End of pull-tab -->
+          </div><!-- End of panel -->
+        </section><!-- End of recipes -->
+
+        <!-- <section></section> -->
+
       </div>
 
       <!-- Center row of page -->
       <div class="center-row" id="center-row">
-        <section class="time" id="time"></section>
-        <section class="greeting-user-name" id="greetingUserName">
+        <section class="time text-shadow" id="time"></section>
+        <section class="greeting-user-name text-shadow" id="greetingUserName">
           <span id="greeting" class="greeting"></span>
-          <span class="user-name" id="userName" spellcheck="false" contenteditable="false"></span>.
+          <span class="user-name" id="userName" contenteditable="false"></span>
         </section>
 
         <!-- Main Focus -->
-        <section class="focus">
+        <section class="focus text-shadow">
 
           <div id="focus-input-wrapper" class="focus-input-wrapper hidden">
             <p>What is your main focus for today?</p>
-            <input type="text" name="focus" id="focus-input">
+            <input class="border-bottom-shadow" type="text" name="focus" id="focus-input">
             <div id="focus-input-message"></div>
           </div>
 
@@ -69,33 +131,404 @@
 
       <!-- Bottom row of page -->
       <div class="bottom-row" id="bottom-row">
-        <section class="floater-box credits">
+        <div class="settings-icon-wrapper">
+          <span class="fa fa-cog settings-icon text-shadow-strong"></span>
+        </div>
+
+        <section class="credits floater-box text-shadow-strong">
           <p id="image-location" class="floater location">image location</p>
           <p id="image-photographer" class="floater photographer">image data</p>
         </section>
-        <section class="floater-box quote">
+
+        <section class="quote floater-box text-shadow-strong">
           <p id="quote" class="floater quote"></p>
           <p id="quoteLinks" class="floater quoteLinks">
             <!-- Tweet Button -->
-            <button type="button" id="tweet" class="btn btn-default" aria-label="Left Align">
-              <span class="glyphicon fa fa-twitter" aria-hidden="true"></span>
-            </button>
+              <span class="fa fa-twitter" id="tweet" aria-hidden="true"></span>
             <!-- Like Button -->
-            <button type="button" id="saveQuote" class="btn btn-default" aria-label="Left Align">
-              <span class="glyphicon fa fa-heart-o" aria-hidden="true"></span>
-            </button>
+              <span class="fa fa-heart-o" id="saveQuote" aria-hidden="true"></span>
           </p>
         </section>
-        <section>todo</section>
+
+        <section class="todo">
+          <div class="todo-slider inactive">
+            <div class="todo">
+
+              <div class="list-panel">
+
+                <input class="list-input"
+                       placeholder="+ New List"
+                       type="text">
+                <p class="todo-status"></p>
+
+                <ul>
+                  <label><li data-target="general" class="list-selected">General</li></label>
+                </ul>
+
+              </div>
+
+              <div class="task-panel">
+                <ul data-target="general">
+
+                </ul>
+
+                <input type="text"
+                       placeholder="Todo"
+                       class="task-input">
+              </div>
+            </div>
+          </div>
+          <p class="activate-todo">Todo</p>
+        </section>
       </div>
 
     </div><!-- end of .main-wrapper -->
+
+    <!-- settings overlay -->
+    <div class="overlay hidden"></div>
+
+    <!-- settings -->
+    <section class="settings hidden">
+      <ul class="settings-nav">
+        <li class="settings-current">General</li>
+        <li>Recipes</li>
+        <li>Links</li>
+        <li>About</li>
+        <li>T9</li>
+        <li>Credits</li>
+      </ul>
+      <div class="settings-subpanel-container" id="settingsSubpanelContainer">
+
+        <!-- General -->
+        <div class="settings-subpanel settings-general" id="settingsGeneral">
+          <h2>SHOW</h2>
+          <ul>
+            <li>
+              <label class="toggle toggle-widget">
+                Recipe
+                <input type="checkbox" id="displayRecipes" checked data-displayRecipes = "recipes">
+                <div class="toggle-btn"></div>
+              </label>
+            </li>
+            <li>
+              <label class="toggle toggle-widget">
+                Time
+                <input type="checkbox" id="displayTime" checked data-displayTime = "time">
+                <div class="toggle-btn"></div>
+              </label>
+            </li>
+            <li>
+              <label class="toggle toggle-widget">
+                Greeting
+                <input type="checkbox" id="displayGreeting" checked data-displayGreeting = "greeting-user-name">
+                <div class="toggle-btn"></div>
+              </label>
+            </li>
+            <li>
+              <label class="toggle toggle-widget">
+                Focus
+                <input type="checkbox" id="displayFocus" checked data-displayFocus = "focus">
+                <div class="toggle-btn"></div>
+              </label>
+            </li>
+            <li>
+              <label class="toggle toggle-widget">
+                Quote
+                <input type="checkbox" id="displayQuote" checked data-displayQuote = "quote">
+                <div class="toggle-btn"></div>
+              </label>
+            </li>
+            <li>
+              <label class="toggle toggle-widget">
+                To-do
+                <input type="checkbox" id="displayTodo" checked data-displayTodo = "todo">
+                <div class="toggle-btn"></div>
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Recipes -->
+        <div class="settings-subpanel settings-recipes hidden" id="settingsRecipes">
+          <h2>Recipes</h2>
+          <h3>Choose your favourite ingredients</h3>
+          <ul class="ingredients-list">
+            <li class="ingredient">
+              <a class="apple selected" href="#">
+                <img src="icons/ingredients/apple.svg">
+                <span>Apple</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="artichoke selected" href="#">
+                <img src="icons/ingredients/artichoke.svg">
+                <span>Artichoke</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="aubergine selected" href="#">
+                <img src="icons/ingredients/aubergine.svg">
+                <span>Aubergine</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="avocado selected" href="#">
+                <img src="icons/ingredients/avocado.svg">
+                <span>Avocado</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="bacon selected" href="#">
+              <img src="icons/ingredients/bacon.svg">
+                <span>Bacon</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="bean selected" href="#">
+                <img src="icons/ingredients/beans.svg">
+                <span>Beans</span>
+              </a>
+            </li>
+
+            <li class="ingredient">
+              <a class="cheese selected" href="#">
+                <img src="icons/ingredients/cheese.svg">
+                <span>Cheese</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="carrot selected" href="#">
+                <img src="icons/ingredients/carrot.svg">
+                <span>Carrot</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="cherry selected" href="#">
+                <img src="icons/ingredients/cherry.svg">
+                <span>Cherry</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="chili selected" href="#">
+                <img src="icons/ingredients/chili-pepper.svg">
+                <span>Chili</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="chocolate selected" href="#">
+                <img src="icons/ingredients/chocolate.svg">
+                <span>Chocolate</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="chicken selected" href="#">
+                <img src="icons/ingredients/chicken-leg.svg">
+                <span>Chicken</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="corn selected" href="#">
+                <img src="icons/ingredients/corn.svg">
+                <span>Corn</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="crab selected" href="#">
+                <img src="icons/ingredients/crab.svg">
+                <span>Crab</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="fish selected" href="#">
+                <img src="icons/ingredients/fish.svg">
+                <span>Fish</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="egg selected" href="#">
+                <img src="icons/ingredients/fried-egg.svg">
+                <span>Egg</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="garlic selected" href="#">
+                <img src="icons/ingredients/garlic.svg">
+                <span>Garlic</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="honey selected" href="#">
+                <img src="icons/ingredients/honey.svg">
+                <span>Honey</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="ice-cream selected" href="#">
+                <img src="icons/ingredients/ice-cream.svg">
+                <span>Ice-cream</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="lemon selected" href="#">
+                <img src="icons/ingredients/lemon.svg">
+                <span>Lemon</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="lettuce selected" href="#">
+                <img src="icons/ingredients/lettuce.svg">
+                <span>Lettuce</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="melon selected" href="#">
+                <img src="icons/ingredients/watermelon.svg">
+                <span>Melon</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="mushroom selected" href="#">
+                <img src="icons/ingredients/mushroom.svg">
+                <span>Mushroom</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="mussel selected" href="#">
+                <img src="icons/ingredients/mussel.svg">
+                <span>Mussel</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="noodle selected" href="#">
+                <img src="icons/ingredients/noodles.svg">
+                <span>Noodles</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="olive selected" href="#">
+                <img src="icons/ingredients/olives.svg">
+                <span>Olives</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="pasta selected" href="#">
+                <img src="icons/ingredients/pasta.svg">
+                <span>Pasta</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="peach selected" href="#">
+                <img src="icons/ingredients/peach.svg">
+                <span>Peach</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="pepper selected" href="#">
+                <img src="icons/ingredients/bell-pepper.svg">
+                <span>Pepper</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="pumpkin selected" href="#">
+                <img src="icons/ingredients/pumpkin.svg">
+                <span>Pumpkin</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="raspberry selected" href="#">
+                <img src="icons/ingredients/raspberry.svg">
+                <span>Raspberry</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="rice selected" href="#">
+                <img src="icons/ingredients/rice.svg">
+                <span>Rice</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="sausage selected" href="#">
+                <img src="icons/ingredients/chorizo.svg">
+                <span>Sausage</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="steak selected" href="#">
+                <img src="icons/ingredients/steak.svg">
+                <span>Steak</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="strawberry selected" href="#">
+                <img src="icons/ingredients/strawberry.svg">
+                <span>Strawberry</span>
+              </a>
+            </li>
+            <li class="ingredient">
+              <a class="tomato selected" href="#">
+                <img src="icons/ingredients/tomato.svg">
+                <span>Tomato</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Links -->
+        <div class="settings-subpanel settings-links hidden" id="settingsLinks">
+          <h2>Links</h2>
+          <ul>
+            <li class="settings-link link-chrome-tab">Chrome Tab</li>
+            <li class="settings-link link-apps">Apps</li>
+          </ul>
+        </div>
+
+        <!-- About -->
+        <div class="settings-subpanel settings-about hidden" id="settingsAbout">
+          <div class="settings-image-wrapper">
+            <img src="icons/icon128.png">
+          </div>
+          <div class="settings-about-text"></div>
+        </div>
+
+        <!-- T9 -->
+        <div class="settings-subpanel settings-t9 hidden" id="settingsT9">
+          <h2>Meet the team</h2>
+          <p>This project was created as part of the <a href="https://github.com/chingu-coders"><strong>Chingu Voyage 2</strong></a> Cohort, by development team <strong>T9:</strong></p>
+          <ul>
+            <li class="t9-link">Jordan (Project Manager) <a href="https://github.com/misomighty">https://github.com/misomighty</a></li>
+            <li class="t9-link">David <a href="https://github.com/DavidLarsKetch">https://github.com/DavidLarsKetch</a></li>
+            <li class="t9-link">Reuben <a href="https://github.com/mrreubenjones">https://github.com/mrreubenjones</a></li>
+            <li class="t9-link">Toni <a href="https://github.com/8thDay">https://github.com/8thDay</a></li>
+          </ul>
+        </div>
+
+        <!-- Credits -->
+        <div class="settings-subpanel settings-credits hidden" id="settingsCredits">
+          <h2>Credits</h2>
+          <ul>
+            <li class="credits-link">Chingu <a href="https://medium.com/chingu">https://medium.com/chingu</a></li>
+          </ul>
+          <h3>APIs</h3>
+          <ul>
+            <li class="credits-link">Unsplash <a href="https://unsplash.com/">https://unsplash.com/</a></li>
+            <li class="credits-link">Forismatic <a href="http://forismatic.com/en">http://forismatic.com/en</a></li>
+            <li class="credits-link">Edamam <a href="https://www.edamam.com/">https://www.edamam.com/</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </section><!-- end of settings -->
+
     <script src="libs/jquery-3.2.1.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/helper-functions.js"></script>
+    <script src="js/focus.js"></script>
     <script src="js/background-image.js"></script>
+    <script src="js/todo.js"></script>
     <script src="js/quote.js"></script>
+    <script src="js/recipes.js"></script>
     <script src="js/script-clock.js"></script>
     <script src="js/script-name-greet.js"></script>
+    <script src="js/settings.js"></script>
 
   </body>
 

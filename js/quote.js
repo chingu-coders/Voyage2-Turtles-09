@@ -11,8 +11,11 @@ const quote = {
     settings: {
         "async": true,
         "crossDomain": true,
-        // url prepends a proxy to get around CORS issue
+        // TODO - Delete the following line of code (and these comments) before deploying to Chrome Web Store
+        // url prepends a proxy to get around CORS issue (only needed during development)
         "url": "https://cors-anywhere.herokuapp.com/" + "https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en",
+        // TODO uncomment the next line
+        //"url": "https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en",
         "method": "GET"
         },
         handleErr: function handleErr (error) {console.warn(error);}
