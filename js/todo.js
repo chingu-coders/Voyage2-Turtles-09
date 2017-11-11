@@ -8,17 +8,60 @@
     let numTodos = 0;
     let numLists = 0;
 
-    function todoHandler() {
-      // All event handlers to be added to dynamically created elements
-      applyCheck();
-      applyDelete();
-      addNewList();
-      addNewTask();
-      applySelectToggle();
-      renderTodoStatus();
-      taskReveal();
-      deleteHover();
+    function dayElapsed() {
+      let currentTimeStamp = Date.now();
+      let flag;
+      chrome.storage.sync.get("todo_time_stamp", function(data) {
+        let prevTimeStamp = data["todo_time_stamp"];
+        // Querying local storage first to see if last time is available
+        if (prevTimeStamp !== undefined) {
+          // Checking if 30s have elapsed since the time recorded in storage
+          if (currentTimeStamp - prevTimeStamp >= 30000) {
+            //* Updating the previous time stamp in storage to the current time
+            prevTimeStamp = currentTimeStamp;
+            chrome.storage.sync.set({"todo_time_stamp": prevTimeStamp});
+            console.log(currentTimeStamp - data["todo_time_stamp"]);
+            flag = true;
+            chrome.storage.sync.set({"day_elapsed": flag});
+            console.log("flag set to true");
+          } else {
+            flag = false;
+            chrome.storage.sync.set({"day_elapsed": flag});
+            console.log("flag set to false");
+          }
+        } else {
+          // If there is no timestamp, current time is stored
+          prevTimeStamp = currentTimeStamp;
+          flag = false;
+          chrome.storage.sync.set({"todo_time_stamp": prevTimeStamp, "day_elapsed": flag});
+        }
+      });
     }
+
+    function todoHandler() {
+      dayElapsed();
+      chrome.storage.sync.get("day_elapsed", function(data) {
+        if(data["day_elapsed"]) {
+          console.log(data["day_elapsed"]);
+          console.log("day has elapsed");
+          deleteTodo();
+        } else {
+          console.log(data["day_elapsed"]);
+          console.log("day has not elapsed");
+          getStoredTodo();
+          // All event handlers to be added to dynamically created elements
+          applyCheck();
+          applyDelete();
+          addNewList();
+          addNewTask();
+          applySelectToggle();
+          renderTodoStatus();
+          taskReveal();
+          deleteHover();
+        }
+      });
+    }
+    todoHandler();
 
     function getStoredTodo() {
       chrome.storage.sync.get(null, function (data) {
@@ -34,10 +77,10 @@
           numTodos = savedNumTodos;
           taskPanel.html(savedTasks);
         }
-          todoHandler();
+          // todoHandler();
       });
     }
-    getStoredTodo();
+    // getStoredTodo();
 
     function storeTodo() {
       // Content html string is stored when applyDelete(), addTask(), addList() fires
@@ -60,7 +103,7 @@
         console.log(storage["todo"]);
       });
     }
-    deleteTodo();
+    // deleteTodo();
 
       function renderTodoStatus() {
         $(".todo-status").html(numTodos + " todos");
@@ -118,7 +161,6 @@
 
     function deleteHover() {
       function handlerIn() {
-        console.log("hover");
         $(this).find(".todo-delete").removeClass("hidden");
       }
       function handlerOut() {
