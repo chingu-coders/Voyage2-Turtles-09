@@ -1004,6 +1004,7 @@ p.photographer a {
   position: absolute;
   bottom: 2em;
   right: 0.5em;
+  z-index: 9999;
 }
 .todo {
   background-color: rgba(0, 0, 0, 0.8);
