@@ -16,7 +16,7 @@
         // Querying local storage first to see if last time is available
         if (prevTimeStamp !== undefined) {
           // Checking if 30s have elapsed since the time recorded in storage
-          if (currentTimeStamp - prevTimeStamp >= 30000) {
+          if (currentTimeStamp - prevTimeStamp >= 86400000) {
             //* Updating the previous time stamp in storage to the current time
             prevTimeStamp = currentTimeStamp;
             chrome.storage.sync.set({"todo_time_stamp": prevTimeStamp});
