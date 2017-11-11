@@ -149,8 +149,37 @@
               <span class="fa fa-heart-o" id="saveQuote" aria-hidden="true"></span>
           </p>
         </section>
-        
-        <section class="todo">todo</section>
+
+        <section class="todo">
+          <div class="todo-slider inactive">
+            <div class="todo">
+
+              <div class="list-panel">
+
+                <input class="list-input"
+                       placeholder="+ New List"
+                       type="text">
+                <p class="todo-status"></p>
+
+                <ul>
+                  <label><li data-target="general" class="list-selected">General</li></label>
+                </ul>
+
+              </div>
+
+              <div class="task-panel">
+                <ul data-target="general">
+
+                </ul>
+
+                <input type="text"
+                       placeholder="Todo"
+                       class="task-input">
+              </div>
+            </div>
+          </div>
+          <p class="activate-todo">Todo</p>
+        </section>
       </div>
 
     </div><!-- end of .main-wrapper -->
@@ -476,7 +505,7 @@
         <!-- Credits -->
         <div class="settings-subpanel settings-credits hidden" id="settingsCredits">
           <h2>Credits</h2>
-          <ul>            
+          <ul>
             <li class="credits-link">Chingu <a href="https://medium.com/chingu">https://medium.com/chingu</a></li>
           </ul>
           <h3>APIs</h3>
@@ -494,6 +523,7 @@
     <script src="js/helper-functions.js"></script>
     <script src="js/focus.js"></script>
     <script src="js/background-image.js"></script>
+    <script src="js/todo.js"></script>
     <script src="js/quote.js"></script>
     <script src="js/recipes.js"></script>
     <script src="js/script-clock.js"></script>

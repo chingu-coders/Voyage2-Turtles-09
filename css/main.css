@@ -472,15 +472,13 @@ body, input {
 
 .todo {
   flex: 5 0 0;
-  /* next 2 styles are temporary (to improve screenshots) */
-  text-align: right;
-  margin: 1rem 1.25rem 1.125rem -1.25rem;
 }
 
 /* Settings */
 
 /* animate cog icon */
 .settings-icon {
+  cursor: pointer;
   margin: 0 1rem 1rem;
 }
 
@@ -978,4 +976,126 @@ p.photographer a {
   opacity: 1;
   transform: translateY(1em);
   transition-delay: 250ms;
+}
+/***********************
+ * To-do Utility Classes
+ ***********************/
+.avoid-click {
+  pointer-events: none;
+}
+
+.checked {
+    color: #65615b;
+}
+
+.list-selected {
+  color: #fff;
+}
+
+.todo-status {
+  font-size: 0.5em;
+  margin: 0.5em;
+  border-bottom: 1px solid #65615b;
+}
+
+.todo-slider {
+  position: absolute;
+  bottom: 2em;
+  right: 0.5em;
+  z-index: 9999;
+}
+div.todo {
+  background-color: rgba(0, 0, 0, 0.8);
+  font-size: 1.5rem;
+  display: flex;
+  max-width: 500px;
+  width: 75vw;
+  height: 300px;
+  margin: 5px;
+  padding: 0;
+}
+
+div.todo ul {
+  font-size: 0.6em;
+  margin: 0.5em;
+  padding: 0;
+  width: 100%;
+}
+
+div.todo li {
+  margin-top: 0.3em;
+  width: 100%;
+}
+
+div.todo li:hover {
+  background: rgb(0, 0, 0);
+}
+
+.list-panel {
+  flex: 1 0 0;
+  height: 100%;
+  color: #65615b;
+}
+
+.task-panel {
+  border-left: 3px solid #000;
+  display: flex;
+  flex-flow: row wrap;
+  flex: 2 0 0;
+  height: 100%;
+}
+
+.list-input {
+  border: transparent;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  font-size: 0.7em;
+  width: 100%;
+  height: 2.5em;
+}
+
+.task-input {
+  align-self: flex-end;
+  order: 1;
+  background: rgba(0, 0, 0, 0.9);
+  border: transparent;
+  color: white;
+  font-size: 0.7em;
+  width: 100%;
+  height: 2em;
+}
+
+.todo-delete {
+  float: right;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 50%;
+  font-size: 0.8rem;
+  line-height: 1;
+  margin: 0 .75rem;
+  padding: 2px 5.5px 2px;
+  width: 19px;
+  transition: all 0.3s ease;
+}
+
+.todo-delete:hover {
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease-in, ease-out;
+  transition: all 0.3s ease;
+}
+
+.activate-todo {
+  cursor: pointer;
+  padding-right: 1.25rem;
+  text-align: right;
+}
+
+.todo-expanded {
+  display: block;
+}
+
+.inactive  {
+  display: none;
 }
