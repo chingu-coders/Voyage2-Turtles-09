@@ -101,7 +101,7 @@
       console.log("Hi, I'm the quoteBackup func!");
       let n = rand(backupQuotes.length);
       let data = backupQuotes[n][n + 1];
-      chrome.storage.sync.set({"quotes": data});
+      chrome.storage.sync.set({"quote": data});
       handleQuote.render(data);
     },
 
@@ -129,7 +129,7 @@
     },
     quote: () => {
       chrome.storage.sync.get(null, (obj) => {
-        let quote = obj.quotes;
+        let quote = obj.quote;
         handleQuote.render(quote);
       });
     },
@@ -170,7 +170,7 @@
           console.error(error);
         } else {
           dataCheck.background = obj["bg_url"];
-          dataCheck.quote = obj.quotes;
+          dataCheck.quote = obj.quote;
           dataCheck.recipe = obj.recipe;
 
           if (dataCheck.background && dataCheck.quote && dataCheck.recipe) {

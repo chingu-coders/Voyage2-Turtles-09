@@ -24,22 +24,39 @@ const quote = {
 
 const handleQuote = {
     render: (data) => {
-        quote.renderQuote.innerText = data.quoteText;
-        quote.renderDetails.prepend("- " + (data.quoteAuthor || 'Anonymous'));
+
+        let tweetBtn = `
+        <!-- Tweet Button -->
+      <span class="fa fa-twitter" id="tweet" aria-hidden="true"></span>`;
+        let likeBtn = `<!-- Like Button -->
+      <span class="fa fa-heart-o" id="saveQuote" aria-hidden="true"></span>
+      `;
+
+        quote.renderQuote.innerText = data.text;
+        quote.renderDetails.innerHTML = ("- " + (data.author || 'Anonymous') + tweetBtn + likeBtn);
         // Data is returned in order to resolve the promise triggering getTweet() in the promise chain
 
+    },
+    store: (data) => {
+      chrome.storage.sync.set({
+        "quote": {
+            "text": data.quoteText,
+            "author": data.quoteAuthor
+        }
+      })
     },
     tweet: () => window.open(quote.twitter + quote.renderQuote.innerText.trim() + " - " + (data.quoteAuthor || 'Anonymous'), "_blank"),
     save: () => {
         // BTW SAVE ISN'T WORKING YET
         // Parses YYYY-MM-DD format
+
         let time = new Date().toISOString().slice(0, 10);
-        let savedQuotes = JSON.parse(localStorage.getItem("quotes")) || [];
+        let savedQuotes = JSON.parse(localStorage.getItem("quotes")) || null;
         let newQuote = {[time]: data.quoteText + " - " + (data.quoteAuthor || 'Anonymous')};
 
         chrome.storage.local.set({"quotes": newQuote});
         chrome.storage.sync.get("quotes", function (storage) {
-            console.log(storage);
+            console.log("Here's the new quote: " + newQuote);
         });
 
     }
@@ -47,7 +64,7 @@ const handleQuote = {
 
 const getQuote = (data) => {
     quote.renderQuote.innerText = data.quoteText;
-    quote.renderDetails.prepend("- " + (data.quoteAuthor || 'Anonymous'));
+    quote.renderDetails.html("").prepend("- " + (data.quoteAuthor || 'Anonymous'));
 
     // Data is returned in order to resolve the promise triggering getTweet() in the promise chain
     return data;
@@ -59,11 +76,13 @@ const wrapData = function (data) {
 
 
     // Display Quote
-
+    // getQuote(data);
     // Fire button functionality
     $("#tweet").on("click", handleQuote.tweet);
     $("#saveQuote").on("click", handleQuote.save);
+    handleQuote.store(data);
 
 };
 // wrapData() passes API data to all handleQuote methods
 $.getJSON(quote.settings).then(data => wrapData(data)).fail(quote.handleErr);
+
