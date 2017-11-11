@@ -472,15 +472,13 @@ body, input {
 
 .todo {
   flex: 5 0 0;
-  /* next 2 styles are temporary (to improve screenshots) */
-  /*text-align: right;*/
-  /*margin: 1rem 1.25rem 1.125rem -1.25rem;*/
 }
 
 /* Settings */
 
 /* animate cog icon */
 .settings-icon {
+  cursor: pointer;
   margin: 0 1rem 1rem;
 }
 
@@ -1006,7 +1004,7 @@ p.photographer a {
   right: 0.5em;
   z-index: 9999;
 }
-.todo {
+div.todo {
   background-color: rgba(0, 0, 0, 0.8);
   font-size: 1.5rem;
   display: flex;
@@ -1017,19 +1015,19 @@ p.photographer a {
   padding: 0;
 }
 
-.todo ul {
+div.todo ul {
   font-size: 0.6em;
   margin: 0.5em;
   padding: 0;
   width: 100%;
 }
 
-.todo li {
+div.todo li {
   margin-top: 0.3em;
   width: 100%;
 }
 
-.todo li:hover {
+div.todo li:hover {
   background: rgb(0, 0, 0);
 }
 
@@ -1088,10 +1086,16 @@ p.photographer a {
   transition: all 0.3s ease;
 }
 
+.activate-todo {
+  cursor: pointer;
+  padding-right: 1.25rem;
+  text-align: right;
+}
 
 .todo-expanded {
   display: block;
 }
+
 .inactive  {
   display: none;
 }
