@@ -4,7 +4,7 @@
   const STORAGE = chrome.storage.sync;
   const settingsIcon = document.querySelector(".settings-icon");
   const settingsPanel = document.querySelector(".settings");
-  const settingsNav = document.querySelector(".settings-nav");
+  const settingsNav = document.querySelectorAll(".settings-nav li");
   const displayRecipe = document.querySelector("#displayRecipe");
   const displayTime = document.querySelector("#displayTime");
   const displayGreeting = document.querySelector("#displayGreeting");
@@ -13,15 +13,18 @@
   const displayQuote = document.querySelector("#displayQuote");
   const aboutText = document.querySelector(".settings-about-text");
   const settingsGeneral = document.querySelector(".settings-general");
-  const toggleFeatures = document.querySelectorAll(".toggle-feature");
+  const toggleWidgets = document.querySelectorAll(".toggle-widget");
+  const overlay = document.querySelector(".overlay");
   const manifest = chrome.runtime.getManifest();
   let userPreferences = {};
 
-  // Check if feature preferences have been set.
+  // Check if widget preferences have been set.
   getUserPreferences();
 
   // Toggle settings panel on and off when settings icon (cog) is clicked.
   settingsIcon.addEventListener("click", toggleSettingsPanel);
+  overlay.addEventListener("click", toggleSettingsPanel);
+  
 
   // Change Settings panel when nav is clicked
   addListenerToSettingsNavigation()
@@ -31,9 +34,9 @@
 
   function addListenersToGeneralSettings() {
     // Add a listener to each toggle switch in General Settings
-    let keys = Object.keys(toggleFeatures);
+    let keys = Object.keys(toggleWidgets);
     keys.forEach(function(key) {
-      toggleFeatures[key].children[0].addEventListener("click", showHideWidgets);
+      toggleWidgets[key].children[0].addEventListener("click", showHideWidgets);
     });
   }
 
@@ -65,30 +68,36 @@
 
   function toggleSettingsPanel() {
     settingsIcon.classList.toggle("clicked");
+    overlay.classList.toggle("hidden");
     settingsPanel.classList.toggle("hidden");
   }
 
   function addListenerToSettingsNavigation() {
-    // Display appropriate settings panel when a nav item is clicked.
-    settingsNav.addEventListener("click", function() {
+    let keys = Object.keys(settingsNav);
+    keys.forEach(function(key) {
+      // Display appropriate settings panel when a nav item is clicked.  
+      settingsNav[key].addEventListener("click", function() {
 
-      // Indicate which nav item is currently selected.
-      let target = event.target;
-      addClassToOneChild(".settings-nav", target, "settings-current");
+        // Indicate which nav item is currently selected.
+        let target = event.target;
+        addClassToOneChild(".settings-nav", target, "settings-current");
 
-      // If chosen panel is "About", pull data from manifest.
-      if (target.innerHTML === "About") {
-        populateAboutTab();
-      }
+        // If chosen panel is "About", pull data from manifest.
+        if (target.innerHTML === "About") {
+          populateAboutTab();
+        }
 
-      // If chosen panel is "Links", add event listeners.
-      if (target.innerHTML === "Links") {
-        initLinks();
-      }
+        // If chosen panel is "Links", add event listeners.
+        if (target.innerHTML === "Links") {
+          initLinks();
+        }
 
-      // Display the correct panel.
-      let chosenSubpanel = document.querySelector(`#settings${target.innerHTML}`);
-      hideAllChildrenButOne("settingsSubpanelContainer", chosenSubpanel);
+        // Display the correct panel.
+        if (target.innerHTML) {
+          let chosenSubpanel = document.querySelector(`#settings${target.innerHTML}`);
+          hideAllChildrenButOne("settingsSubpanelContainer", chosenSubpanel);
+        }
+      });
     });
   }
 
@@ -136,17 +145,6 @@
           // and show/hide widgets as appropriate
           displayPreferences();
         }
-        /* if not, set defaults */
-        /*else {
-          userPreferences =  {
-           "displayRecipe": true,
-           "displayTime": true,
-           "displayGreeting": true,
-           "displayFocus": true,
-           "displayTodo": true,
-           "displayQuote": true
-          };
-        }*/
       }
     });
   }
