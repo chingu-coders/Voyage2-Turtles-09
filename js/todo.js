@@ -38,6 +38,34 @@
       });
     }
 
+
+    function getStoredTodo() {
+      chrome.storage.sync.get(null, function (data) {
+        if (data["todo"] !== undefined) {
+
+          let savedLists = data["todo"]["list_panel"];
+          let savedTasks = data["todo"]["task_panel"];
+          let savedNumTodos = data["todo"]["todo_num"];
+          let savedNumLists = data["todo"]["list_num"];
+
+          listPanel.html(savedLists);
+          numLists = savedNumLists;
+          numTodos = savedNumTodos;
+          taskPanel.html(savedTasks);
+          // All event handlers to be added to dynamically created elements
+          applyCheck();
+          applyDelete();
+          addNewList();
+          addNewTask();
+          applySelectToggle();
+          renderTodoStatus();
+          taskReveal();
+          deleteHover();
+        }
+          // todoHandler();
+      });
+    }
+
     function todoHandler() {
       dayElapsed();
       chrome.storage.sync.get("day_elapsed", function(data) {
@@ -49,37 +77,13 @@
           console.log(data["day_elapsed"]);
           console.log("day has not elapsed");
           getStoredTodo();
-          // All event handlers to be added to dynamically created elements
-          applyCheck();
-          applyDelete();
-          addNewList();
-          addNewTask();
-          applySelectToggle();
-          renderTodoStatus();
-          taskReveal();
-          deleteHover();
         }
       });
     }
+
     todoHandler();
 
-    function getStoredTodo() {
-      chrome.storage.sync.get(null, function (data) {
-        if (data["task_panel"] !== undefined) {
 
-          let savedLists = data["todo"]["list_panel"];
-          let savedTasks = data["todo"]["task_panel"];
-          let savedNumTodos = data["todo"]["todo_num"];
-          let savedNumLists = data["todo"]["list_num"];
-
-          listPanel.html(savedLists);
-          numLists = savedNumLists;
-          numTodos = savedNumTodos;
-          taskPanel.html(savedTasks);
-        }
-          // todoHandler();
-      });
-    }
     // getStoredTodo();
 
     function storeTodo() {
