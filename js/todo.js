@@ -62,7 +62,6 @@
           taskReveal();
           deleteHover();
         }
-          // todoHandler();
       });
     }
 
@@ -207,7 +206,7 @@
     // Adds new lists to list panel
     function addNewList() {
       $(".list-input").off().on("keydown", function(e) {
-        if (event.which === 13) {
+        if (event.which === 13 && e.target.value.trim() !== "") {
           // List's data-target# attribute == listNum
           updateListNum(false);
 
@@ -237,7 +236,7 @@
 
       function addNewTask() {
         $(".task-input").off().on("keydown", function(e) {
-          if (e.which === 13) {
+          if (e.which === 13 && e.target.value.trim() !== "") {
             let newItem =
               `<label><li class="item task">
               <input type="checkbox">
