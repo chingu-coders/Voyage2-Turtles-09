@@ -24,10 +24,10 @@
       chrome.storage.sync.get(null, function (data) {
         if (data["task_panel"] !== undefined) {
 
-          let savedLists = data["list_panel"];
-          let savedTasks = data["task_panel"];
-          let savedNumTodos = data["todo_num"];
-          let savedNumLists = data["list_num"];
+          let savedLists = data["todo"]["list_panel"];
+          let savedTasks = data["todo"]["task_panel"];
+          let savedNumTodos = data["todo"]["todo_num"];
+          let savedNumLists = data["todo"]["list_num"];
 
           listPanel.html(savedLists);
           numLists = savedNumLists;
@@ -45,12 +45,22 @@
       listPanel = $(".list-panel").html();
       taskPanel = $(".task-panel").html();
       chrome.storage.sync.set ({
-        "list_panel": listPanel,
-        "task_panel": taskPanel,
-        "todo_num": numTodos,
-        "list_num": numLists
+        "todo": {
+          "list_panel": listPanel,
+          "task_panel": taskPanel,
+          "todo_num": numTodos,
+          "list_num": numLists
+        }
+
       });
     }
+
+    function deleteTodo() {
+      chrome.storage.sync.get(null, function(storage){
+        console.log(storage["todo"]);
+      });
+    }
+    deleteTodo();
 
       function renderTodoStatus() {
         $(".todo-status").html(numTodos + " todos");
