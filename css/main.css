@@ -580,30 +580,44 @@ p.photographer a {
 /***********************
  * To-do Utility Classes
  ***********************/
+.avoid-click {
+  pointer-events: none;
+}
+
 .checked {
     color: #65615b;
 }
 
 .list-selected {
-  color: #65615b;
+  color: #fff;
 }
 
-.task-inactive {
-  display: none;
+.todo-status {
+  font-size: 0.5em;
+  margin: 0.5em;
+  border-bottom: 1px solid #65615b;
+}
+
+.todo-slider {
+  position: absolute;
+  bottom: 2em;
+  right: 0.5em;
 }
 .todo {
   background-color: rgba(0, 0, 0, 0.8);
-  font-size: 1rem;
+  font-size: 1.5rem;
   display: flex;
   max-width: 500px;
   width: 75vw;
   height: 300px;
   margin: 5px;
   padding: 0;
+  z-index: -9999;
 }
 
 .todo ul {
-  margin: 5px 0;
+  font-size: 0.6em;
+  margin: 0.5em;
   padding: 0;
   width: 100%;
 }
@@ -620,6 +634,7 @@ p.photographer a {
 .list-panel {
   flex: 1 0 0;
   height: 100%;
+  color: #65615b;
 }
 
 .task-panel {
@@ -634,7 +649,7 @@ p.photographer a {
   border: transparent;
   background: rgba(0, 0, 0, 0.9);
   color: white;
-  font-size: 1em;
+  font-size: 0.7em;
   width: 100%;
   height: 2.5em;
 }
@@ -645,7 +660,7 @@ p.photographer a {
   background: rgba(0, 0, 0, 0.9);
   border: transparent;
   color: white;
-  font-size: 1em;
+  font-size: 0.7em;
   width: 100%;
   height: 2em;
 }
@@ -671,12 +686,10 @@ p.photographer a {
   transition: all 0.3s ease;
 }
 
-.new-todo-input {
-  border: transparent;
-  background: rgba(0,0,0,0.9);
-  color: #9d9d9d;
-  font-size: 1.2em;
-  padding: 5px 10px;
-  width: 100%;
-  height: 1.5em;
+
+.todo-expanded {
+  display: block;
+}
+.inactive  {
+  display: none;
 }

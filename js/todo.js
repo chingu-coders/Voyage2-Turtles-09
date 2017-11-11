@@ -10,7 +10,6 @@
 
     function todoHandler() {
       // All event handlers to be added to dynamically created elements
-
       applyCheck();
       applyDelete();
       addNewList();
@@ -18,6 +17,7 @@
       applySelectToggle();
       renderTodoStatus();
       taskReveal();
+      deleteHover();
     }
 
     function getStoredTodo() {
@@ -131,8 +131,8 @@
     function taskReveal() {
       // The lists on the left panel are linked to the tasks on the right panel via data-target
       targetNum = $(".list-panel").find(".list-selected").attr("data-target");
-      $(".task-panel ul").addClass("task-inactive");
-      $(`ul[data-target=${targetNum}]`).removeClass("task-inactive");
+      $(".task-panel ul").addClass("inactive");
+      $(`ul[data-target=${targetNum}]`).removeClass("inactive");
     }
 
     function applySelectToggle() {
@@ -152,9 +152,9 @@
 
           // Removes selected class from all li's so newest list is selected
           $(".list-panel li").removeClass("list-selected");
-          let list = `<li data-target="${numLists}" class="item list list-selected">${e.target.value}
+          let list = `<label><li data-target="${numLists}" class="item list list-selected">${e.target.value}
           <span class="todo-delete hidden">x</span>
-          </li>`;
+          </li></label>`;
 
 
           // Append list to list panel
@@ -198,6 +198,14 @@
       }
 
     addNewTask();
+
+    function activateTodo() {
+      $(".activate-todo").on("click", function(e){
+        $(".todo-slider").slideToggle("slow");
+      });
+    }
+    activateTodo();
+
   });
 })();
 
