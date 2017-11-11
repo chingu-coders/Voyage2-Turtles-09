@@ -22,7 +22,43 @@ function recipes() {
   const ingredientPref = document.querySelectorAll(".ingredients-list .ingredient a");
 
   // Display/edit recipe preferences
-  let defaultSearchIngredients = ["chicken", "beef", "bacon", "brussel"];
+  let defaultSearchIngredients = ["apple",
+                                  "artichoke",
+                                  "aubergine",
+                                  "avocado",
+                                  "bacon",
+                                  "bean",
+                                  "cheese",
+                                  "carrot",
+                                  "cherry",
+                                  "chili",
+                                  "chocolate",
+                                  "chicken",
+                                  "corn",
+                                  "crab",
+                                  "fish",
+                                  "egg",
+                                  "garlic",
+                                  "honey",
+                                  "ice-cream",
+                                  "lemon",
+                                  "lettuce",
+                                  "melon",
+                                  "mushroom",
+                                  "mussel",
+                                  "noodle",
+                                  "olive",
+                                  "pasta",
+                                  "peach",
+                                  "pepper",
+                                  "pumpkin",
+                                  "raspberry",
+                                  "rice",
+                                  "sausage",
+                                  "steak",
+                                  "strawberry",
+                                  "tomato"
+                                 ];
   let searchIngredients;
 
   // ----------------------------------------------------------------------

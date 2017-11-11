@@ -642,14 +642,48 @@ input[type=checkbox]:checked + .toggle-btn::before {
 /* end settings "Links" tab */
 
 /* settings "Recipes" tab */
+.settings-recipes {
+  background-color: rgba(15, 15, 15, 0.75);
+  height: 450px;
+  overflow: scroll;
+}
+
+.ingredients-list {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.ingredients-list .ingredient {
+  width: 75px;
+  height: 100px;
+}
+
 .ingredients-list .ingredient a {
-  color: #666;
+  align-items: center;
+  color: #eee;
+  display: flex;
+  flex-flow: column nowrap;
   font-weight: bold;
   text-decoration: none;
 }
 
-.ingredients-list a.selected {
-  color: #eee;
+.ingredients-list .ingredient a span {
+  display: none;
+}
+
+.ingredients-list .ingredient a:hover span {
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.ingredients-list img {
+  opacity: 0.3;
+  width: 50px;
+}
+
+.ingredients-list a.selected img,
+.ingredients-list a:hover img {
+  opacity: 1;
 }
 /* end settings "Recipes" tab */
 
