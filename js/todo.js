@@ -83,6 +83,9 @@
         renderTodoStatus();
         $(`ul[data-target=${targetNum}]`).remove();
       }
+    function applyDefaultListSelect() {
+        $(".list-panel").find("li[data-target='general']").addClass("list-selected");
+    }
     function applyDelete() {
       // .off() to prevent multiple listeners from being added to a single task
       $(".item").find(".todo-delete").off().on("click", function(e) {
@@ -94,11 +97,14 @@
           updateListNum(true);
         }
         e.stopPropagation();
-        $(e.target).parent().fadeOut();
+        $(e.target).parent().fadeOut(function(){
+          applyDefaultListSelect();
+        });
       });
       // The delete hover function is stripped then reapplied to all li's for consistent application of event handlers
       deleteHover();
     }
+
 
     function deleteHover() {
       function handlerIn() {
@@ -202,6 +208,7 @@
       });
     }
     activateTodo();
+    applyDefaultListSelect();
 
     $(window).on("unload", function(){
       storeTodo();
