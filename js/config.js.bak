@@ -1,0 +1,5 @@
+const config = {
+  unsplashApplicationId: [Application ID string goes here],
+  edamamAppId: [Edamam App ID string goes here],
+  edamamAppKey: [Edamam App key string goes here]
+}
