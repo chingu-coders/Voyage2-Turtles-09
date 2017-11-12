@@ -12,11 +12,6 @@ You can [find Blueberry Dash by clicking here](https://chrome.google.com/webstor
 
 Or navigate to the [Chrome Web Store](https://chrome.google.com/webstore/category/extensions) and search for "Blueberry Dash"
 
-## About this repository
-
-The API keys for the edamam recipe service and unsplash.com have been omitted from this repository.
-When forking or cloning this repo, you will need to rename **config.js.bak**, in the js directory, to **config.js**, and enter your own API keys.
-
 ## T9 Team Members
 
 @Misomighty (Project Manager) https://github.com/misomighty  
