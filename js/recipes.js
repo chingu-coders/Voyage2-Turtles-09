@@ -70,6 +70,21 @@ function recipes() {
                               "tomato"
                              ];
   let searchIngredients;
+
+
+  // ----------------------------------------------------------------------
+  // Helper Functions
+  //
+
+  // Remove an element from an array
+  function removeFromAry(el, ary) {
+    for (let i = ary.length-1; i >= 0; i--) {
+      if (ary[i] === el) {
+        ary.splice(i, 1);
+      }
+    }
+  }
+
   // Get random number
   function rand(num) {
     return Math.floor(Math.random() * num);
@@ -102,16 +117,13 @@ function recipes() {
     });
   });
 
-  // Listen for recipe reset
+  // Listen for recipe reload
   recipeReload.addEventListener("click", function reload() {
     queryEdamam();
-    chrome.storage.sync.get("recipe", (obj) => {
-      recipes.recipePreview(obj.recipe)
-    });
   });
 
   // ----------------------------------------------------------------------
-  // Functions
+  // Recipe functions
   //
 
   (function getRecipePrefs() {
@@ -161,8 +173,7 @@ function recipes() {
       } else if (!obj.recipe || (obj.recipe.timestamp !== timestamp)) {
         queryEdamam();
       } else {
-        recipes.recipePreview(obj.recipe);
-
+        displayRecipe(obj.recipe);
       }
     });
   })();
@@ -216,6 +227,8 @@ function recipes() {
 
       // Save to Chrome storage
       chrome.storage.sync.set({"recipe": savedRecipe});
+      // Display new recipe
+      displayRecipe(savedRecipe);
     });
   }
 
@@ -238,7 +251,6 @@ function recipes() {
     recipeSource.innerHTML = recipe.source +
                                ' <i class="fa fa-angle-right" aria-hidden="true"></i>';
     recipeSource.setAttribute("href", recipe.sourceUrl);
-
   }
 };
 recipes();
