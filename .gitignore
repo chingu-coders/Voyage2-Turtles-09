@@ -62,3 +62,9 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# DS Store
+.DS_Store
+
+# Config file
+js/config.js
