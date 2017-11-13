@@ -46,7 +46,8 @@ body, input {
 }
 
 .main-wrapper,
-.initial-wrapper {
+.initial-wrapper,
+.loading-wrapper {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -87,6 +88,11 @@ body, input {
   background-color: rgba(255, 255, 255, .25);
   border: 3px solid transparent;
   border-radius: 8px;
+  visibility: hidden;
+}
+
+:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
 }
 
 /***********************
@@ -293,6 +299,10 @@ body, input {
   justify-content: flex-end;
 }
 
+.loading-text {
+  color: black;
+  font-size: 4rem;
+}
 /* Time, Greeting, & Username */
 .greeting,
 .user-name {
@@ -698,6 +708,7 @@ input[type=checkbox]:checked + .toggle-btn::before {
 .settings-recipes h3 {
   border-bottom: none;
   margin: 0;
+  padding-bottom: 2rem;
 }
 
 .settings-recipes p {
