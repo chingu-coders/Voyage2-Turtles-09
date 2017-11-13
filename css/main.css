@@ -78,6 +78,17 @@ body, input {
   transition: opacity 500ms ease-in-out;
 }
 
+::-webkit-scrollbar {
+    width: 1em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-clip: padding-box;
+  background-color: rgba(255, 255, 255, .25);
+  border: 3px solid transparent;
+  border-radius: 8px;
+}
+
 /***********************
  * Top row of page
  ***********************/
@@ -510,7 +521,7 @@ body, input {
 }
 
 .settings {
-  background-color: rgba(15, 15, 15, .9);
+  background-color: rgba(15, 15, 15, .95);
   border-radius: 3px;
   bottom: 100px;
   display: flex;
@@ -562,6 +573,7 @@ body, input {
 .settings-subpanel-container {
   display: flex;
   min-height: 450px;
+  max-height: 550px;
 }
 
 .settings-subpanel {
@@ -680,7 +692,6 @@ input[type=checkbox]:checked + .toggle-btn::before {
 /* settings "Recipes" tab */
 .settings-recipes {
   background-color: rgba(15, 15, 15, 0.75);
-  height: 450px;
   overflow-y: scroll;
 }
 
