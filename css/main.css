@@ -700,6 +700,11 @@ input[type=checkbox]:checked + .toggle-btn::before {
   margin: 0;
 }
 
+.settings-recipes p {
+  color: #aaa;
+  line-height: 1.2;
+}
+
 .ingredients-list {
   display: flex;
   flex-flow: row wrap;
