@@ -70,6 +70,17 @@ function recipes() {
                               "tomato"
                              ];
   let searchIngredients;
+  // Get random number
+  function rand(num) {
+    return Math.floor(Math.random() * num);
+  }
+
+  // Return list of array items wrapped in a container
+  function listAry(ary) {
+    let list = "";
+    ary.forEach(function(e){ list += ('<span class="' + e.toLowerCase() + '">' + e + '</span>') })
+    return list
+  }
 
   // ----------------------------------------------------------------------
   // Listeners
@@ -89,11 +100,14 @@ function recipes() {
       // Test that the array is correct
       console.log(searchIngredients);
     });
-  })
+  });
 
   // Listen for recipe reset
   recipeReload.addEventListener("click", function reload() {
     queryEdamam();
+    chrome.storage.sync.get("recipe", (obj) => {
+      recipes.recipePreview(obj.recipe)
+    });
   });
 
   // ----------------------------------------------------------------------
@@ -136,7 +150,8 @@ function recipes() {
 
   (function getRecipe() {
     // Check storage for saved recipe
-    chrome.storage.sync.get("recipe", function(obj){
+    chrome.storage.sync.get(null, function(obj){
+      let recipe = obj.recipe;
       // Error handling
       let error = chrome.runtime.lastError;
       if (error) {
@@ -146,7 +161,8 @@ function recipes() {
       } else if (!obj.recipe || (obj.recipe.timestamp !== timestamp)) {
         queryEdamam();
       } else {
-        displayRecipe(obj.recipe);
+        recipes.recipePreview(obj.recipe);
+
       }
     });
   })();
@@ -200,8 +216,6 @@ function recipes() {
 
       // Save to Chrome storage
       chrome.storage.sync.set({"recipe": savedRecipe});
-
-      displayRecipe(savedRecipe);
     });
   }
 
@@ -226,30 +240,7 @@ function recipes() {
     recipeSource.setAttribute("href", recipe.sourceUrl);
 
   }
-
-  // Get random number
-  function rand(num) {
-    return Math.floor(Math.random() * num);
-  }
-
-  // Return list of array items wrapped in a container
-  function listAry(ary) {
-    let list = "";
-    ary.forEach(function(e){ list += ('<span class="' + e.toLowerCase() + '">' + e + '</span>') })
-    return list
-  }
-
-  // Remove an element from an array
-  function removeFromAry(el, ary) {
-    for (let i = ary.length-1; i >= 0; i--) {
-      if (ary[i] === el) {
-        ary.splice(i, 1);
-      }
-    }
-  }
-
 };
-// recipes() ends
-// Call it
 recipes();
+// Recipes ends
 
