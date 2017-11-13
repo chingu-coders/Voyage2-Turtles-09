@@ -72,9 +72,6 @@ function recipes() {
     return list
   }
 
-  // Action!
-  getRecipe();
-
   // ----------------------------------------------------------------------
   // Listeners
   //
@@ -206,7 +203,6 @@ function recipes() {
       chrome.storage.sync.set({"recipe": savedRecipe});
     });
   }
-  recipes.recipePreview = recipePreview;
 
   // Make display recipe function available to other scripts
   recipes.recipePreview = displayRecipe;
