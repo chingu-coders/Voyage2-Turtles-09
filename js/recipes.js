@@ -22,44 +22,69 @@ function recipes() {
   const ingredientPref = document.querySelectorAll(".ingredients-list .ingredient a");
 
   // Display/edit recipe preferences
-  let defaultSearchIngredients = ["apple",
-                                  "artichoke",
-                                  "aubergine",
-                                  "avocado",
-                                  "bacon",
-                                  "bean",
+  let initialSearchIngredients = ["avocado",
                                   "cheese",
-                                  "carrot",
-                                  "cherry",
-                                  "chili",
-                                  "chocolate",
                                   "chicken",
-                                  "corn",
-                                  "crab",
                                   "fish",
-                                  "egg",
                                   "garlic",
-                                  "honey",
-                                  "ice-cream",
                                   "lemon",
-                                  "lettuce",
-                                  "melon",
-                                  "mushroom",
-                                  "mussel",
                                   "noodle",
-                                  "olive",
-                                  "pasta",
-                                  "peach",
-                                  "pepper",
-                                  "pumpkin",
                                   "raspberry",
-                                  "rice",
-                                  "sausage",
                                   "steak",
-                                  "strawberry",
-                                  "tomato"
-                                 ];
+                                  "tomato"];
+  let allSearchIngredients = ["apple",
+                              "artichoke",
+                              "aubergine",
+                              "avocado",
+                              "bacon",
+                              "bean",
+                              "cheese",
+                              "carrot",
+                              "cherry",
+                              "chili",
+                              "chocolate",
+                              "chicken",
+                              "corn",
+                              "crab",
+                              "fish",
+                              "egg",
+                              "garlic",
+                              "honey",
+                              "ice-cream",
+                              "lemon",
+                              "lettuce",
+                              "melon",
+                              "mushroom",
+                              "mussel",
+                              "noodle",
+                              "olive",
+                              "pasta",
+                              "peach",
+                              "pepper",
+                              "pumpkin",
+                              "raspberry",
+                              "rice",
+                              "sausage",
+                              "steak",
+                              "strawberry",
+                              "tomato"
+                             ];
   let searchIngredients;
+
+
+  // ----------------------------------------------------------------------
+  // Helper Functions
+  //
+
+  // Remove an element from an array
+  function removeFromAry(el, ary) {
+    for (let i = ary.length-1; i >= 0; i--) {
+      if (ary[i] === el) {
+        ary.splice(i, 1);
+      }
+    }
+  }
+
   // Get random number
   function rand(num) {
     return Math.floor(Math.random() * num);
@@ -92,16 +117,13 @@ function recipes() {
     });
   });
 
-  // Listen for recipe reset
+  // Listen for recipe reload
   recipeReload.addEventListener("click", function reload() {
     queryEdamam();
-    chrome.storage.sync.get("recipe", (obj) => {
-      recipes.recipePreview(obj.recipe)
-    });
   });
 
   // ----------------------------------------------------------------------
-  // Functions
+  // Recipe functions
   //
 
   (function getRecipePrefs() {
@@ -113,13 +135,15 @@ function recipes() {
         console.error("Check Chrome storage for 'recipeSettings': " + error);
       // If there are recipe settings in storage...
       } else if (obj.recipeSettings) {
-        // For each ingredient in the display...
+        // For display saved recipe preferences
         displayRecipePrefs(obj.recipeSettings);
-        // Add listeners and toggle array based on saved settings
+        // Define search preferences based on saved settings
         searchIngredients = obj.recipeSettings;
       } else {
-        // Add listeners and toggle based on everything being selected
-        searchIngredients = defaultSearchIngredients;
+        // Display "factory settings" preferences
+        displayRecipePrefs(initialSearchIngredients);
+        // Define search preferences based on initial settings
+        searchIngredients = initialSearchIngredients;
       }
     });
   })();
@@ -149,17 +173,19 @@ function recipes() {
       } else if (!obj.recipe || (obj.recipe.timestamp !== timestamp)) {
         queryEdamam();
       } else {
-        recipes.recipePreview(obj.recipe);
-
+        displayRecipe(obj.recipe);
       }
     });
   })();
 
   // Query Edamam API
   function queryEdamam() {
-
-    // Define default recipe search options
+    // Define recipe search options
     let dietOptions = ["balanced", "high-protein", "low-fat", "low-carb"]
+    let ingredients;
+
+    // If the user deselects ALL of the ingredients, return random recipe
+    searchIngredients.length < 1 ? ingredients = allSearchIngredients : ingredients = searchIngredients;
 
     // Build query url
     // TODO - Delete the following line of code (and these comments) before deploying to Chrome Web Store
@@ -169,7 +195,7 @@ function recipes() {
     // const api = "https://api.edamam.com/search";
     const app_id = "&app_id=" + config.edamamAppId;
     const app_key = "&app_key=" + config.edamamAppKey;
-    let search = "?q=" + searchIngredients[rand(searchIngredients.length)];
+    let search = "?q=" + ingredients[rand(ingredients.length)];
     let diet1 = "&diet=" + dietOptions[rand(dietOptions.length)];
     let range = "&to=" + "100";
     const query = api + search + app_id + app_key + diet1 + range;
@@ -201,6 +227,8 @@ function recipes() {
 
       // Save to Chrome storage
       chrome.storage.sync.set({"recipe": savedRecipe});
+      // Display new recipe
+      displayRecipe(savedRecipe);
     });
   }
 
@@ -223,7 +251,6 @@ function recipes() {
     recipeSource.innerHTML = recipe.source +
                                ' <i class="fa fa-angle-right" aria-hidden="true"></i>';
     recipeSource.setAttribute("href", recipe.sourceUrl);
-
   }
 };
 recipes();

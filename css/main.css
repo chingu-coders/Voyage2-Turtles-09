@@ -711,6 +711,11 @@ input[type=checkbox]:checked + .toggle-btn::before {
   padding-bottom: 2rem;
 }
 
+.settings-recipes p {
+  color: #aaa;
+  line-height: 1.2;
+}
+
 .ingredients-list {
   display: flex;
   flex-flow: row wrap;
