@@ -87,6 +87,11 @@ body, input {
   background-color: rgba(255, 255, 255, .25);
   border: 3px solid transparent;
   border-radius: 8px;
+  visibility: hidden;
+}
+
+:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
 }
 
 /***********************
@@ -698,6 +703,7 @@ input[type=checkbox]:checked + .toggle-btn::before {
 .settings-recipes h3 {
   border-bottom: none;
   margin: 0;
+  padding-bottom: 2rem;
 }
 
 .ingredients-list {
