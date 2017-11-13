@@ -46,7 +46,8 @@ body, input {
 }
 
 .main-wrapper,
-.initial-wrapper {
+.initial-wrapper,
+.loading-wrapper {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -293,6 +294,10 @@ body, input {
   justify-content: flex-end;
 }
 
+.loading-text {
+  color: black;
+  font-size: 4rem;
+}
 /* Time, Greeting, & Username */
 .greeting,
 .user-name {
