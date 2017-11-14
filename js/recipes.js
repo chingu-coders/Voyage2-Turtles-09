@@ -112,8 +112,6 @@ function recipes() {
       searchIngredients.indexOf(ingredient) > -1 ? removeFromAry(ingredient, searchIngredients) : searchIngredients.push(ingredient);
       // Save to Chrome storage
       chrome.storage.sync.set({"recipeSettings": searchIngredients});
-      // Test that the array is correct
-      console.log(searchIngredients);
     });
   });
 
@@ -181,11 +179,8 @@ function recipes() {
   // Query Edamam API
   function queryEdamam() {
     // Define recipe search options
-    let dietOptions = ["balanced", "high-protein", "low-fat", "low-carb"]
-    let ingredients;
-
-    // If the user deselects ALL of the ingredients, return random recipe
-    searchIngredients.length < 1 ? ingredients = allSearchIngredients : ingredients = searchIngredients;
+    let dietOptions = ["balanced", "high-protein", "low-fat", "low-carb"];
+    let ingredients = buildIngredientsQuery();
 
     // Build query url
     // TODO - Delete the following line of code (and these comments) before deploying to Chrome Web Store
@@ -230,6 +225,34 @@ function recipes() {
       // Display new recipe
       displayRecipe(savedRecipe);
     });
+  }
+
+  // Extrapolate exact search query from searchIngredients preferences
+  function buildIngredientsQuery() {
+    let ingredients = [];
+    let fishies = ["salmon", "tuna", "cod", "mackerel", "trout"];
+
+    // If the user deselects ALL of the ingredients, return random recipe
+    if (searchIngredients.length < 1) {
+      // Push all ingredients to array, for random recipe
+      allSearchIngredients.forEach(function(el){
+        ingredients.push(el);
+      });
+    } else {
+      // If the user has set ingredients preferences, push to array
+      searchIngredients.forEach(function(el){
+        ingredients.push(el);
+      });
+    }
+
+    // Add more specific ingredients if high level ingredients are found
+    if (ingredients.indexOf("fish") > -1) {
+      fishies.forEach(function(el){
+        ingredients.push(el);
+      });
+    }
+
+    return ingredients;
   }
 
   // Make display recipe function available to other scripts
