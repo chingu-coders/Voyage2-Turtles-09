@@ -8,7 +8,6 @@ const bg = {
 };
 
 function queryUnsplash () {
-  console.log("Running queryUnsplash...");
   fetch(bg.query).then(response => response.json()).then(data =>
   {
     // IMAGE DATA VARS
@@ -29,7 +28,6 @@ function queryUnsplash () {
     });
 
     // SET BG
-    console.log(data);
     document.body.style.background = `#f3f3f3 url('${bgUrl}') center center fixed / cover no-repeat`;
 
     // IMAGE DATA
@@ -39,14 +37,14 @@ function queryUnsplash () {
 }
 
 (function (){
-  var currentTimeStamp = Date.now();
+  let currentTimeStamp = Date.now();
   chrome.storage.sync.get("time_stamp", function(data) {
-    var prevTimeStamp = data["time_stamp"];
+    let prevTimeStamp = data["time_stamp"];
 
     // Querying local storage first to see if last time is available
     if (prevTimeStamp !== undefined) {
       // Checking if 30s have elapsed since the time recorded in storage
-      if (currentTimeStamp - prevTimeStamp >= 1000) {
+      if (currentTimeStamp - prevTimeStamp >= 1800000) {
         //* Updating the previous time stamp in storage to the current time
         prevTimeStamp = currentTimeStamp;
         chrome.storage.sync.set({"time_stamp": prevTimeStamp});
@@ -64,16 +62,13 @@ function queryUnsplash () {
           document.body.style.background = `#f3f3f3 url('${savedBg}') center center fixed / cover no-repeat`;
           bg.renderLocation.innerHTML = `${savedLocation}` || `{imageDescriptionData}`;
           bg.renderPhotographer.innerHTML = `<a href="${savedLinkToUser}">${savedPhotographer}</a>` || `<a href="{linkToUser}">${savedUsername}</a>`;
-          console.log("Using last saved BG");
         });
-        console.log(data);
       }
     } else {
       // If there is no timestamp, current time is stored
       prevTimeStamp = currentTimeStamp;
       chrome.storage.sync.set({"time_stamp": prevTimeStamp});
       queryUnsplash();
-      console.log("No time here.")
     }
   })
 })();
