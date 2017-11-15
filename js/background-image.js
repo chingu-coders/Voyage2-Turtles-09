@@ -26,13 +26,6 @@ function queryUnsplash () {
       "username": username,
       "link": linkToUser
     });
-
-    // SET BG
-    document.body.style.background = `#f3f3f3 url('${bgUrl}') center center fixed / cover no-repeat`;
-
-    // IMAGE DATA
-    bg.renderLocation.innerHTML =`${imageLocationData}` || `${imageDescriptionData}`;
-    bg.renderPhotographer.innerHTML =`<a href="${linkToUser}">${photographerData}</a>` || `<a href="${linkToUser}">${username}</a>`;
   });
 }
 
@@ -60,9 +53,6 @@ function queryUnsplash () {
           let savedLocation = data["location"];
           let savedLinkToUser = data["link"];
           let savedUsername = data["username"];
-          document.body.style.background = `#f3f3f3 url('${savedBg}') center center fixed / cover no-repeat`;
-          bg.renderLocation.innerHTML = `${savedLocation}` || `{imageDescriptionData}`;
-          bg.renderPhotographer.innerHTML = `<a href="${savedLinkToUser}">${savedPhotographer}</a>` || `<a href="${linkToUser}">${savedUsername}</a>`;
         });
       }
     } else {
