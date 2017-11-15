@@ -117,7 +117,7 @@
       console.log("Hi, I'm the quoteBackup func!");
       let n = rand(backupQuotes.length);
       let data = backupQuotes[n][n + 1];
-      chrome.storage.sync.set({"quote": data});
+      handleQuote.save(data);
       handleQuote.render(data);
     },
 
