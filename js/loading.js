@@ -93,10 +93,8 @@
       switch (true) {
         case windowWidth <= defaultBg.lowRes.width || windowHeight <= defaultBg.lowRes.height:
           return defaultBg.lowRes.url;
-          break;
         case windowWidth <= defaultBg.midRes.width || windowHeight <= defaultBg.midRes.height:
           return defaultBg.midRes.url;
-          break;
         default:
           return defaultBg.highRes.url;
       }
