@@ -34,7 +34,6 @@
         console.error(error);
       } else {
         storedUserName.userName = obj.userName;
-        console.log(storedUserName.userName);
 
         if (storedUserName.userName) {
           userNameHTMLId.innerHTML = storedUserName.userName;
@@ -42,7 +41,6 @@
         } else {
           wrapperToDisplay = ".initial-wrapper";
         }
-        console.log(wrapperToDisplay);
         window.localStorage.setItem("wrapperToDisplay", wrapperToDisplay);
       }
     });
@@ -73,7 +71,6 @@
     });
 
     userNameHTMLId.addEventListener("click", () => {
-      console.log("Clicked on user name.");
       userNameHTMLId.setAttribute("contenteditable", true);
       userNameHTMLId.addEventListener("keydown", (event) => {
         if (event.which === 13) {
@@ -93,7 +90,6 @@
       } else {
         userNameHTMLId.innerHTML = storedUserName.userName;
       }
-      console.log(userNameHTMLId.innerHTML + " - new user name successfully submitted.");
     });
   }
 

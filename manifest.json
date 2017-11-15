@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Blueberry Dash",
   "version": "1.0.0",
-  "description": "Replace new tab page with a dashboard that inspires healthy food choices, encouragement, and productivity",
+  "description": "A visually appealing dashboard that inspires healthy food choices, encouragement, and productivity.",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },

@@ -103,7 +103,6 @@
 
   const backups = {
     background: ()=>{
-      console.log("Hi, I'm the backgroundBackup func!");
       let bgUrl = "url(";
       bgUrl += defaultBg.selectBgRes();
       bgUrl += ") center center fixed / cover no-repeat";
@@ -114,7 +113,6 @@
     },
 
     quote: ()=>{
-      console.log("Hi, I'm the quoteBackup func!");
       let n = rand(backupQuotes.length);
       let data = backupQuotes[n][n + 1];
       handleQuote.save(data);
@@ -122,7 +120,6 @@
     },
 
     recipe: ()=>{
-      console.log("Hi, I'm the recipeBackup func!");
       let n = rand(backupRecipes.length);
       let savedRecipe = backupRecipes[n][n + 1];
       chrome.storage.sync.set({"recipe": savedRecipe});
@@ -162,7 +159,6 @@
       let timerId = setTimeout(function runChecker() {
         backupChecker.storageCheck();
         if (backupChecker.complete) {
-          console.log("Check complete!");
           clearTimeout(timerId);
           showWrapperToDisplay();
         } else {
@@ -204,7 +200,6 @@
     runBackup: () => {
       $.each(dataCheck, (key, value) => {
         if (!value) {
-          console.log("Running backups method for:", key);
           backups[key]();
         } else {
           printAPIData[key]();

@@ -114,8 +114,8 @@
     <ul>
       <li><a href="https://github.com/chingu-coders/Voyage2-Turtles-09">GitHub</a></li>
       <li><a href="https://medium.com/chingu">Chingu</a></li>
-      <li><a href="">Website</a></li>
-      <li><a href="">Twitter</a></li>
+      <li><a href="#">Website</a></li>
+      <li><a href="#">Twitter</a></li>
     </ul>
     <footer>Made with <span class="fa fa-heart"></span> by Chingu developers</footer>
   `;
