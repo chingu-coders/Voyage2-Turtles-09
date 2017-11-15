@@ -28,7 +28,7 @@
 
 
   // Change Settings panel when nav is clicked
-  addListenerToSettingsNavigation()
+  addListenerToSettingsNavigation();
 
   // listen for changes to visibility of Widgets in General Settings
   addListenersToGeneralSettings();
