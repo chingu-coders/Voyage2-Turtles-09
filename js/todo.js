@@ -2,7 +2,6 @@
 (function (){
   $(document).ready(function(){
     let targetNum;
-    let deleteIcons = $(".todo-delete");
     let taskPanel = $(".task-panel");
     let listPanel = $(".list-panel");
     let numTodos = 0;
@@ -24,18 +23,15 @@
         // Querying local storage first to see if last time is available
         if (prevTimeStamp !== undefined) {
           // Checking if 30s have elapsed since the time recorded in storage
-          if (currentTimeStamp - prevTimeStamp >= timeConstraint) {
+          if (currentTimeStamp >= timeConstraint) {
             //* Updating the previous time stamp in storage to the current time
             prevTimeStamp = currentTimeStamp;
             chrome.storage.sync.set({"todo_time_stamp": prevTimeStamp});
-            console.log(currentTimeStamp - data["todo_time_stamp"]);
             flag = true;
             chrome.storage.sync.set({"day_elapsed": flag});
-            console.log("flag set to true");
           } else {
             flag = false;
             chrome.storage.sync.set({"day_elapsed": flag});
-            console.log("flag set to false");
           }
         } else {
           // If there is no timestamp, current time is stored
@@ -85,23 +81,29 @@
       });
     }
 
+
+
     function todoHandler() {
-      dayElapsed(86400000);
-      chrome.storage.sync.get("day_elapsed", function(data) {
-        if(data["day_elapsed"]) {
-          console.log("You todo list has been reset");
-          deleteTodo();
-        } else {
-          console.log("day has not elapsed");
-          getStoredTodo();
-        }
+      let time = new Date(new Date().setHours(24,0,0,0));
+      dayElapsed(time);
+      // The day elapsed flag is set on page load. The first storage 'get' request returns the old flag, the second
+      // gets the updated flag
+      chrome.storage.sync.get(null, function() {
+        chrome.storage.sync.get(null, function(data) {
+          if(data["day_elapsed"]) {
+            deleteTodo();
+          } else {
+            getStoredTodo();
+          }
+        });
       });
     }
     todoHandler();
 
     function deleteTodo() {
-      chrome.storage.sync.get(null, function(storage){
-        console.log(storage["todo"]);
+      chrome.storage.sync.get(null, function(){
+        chrome.storage.sync.remove("todo", function() {
+        });
       });
     }
 
