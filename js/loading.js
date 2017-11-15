@@ -1,8 +1,8 @@
-"use strict";
+
 
 (() => {
-
-//Backup quotes
+  "use strict";
+  //Backup quotes
   const backupQuotes = [
     {1: {
       quoteAuthor: "Coach Brule",
@@ -14,7 +14,7 @@
     }}
   ];
 
-//Backup recipes
+  //Backup recipes
   const backupRecipes = [{
     1: {
       title: "Seafood Chowder",
@@ -75,10 +75,8 @@
       switch (true) {
         case windowWidth <= defaultBg.lowRes.width || windowHeight <= defaultBg.lowRes.height:
           return defaultBg.lowRes.url;
-          break;
         case windowWidth <= defaultBg.midRes.width || windowHeight <= defaultBg.midRes.height:
           return defaultBg.midRes.url;
-          break;
         default:
           return defaultBg.highRes.url;
       }
@@ -197,10 +195,10 @@
     },
   };
 
-//Function for running through backupChecker for a certain interval
+  //Function for running through backupChecker for a certain interval
   backupChecker.timeout();
 
-// Execute when decision to print which data has been made
+  // Execute when decision to print which data has been made
 
   function showWrapperToDisplay() {
     let wrapperToDisplay = window.localStorage.getItem("wrapperToDisplay");

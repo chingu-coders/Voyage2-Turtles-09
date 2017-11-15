@@ -93,8 +93,10 @@ function recipes() {
   // Return list of array items wrapped in a container
   function listAry(ary) {
     let list = "";
-    ary.forEach(function(e){ list += ('<span class="' + e.toLowerCase() + '">' + e + '</span>') })
-    return list
+    ary.forEach(function(e){
+      list += ('<span class="' + e.toLowerCase() + '">' + e + '</span>');
+    });
+    return list;
   }
 
   // ----------------------------------------------------------------------
@@ -154,7 +156,7 @@ function recipes() {
       if (recipePrefs.indexOf(ingredient) === -1) {
         a.classList.toggle("selected");
       }
-    })
+    });
   }
 
 
@@ -295,7 +297,7 @@ function recipes() {
                                ' <i class="fa fa-angle-right" aria-hidden="true"></i>';
     recipeSource.setAttribute("href", recipe.sourceUrl);
   }
-};
+}
 recipes();
 // Recipes ends
 

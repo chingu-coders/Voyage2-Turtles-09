@@ -43,7 +43,7 @@ const handleQuote = {
             "text": data.quoteText,
             "author": data.quoteAuthor
         }
-      })
+      });
     },
     tweet: () => window.open(quote.twitter + quote.renderQuote.innerText.trim() + " - " + (data.quoteAuthor || 'Anonymous'), "_blank"),
     save: () => {

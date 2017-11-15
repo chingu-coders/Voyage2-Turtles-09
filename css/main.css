@@ -624,7 +624,6 @@ body, input {
   font-size: 1.125rem;
   font-weight: normal;
   margin: 2rem 0 0 0;
-  //text-decoration: underline;
 }
 
 .settings-subpanel ul {
@@ -769,11 +768,6 @@ input[type=checkbox]:checked + .toggle-btn::before {
   justify-content: center;
 }
 
-.settings .image-wrapper {
-  //background-color: rgba(255, 255, 255, .8);
-  //border-radius: 5px;
-}
-
 .settings-about img {
   width: 80px;
   height: 80px;
@@ -841,8 +835,6 @@ input[type=checkbox]:checked + .toggle-btn::before {
 /* settings "T9" tab */
 .settings-t9 p {
   color: #ccc;
-  //font-size: 1.125rem;
-  //margin: 1.5rem;
 }
 
 .settings-t9 p strong {
@@ -889,7 +881,6 @@ input[type=checkbox]:checked + .toggle-btn::before {
 ******************************/
 .hidden {
   opacity: 0!important;
-  //visibility: hidden;
   z-index: -1;
 }
 

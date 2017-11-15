@@ -72,7 +72,7 @@ function queryUnsplash () {
       queryUnsplash();
 
     }
-  })
+  });
 })();
 
 // FOCUS BACKGROUND
