@@ -46,7 +46,8 @@ body, input {
 }
 
 .main-wrapper,
-.initial-wrapper {
+.initial-wrapper,
+.loading-wrapper {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -76,6 +77,22 @@ body, input {
 .todo {
   opacity: 1;
   transition: opacity 500ms ease-in-out;
+}
+
+::-webkit-scrollbar {
+    width: 1em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-clip: padding-box;
+  background-color: rgba(255, 255, 255, .25);
+  border: 3px solid transparent;
+  border-radius: 8px;
+  visibility: hidden;
+}
+
+:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
 }
 
 /***********************
@@ -282,6 +299,10 @@ body, input {
   justify-content: flex-end;
 }
 
+.loading-text {
+  color: black;
+  font-size: 4rem;
+}
 /* Time, Greeting, & Username */
 .greeting,
 .user-name {
@@ -472,15 +493,13 @@ body, input {
 
 .todo {
   flex: 5 0 0;
-  /* next 2 styles are temporary (to improve screenshots) */
-  /*text-align: right;*/
-  /*margin: 1rem 1.25rem 1.125rem -1.25rem;*/
 }
 
 /* Settings */
 
 /* animate cog icon */
 .settings-icon {
+  cursor: pointer;
   margin: 0 1rem 1rem;
 }
 
@@ -512,7 +531,7 @@ body, input {
 }
 
 .settings {
-  background-color: rgba(15, 15, 15, .9);
+  background-color: rgba(15, 15, 15, .95);
   border-radius: 3px;
   bottom: 100px;
   display: flex;
@@ -564,6 +583,7 @@ body, input {
 .settings-subpanel-container {
   display: flex;
   min-height: 450px;
+  max-height: 550px;
 }
 
 .settings-subpanel {
@@ -682,13 +702,18 @@ input[type=checkbox]:checked + .toggle-btn::before {
 /* settings "Recipes" tab */
 .settings-recipes {
   background-color: rgba(15, 15, 15, 0.75);
-  height: 450px;
   overflow-y: scroll;
 }
 
 .settings-recipes h3 {
   border-bottom: none;
   margin: 0;
+  padding-bottom: 2rem;
+}
+
+.settings-recipes p {
+  color: #aaa;
+  line-height: 1.2;
 }
 
 .ingredients-list {
@@ -1006,7 +1031,7 @@ p.photographer a {
   right: 0.5em;
   z-index: 9999;
 }
-.todo {
+div.todo {
   background-color: rgba(0, 0, 0, 0.8);
   font-size: 1.5rem;
   display: flex;
@@ -1017,19 +1042,19 @@ p.photographer a {
   padding: 0;
 }
 
-.todo ul {
+div.todo ul {
   font-size: 0.6em;
   margin: 0.5em;
   padding: 0;
   width: 100%;
 }
 
-.todo li {
+div.todo li {
   margin-top: 0.3em;
   width: 100%;
 }
 
-.todo li:hover {
+div.todo li:hover {
   background: rgb(0, 0, 0);
 }
 
@@ -1088,10 +1113,16 @@ p.photographer a {
   transition: all 0.3s ease;
 }
 
+.activate-todo {
+  cursor: pointer;
+  padding-right: 1.25rem;
+  text-align: right;
+}
 
 .todo-expanded {
   display: block;
 }
+
 .inactive  {
   display: none;
 }

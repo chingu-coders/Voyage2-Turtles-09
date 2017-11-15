@@ -5,6 +5,7 @@
   const settingsIcon = document.querySelector(".settings-icon");
   const settingsPanel = document.querySelector(".settings");
   const settingsNav = document.querySelectorAll(".settings-nav li");
+  const settingsSubpanels = document.querySelectorAll(".settings-subpanel");
   const displayRecipe = document.querySelector("#displayRecipe");
   const displayTime = document.querySelector("#displayTime");
   const displayGreeting = document.querySelector("#displayGreeting");
@@ -24,7 +25,7 @@
   // Toggle settings panel on and off when settings icon (cog) is clicked.
   settingsIcon.addEventListener("click", toggleSettingsPanel);
   overlay.addEventListener("click", toggleSettingsPanel);
-  
+
 
   // Change Settings panel when nav is clicked
   addListenerToSettingsNavigation()
@@ -70,12 +71,16 @@
     settingsIcon.classList.toggle("clicked");
     overlay.classList.toggle("hidden");
     settingsPanel.classList.toggle("hidden");
+    settingsSubpanels.forEach(function(subpanel) {
+      subpanel.scroll(0, 0);
+    });
+
   }
 
   function addListenerToSettingsNavigation() {
     let keys = Object.keys(settingsNav);
     keys.forEach(function(key) {
-      // Display appropriate settings panel when a nav item is clicked.  
+      // Display appropriate settings panel when a nav item is clicked.
       settingsNav[key].addEventListener("click", function() {
 
         // Indicate which nav item is currently selected.

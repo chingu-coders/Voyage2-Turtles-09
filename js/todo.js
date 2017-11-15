@@ -8,7 +8,6 @@
     let numLists = 0;
 
     function activateTodo() {
-      console.log("activated");
       $(".activate-todo").on("click", function(e){
         $(".todo-slider").slideToggle("slow");
       });
