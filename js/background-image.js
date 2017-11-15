@@ -32,7 +32,7 @@ function queryUnsplash () {
 
     // IMAGE DATA
     bg.renderLocation.innerHTML =`${imageLocationData}` || `${imageDescriptionData}`;
-    bg.renderPhotographer.innerHTML =`<a href="${linkToUser}">${photographerData}</a>` || `<a href="{linkToUser}">${username}</a>`;
+    bg.renderPhotographer.innerHTML =`<a href="${linkToUser}">${photographerData}</a>` || `<a href="${linkToUser}">${username}</a>`;
   });
 }
 
