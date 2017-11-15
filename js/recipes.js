@@ -29,8 +29,8 @@ function recipes() {
                                   "garlic",
                                   "lemon",
                                   "noodle",
-                                  "raspberry",
-                                  "steak",
+                                  "berry",
+                                  "beef",
                                   "tomato"];
   let allSearchIngredients = ["apple",
                               "artichoke",
@@ -55,17 +55,17 @@ function recipes() {
                               "lettuce",
                               "melon",
                               "mushroom",
-                              "mussel",
+                              "shellfish",
                               "noodle",
                               "olive",
                               "pasta",
                               "peach",
                               "pepper",
                               "pumpkin",
-                              "raspberry",
+                              "berry",
                               "rice",
                               "sausage",
-                              "steak",
+                              "beef",
                               "strawberry",
                               "tomato"
                              ];
@@ -230,26 +230,46 @@ function recipes() {
   // Extrapolate exact search query from searchIngredients preferences
   function buildIngredientsQuery() {
     let ingredients = [];
-    let fishies = ["salmon", "tuna", "cod", "mackerel", "trout"];
+    let fish = ["salmon", "tuna", "cod", "mackerel", "trout"];
+    let mushroom = ["morel", "cremini", "portobello", "shiitake"];
+    let cheese = ["brie", "burrata", "feta", "cheddar", "gouda", "camembert"];
+    let shellfish = ["mussel", "oyster", "crawfish", "lobster", "prawn", "shrimp"];
+    let melon = ["watermelon", "rock melon", "cantaloupe"];
+    let bacon = ["pork", "ham", "pork belly", "pork ribs"];
+    let beef = ["steak", "brisket", "ragu", "stroganoff", "bourguignon"];
+    let berry = ["raspberry", "blueberry", "blackberry", "cranberry"];
+    let lettuce = ["arugula", "endive", "romaine", "cress"];
+    let pasta = ["spaghetti", "macaroni", "fettuccine", "linguine",
+                  "penne", "tagliatelle", "ravioli", "orzo"];
+    let keyIngredients = [fish, mushroom, cheese, shellfish,
+                              melon, bacon, beef, berry, lettuce, pasta];
+    let keyIngredientsStrings = ["fish", "mushroom", "cheese", "shellfish",
+                              "melon", "bacon", "beef", "berry", "lettuce", "pasta"];
 
-    // If the user deselects ALL of the ingredients, return random recipe
+    // If the user deselects ALL of the ingredients in recipe settings...
     if (searchIngredients.length < 1) {
-      // Push all ingredients to array, for random recipe
+      // Push all ingredients to search array, for random recipe
       allSearchIngredients.forEach(function(el){
         ingredients.push(el);
       });
     } else {
-      // If the user has set ingredients preferences, push to array
+      // If the user has set ingredients preferences, push those to search array
       searchIngredients.forEach(function(el){
         ingredients.push(el);
       });
     }
 
-    // Add more specific ingredients if high level ingredients are found
-    if (ingredients.indexOf("fish") > -1) {
-      fishies.forEach(function(el){
-        ingredients.push(el);
-      });
+    // Add sub-ingredients, if high level ingredients are found
+    // Iterate through key ingredients array
+    for (let i = 0; i < keyIngredients.length; i++) {
+      let key = keyIngredientsStrings[i];
+      // If a key ingredient is found in the ingredients array...
+      if (ingredients.indexOf(key) > -1) {
+        for (let j = 0; j < keyIngredients[i].length; j++) {
+          // Push the related sub-ingredients into the search array
+          ingredients.push(keyIngredients[i][j]);
+        }
+      }
     }
 
     return ingredients;
