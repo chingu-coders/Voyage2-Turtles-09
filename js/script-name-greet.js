@@ -30,6 +30,7 @@ function setGreeting() {
 function checkUserName() {
   chrome.storage.sync.get(null, (obj) => {
     let error = chrome.runtime.lastError;
+    let wrapperToDisplay;
     if (error) {
       console.error(error);
     } else {
@@ -38,10 +39,12 @@ function checkUserName() {
 
       if (storedUserName.userName) {
         userNameHTMLId.innerHTML = storedUserName.userName;
-        $(".main-wrapper").fadeIn("slow");
+        wrapperToDisplay = ".main-wrapper"
       } else {
-        $(".initial-wrapper").fadeIn("slow");
+        wrapperToDisplay = ".initial-wrapper"
       }
+      console.log(wrapperToDisplay);
+      window.localStorage.setItem("wrapperToDisplay", wrapperToDisplay);
     }
   });
   addUserNameListeners();

@@ -65,3 +65,6 @@ typings/
 
 # DS Store
 .DS_Store
+
+# Config file
+js/config.js
