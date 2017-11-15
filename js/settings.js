@@ -5,6 +5,11 @@
   const settingsIcon = document.querySelector(".settings-icon");
   const settingsPanel = document.querySelector(".settings");
   const settingsNav = document.querySelectorAll(".settings-nav li");
+  const userLinksPrompt = document.querySelector(".user-links-prompt");
+  const userLinksInput = document.querySelector(".user-links-input");
+  const userLinksName = document.querySelector(".user-links-name");
+  const userLinksURL = document.querySelector(".user-links-url");
+  const linksList = document.querySelector(".settings-links ul");
   const displayRecipe = document.querySelector("#displayRecipe");
   const displayTime = document.querySelector("#displayTime");
   const displayGreeting = document.querySelector("#displayGreeting");
@@ -24,13 +29,33 @@
   // Toggle settings panel on and off when settings icon (cog) is clicked.
   settingsIcon.addEventListener("click", toggleSettingsPanel);
   overlay.addEventListener("click", toggleSettingsPanel);
-  
+
 
   // Change Settings panel when nav is clicked
   addListenerToSettingsNavigation()
 
   // listen for changes to visibility of Widgets in General Settings
   addListenersToGeneralSettings();
+
+  userLinksPrompt.addEventListener("click", function() {
+    hideElement(userLinksPrompt);
+    showElement(userLinksInput);
+    userLinksName.focus();
+  });
+
+  userLinksURL.addEventListener("keydown", function(event) {
+    if (event.keyCode === 13 && this.value !== ""){ //Enter key pressed
+      let newLink = `<a href="${this.value}">${userLinksName.value}</a>`;
+      var li = document.createElement("li");
+      li.innerHTML = newLink;
+      li.classList.add("settings-link");
+      linksList.appendChild(li);
+      this.value = "";
+      userLinksName.value = "";
+      hideElement(userLinksInput);
+      showElement(userLinksPrompt);
+    }
+  });
 
   function addListenersToGeneralSettings() {
     // Add a listener to each toggle switch in General Settings
@@ -75,7 +100,7 @@
   function addListenerToSettingsNavigation() {
     let keys = Object.keys(settingsNav);
     keys.forEach(function(key) {
-      // Display appropriate settings panel when a nav item is clicked.  
+      // Display appropriate settings panel when a nav item is clicked.
       settingsNav[key].addEventListener("click", function() {
 
         // Indicate which nav item is currently selected.

@@ -587,6 +587,7 @@ body, input {
 }
 
 .settings-subpanel {
+  overflow-y: scroll;
   width: 530px;
 }
 
@@ -697,6 +698,41 @@ input[type=checkbox]:checked + .toggle-btn::before {
   line-height: 1;
   opacity: .8;
 }
+
+.settings-link a {
+  color: #fff;
+  font-size: 1.125rem;
+  //line-height: 1;
+  text-decoration: none;
+}
+
+.user-links-prompt,
+.user-links-input {
+  position: relative;
+}
+
+.user-links-prompt {
+  color: #666;
+  cursor: pointer;
+  font-size: 1.125rem;
+  z-index: 1;
+}
+
+.user-links-input {
+  margin-top: -36px;
+}
+
+.user-links-name,
+.user-links-url {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  display: block;
+  font-size: 1rem;
+  line-height: 1.125;
+  width: 100%;
+  z-index: 1;
+}
 /* end settings "Links" tab */
 
 /* settings "Recipes" tab */
@@ -723,7 +759,7 @@ input[type=checkbox]:checked + .toggle-btn::before {
 
 .ingredients-list .ingredient a {
   align-items: center;
-  color: #eee;
+  color: rgba(255, 255, 255, .1);
   display: flex;
   flex-flow: column nowrap;
   font-weight: bold;
