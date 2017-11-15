@@ -123,7 +123,7 @@
         let savedLinkToUser = data["link"];
         let savedUsername = data["username"];
         $(".loaded-wrapper").css("background", `#f3f3f3 url('${savedBg}') center center fixed / cover no-repeat`);
-        bg.renderLocation.innerHTML = `${savedLocation}` || `{imageDescriptionData}`;
+        bg.renderLocation.innerHTML = `${savedLocation}` || `${imageDescriptionData}`;
         bg.renderPhotographer.innerHTML = `<a href="${savedLinkToUser}">${savedPhotographer}</a>` || `<a href="{linkToUser}">${savedUsername}</a>`;
       });
     },

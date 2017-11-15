@@ -31,7 +31,7 @@ function queryUnsplash () {
     document.body.style.background = `#f3f3f3 url('${bgUrl}') center center fixed / cover no-repeat`;
 
     // IMAGE DATA
-    bg.renderLocation.innerHTML =`${imageLocationData}` || `{imageDescriptionData}`;
+    bg.renderLocation.innerHTML =`${imageLocationData}` || `${imageDescriptionData}`;
     bg.renderPhotographer.innerHTML =`<a href="${linkToUser}">${photographerData}</a>` || `<a href="{linkToUser}">${username}</a>`;
   });
 }
