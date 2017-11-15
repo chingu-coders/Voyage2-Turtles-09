@@ -5,12 +5,16 @@
   //Backup quotes
   const backupQuotes = [
     {1: {
-      quoteAuthor: "Coach Brule",
-      quoteText: "It's for your health!"
+      author: "Coach Brule",
+      text: "It's for your health!"
     }},
     {2: {
-      quoteAuthor: "Warcraft 2 Elf",
-      quoteText: "Time is of the essence"
+      author: "Forrest Gump",
+      text: "My mama always said, 'Life was like a box of chocolates; you never know what you're gonna get'."
+    }},
+    {3: {
+      author: "Ferris Bueller",
+      text: "Life moves pretty fast. If you don't stop and look around once in a while, you could miss it."
     }}
   ];
 
@@ -22,8 +26,8 @@
       source: "http://www.saveur.com/article/Recipes/Seafood-Chowder",
       calories: 2405,
       diet: ["Low-Carb"],
-      thumbnail: "https://www.edamam.com/web-img/b7a/b7a109912573f48845caf1bc242ce3f4.jpg",
-      serves: 6,
+      thumbnail:"https://www.edamam.com/web-img/e12/e12b8c5581226d7639168f41d126f2ff.jpg",
+      serves: 4,
       fat: 169,
       sugar: 23,
       carbs: 9,
@@ -42,6 +46,20 @@
       sugar: 16,
       carbs: 18,
       protein: 2,
+      notes: []
+    },
+    3: {
+      title: "Chicken Paprikash",
+      timestamp: "9-11-2017",
+      source:	"http://norecipes.com/recipe/chicken-paprikash/",
+      calories: 3103,
+      diet:	["Low-​Carb"],
+      thumbnail: "https://www.edamam.com/web-img/572/572501149c4d1b27aa5736a6dae7f778.jpg",
+      serves: 4,
+      fat: 208,
+      sugar: 24,
+      carbs: 16,
+      protein: 60,
       notes: []
     }
   }];
@@ -97,7 +115,7 @@
     quote: ()=>{
       let n = rand(backupQuotes.length);
       let data = backupQuotes[n][n + 1];
-      chrome.storage.sync.set({"quote": data});
+      handleQuote.save(data);
       handleQuote.render(data);
     },
 

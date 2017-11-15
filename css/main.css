@@ -1017,7 +1017,7 @@ p.photographer a {
 }
 
 .todo-status {
-  font-size: 0.5em;
+  font-size: 0.75em;
   margin: 0.5em;
   border-bottom: 1px solid #65615b;
 }
@@ -1040,13 +1040,14 @@ div.todo {
 }
 
 div.todo ul {
-  font-size: 0.6em;
-  margin: 0.5em;
-  padding: 0;
+  font-size: 0.85em;
+  margin: 0.5rem 0;
+  padding-left: .33em;
   width: 100%;
 }
 
 div.todo li {
+  line-height: 1.5em;
   margin-top: 0.3em;
   width: 100%;
 }
@@ -1071,22 +1072,24 @@ div.todo li:hover {
 
 .list-input {
   border: transparent;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(255, 255, 255,.1);
   color: white;
   font-size: 0.7em;
   width: 100%;
   height: 2.5em;
+  padding-left: .33em;
 }
 
 .task-input {
   align-self: flex-end;
   order: 1;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(255, 255, 255, 0.1);
   border: transparent;
   color: white;
   font-size: 0.7em;
   width: 100%;
   height: 2em;
+  padding-left: .33rem;
 }
 
 .todo-delete {
@@ -1095,7 +1098,7 @@ div.todo li:hover {
   border-radius: 50%;
   font-size: 0.8rem;
   line-height: 1;
-  margin: 0 .75rem;
+  margin: .4rem .75rem 0 .75rem;
   padding: 2px 5.5px 2px;
   width: 19px;
   transition: all 0.3s ease;
