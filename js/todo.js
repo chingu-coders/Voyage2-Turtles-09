@@ -27,14 +27,11 @@
             //* Updating the previous time stamp in storage to the current time
             prevTimeStamp = currentTimeStamp;
             chrome.storage.sync.set({"todo_time_stamp": prevTimeStamp});
-            console.log(currentTimeStamp - data["todo_time_stamp"]);
             flag = true;
             chrome.storage.sync.set({"day_elapsed": flag});
-            console.log("flag set to true");
           } else {
             flag = false;
             chrome.storage.sync.set({"day_elapsed": flag});
-            console.log("flag set to false");
           }
         } else {
           // If there is no timestamp, current time is stored
@@ -88,18 +85,14 @@
 
     function todoHandler() {
       let time = new Date(new Date().setHours(24,0,0,0));
-      console.log(time);
       dayElapsed(time);
       // The day elapsed flag is set on page load. The first storage 'get' request returns the old flag, the second
       // gets the updated flag
       chrome.storage.sync.get(null, function() {
         chrome.storage.sync.get(null, function(data) {
-          console.log(data["day_elapsed"]);
           if(data["day_elapsed"]) {
-            console.log("Your todo list has been reset");
             deleteTodo();
           } else {
-            console.log("day has not elapsed");
             getStoredTodo();
           }
         });
