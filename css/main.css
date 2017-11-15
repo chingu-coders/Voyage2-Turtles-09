@@ -708,12 +708,12 @@ input[type=checkbox]:checked + .toggle-btn::before {
 .settings-recipes h3 {
   border-bottom: none;
   margin: 0;
-  padding-bottom: 2rem;
 }
 
 .settings-recipes p {
   color: #aaa;
   line-height: 1.2;
+  padding-bottom: 1rem;
 }
 
 .ingredients-list {
