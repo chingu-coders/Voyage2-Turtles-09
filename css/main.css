@@ -1029,7 +1029,7 @@ p.photographer a {
   z-index: 9999;
 }
 div.todo {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(15, 15, 15, .95);
   font-size: 1.5rem;
   display: flex;
   max-width: 500px;
@@ -1049,6 +1049,7 @@ div.todo ul {
 div.todo li {
   line-height: 1.5em;
   margin-top: 0.3em;
+  margin-left: 0.2em;
   width: 100%;
 }
 
@@ -1063,7 +1064,7 @@ div.todo li:hover {
 }
 
 .task-panel {
-  border-left: 3px solid #000;
+  border-left: 3px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-flow: row wrap;
   flex: 2 0 0;
@@ -1072,27 +1073,27 @@ div.todo li:hover {
 
 .list-input {
   border: transparent;
-  background: rgba(255, 255, 255,.1);
+  background-color: rgba(15, 15, 15, .95);
   color: white;
   font-size: 0.7em;
   width: 100%;
   height: 2.5em;
-  padding-left: .33em;
+  padding-left: 0.5em;
 }
 
 .task-input {
   align-self: flex-end;
   order: 1;
-  background: rgba(255, 255, 255, 0.1);
+  background-color: rgba(15, 15, 15, .95);
   border: transparent;
   color: white;
   font-size: 0.7em;
   width: 100%;
   height: 2em;
-  padding-left: .33rem;
+  padding-left: 0.5rem;
 }
 
-.todo-delete {
+.todo-delete, .list-delete {
   float: right;
   border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 50%;
@@ -1104,7 +1105,7 @@ div.todo li:hover {
   transition: all 0.3s ease;
 }
 
-.todo-delete:hover {
+.todo-delete:hover, .list-delete:hover {
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.5);
   -webkit-transition: all 0.3s ease;
