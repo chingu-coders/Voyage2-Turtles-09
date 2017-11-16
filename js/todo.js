@@ -70,6 +70,7 @@
           // All event handlers to be added to dynamically created elements
           applyCheck();
           applyDelete();
+          deleteList();
           addNewList();
           addNewTask();
           applySelectToggle();
@@ -145,25 +146,28 @@
 
     function deleteHover() {
       function handlerIn() {
-        $(this).find(".todo-delete").removeClass("hidden");
+        $(this).find(".delete").removeClass("hidden");
       }
       function handlerOut() {
-        $(this).find(".todo-delete").addClass("hidden");
+        $(this).find(".delete").addClass("hidden");
       }
       $(".item").hover(handlerIn, handlerOut);
     }
 
     function applyDelete() {
       // .off() prevents multiple listeners from being added to a single task
-      $(".item").find(".todo-delete").off().on("click", function(e) {
+      $(".task").find(".todo-delete").off().on("click", function(e) {
+        updateTodoStatus(true);
+        $(e.target).parent().parent().fadeOut().remove();
+      });
+      deleteHover();
+    }
+
+    function deleteList() {
+      $(".list").find(".list-delete").off().on("click", function(e) {
+        e.stopPropagation();
         deleteCascade(e);
-        // Prevents todoNum from being altered when deleting a list
-        if($(e.target).parent().hasClass("list")) {
-          updateListNum(true);
-        } else {
-          updateTodoStatus(true);
-        }
-        // e.stopPropagation();
+        updateListNum(true);
         $(e.target).parent().fadeOut(function(){
           applyDefaultListSelect();
         });
@@ -211,14 +215,14 @@
           let list = `
             <label>
             <li data-target="${numLists}" class="item list list-selected">${e.target.value}
-            <span class="todo-delete hidden">x</span>
+            <span class="delete list-delete hidden">x</span>
             </li>
             </label>`;
 
           // Append list to list panel
           $(".list-panel").find("ul").prepend(list);
           applySelectToggle();
-          applyDelete();
+          deleteList();
 
           // Append an empty ul with matching data-target to task panel
           $(".task-panel").append(`<ul data-target="${numLists}"></ul>`);
@@ -238,8 +242,7 @@
               `<label><li class="item task">
               <input type="checkbox">
               ${e.target.value}
-              <span class="todo-delete hidden">x</span></li></label>`;
-            console.log(targetNum);
+              <span class="delete todo-delete hidden">x</span></li></label>`;
             if(targetNum === undefined) {
               $(".task-panel").find(`[data-target="general"]`).append(newItem);
             } else {

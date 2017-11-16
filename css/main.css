@@ -1092,7 +1092,7 @@ div.todo li:hover {
   padding-left: .33rem;
 }
 
-.todo-delete {
+.todo-delete, .list-delete {
   float: right;
   border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 50%;
@@ -1104,7 +1104,7 @@ div.todo li:hover {
   transition: all 0.3s ease;
 }
 
-.todo-delete:hover {
+.todo-delete:hover, .list-delete:hover {
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.5);
   -webkit-transition: all 0.3s ease;
