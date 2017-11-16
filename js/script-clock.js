@@ -1,5 +1,5 @@
-"use strict";
 (() => {
+  "use strict";
   const timeHTMLSelector = document.querySelector("#time");
 
   const time24HourOptions = {
@@ -25,10 +25,10 @@
       if (error) {
         console.error(error);
       } else if (!obj || !obj.timeSetting){
-        options = time24HourOptions //Should be set to locale default
+        options = time24HourOptions; //Should be set to locale default
         chrome.storage.sync.set({"timeSetting": options});
         changeTime(options);
-        dblclickEventListener()
+        dblclickEventListener();
       } else {
         options = obj.timeSetting;
         changeTime(options);
@@ -60,7 +60,7 @@
             changeTime(options);
             break;
           default:
-            options = time24HourOptions //Should be set to locale default
+            options = time24HourOptions; //Should be set to locale default
             changeTime(options);
         }
         chrome.storage.sync.set({"timeSetting": options});

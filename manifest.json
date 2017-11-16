@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Blueberry Dash",
   "version": "1.0.0",
-  "description": "Replace new tab page with a dashboard that inspires healthy food choices, encouragement, and productivity",
+  "description": "A visually appealing dashboard that inspires healthy food choices, encouragement, and productivity.",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
@@ -14,18 +14,20 @@
   },
   "permissions": [
     "storage",
-    "tabs"
+    "tabs",
+    "https://*.forismatic.com/*",
+    "https://*.edamam.com/*"
   ],
   "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
   },
   "browser_action": {
     "default_icon": {
-      "16": "icons/icon16.png",
-      "48": "icons/icon48.png",
-      "128": "icons/icon128.png"
+      "16": "assets/icon16.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
     },
     "default_title": "Blueberry Dash"
   }
