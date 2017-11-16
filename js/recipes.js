@@ -300,4 +300,3 @@ function recipes() {
 }
 recipes();
 // Recipes ends
-
