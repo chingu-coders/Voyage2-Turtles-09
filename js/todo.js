@@ -239,8 +239,12 @@
               <input type="checkbox">
               ${e.target.value}
               <span class="todo-delete hidden">x</span></li></label>`;
-
-            $(".task-panel").find(`[data-target=${targetNum}]`).append(newItem);
+            console.log(targetNum);
+            if(targetNum === undefined) {
+              $(".task-panel").find(`[data-target="general"]`).append(newItem);
+            } else {
+              $(".task-panel").find(`[data-target=${targetNum}]`).append(newItem);
+            }
             applyDelete();
             applyCheck();
             $(".task-input").val("");
@@ -255,9 +259,9 @@
 
     applyDefaultListSelect();
 
-    $(window).on("unload", function(){
-      storeTodo();
-    });
+    // $(window).on("unload", function(){
+    //   storeTodo();
+    // });
 
   });
 })();
