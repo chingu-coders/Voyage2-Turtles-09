@@ -531,7 +531,7 @@ body, input {
 }
 
 .settings {
-  background-color: rgba(15, 15, 15, .95);
+  background-color: rgba(15, 15, 15, .97);
   border-radius: 3px;
   bottom: 60px;
   display: flex;
@@ -541,7 +541,7 @@ body, input {
   transition: opacity 200ms ease-in,
               visibility 200ms ease-in;
   visibility: visible;
-  z-index: 100;
+  z-index: 1000;
 }
 
 /* speech bubble effect */
@@ -1026,7 +1026,7 @@ p.photographer a {
   position: absolute;
   bottom: 60px;
   right: 0.5em;
-  z-index: 9999;
+  z-index: 500;
 }
 div.todo {
   background-color: rgba(15, 15, 15, .95);
@@ -1036,7 +1036,6 @@ div.todo {
   max-width: 500px;
   width: 75vw;
   height: 300px;
-  //margin: 5px;
   padding: 0;
 }
 
