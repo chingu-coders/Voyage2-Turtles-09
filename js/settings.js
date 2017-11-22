@@ -22,6 +22,7 @@
   const overlay = document.querySelector(".overlay");
   const manifest = chrome.runtime.getManifest();
   let userPreferences = {};
+  let userLinks;
 
   // Check if widget preferences have been set.
   getUserPreferences();
@@ -37,25 +38,7 @@
   // listen for changes to visibility of Widgets in General Settings
   addListenersToGeneralSettings();
 
-  userLinksPrompt.addEventListener("click", function() {
-    hideElement(userLinksPrompt);
-    showElement(userLinksInput);
-    userLinksName.focus();
-  });
 
-  userLinksURL.addEventListener("keydown", function(event) {
-    if (event.keyCode === 13 && this.value !== ""){ //Enter key pressed
-      let newLink = `<a href="${this.value}">${userLinksName.value}</a>`;
-      var li = document.createElement("li");
-      li.innerHTML = newLink;
-      li.classList.add("settings-link");
-      linksList.appendChild(li);
-      this.value = "";
-      userLinksName.value = "";
-      hideElement(userLinksInput);
-      showElement(userLinksPrompt);
-    }
-  });
 
   function addListenersToGeneralSettings() {
     // Add a listener to each toggle switch in General Settings
@@ -142,8 +125,37 @@
   }
 
   function initLinks() {
+    getUserLinks();
     const linkToChromeTab = document.querySelector(".link-chrome-tab");
     const linkToApps = document.querySelector(".link-apps");
+
+    userLinksPrompt.addEventListener("click", function() {
+      hideElement(userLinksPrompt);
+      showElement(userLinksInput);
+      userLinksName.focus();
+    });
+
+    userLinksName.addEventListener("keydown", function(event) {
+      if (event.keyCode === 13 && this.value !== ""){ //Enter key pressed
+        userLinksURL.focus();
+      }
+    });
+
+    userLinksURL.addEventListener("keydown", function(event) {
+      if (event.keyCode === 13 && this.value !== ""){ //Enter key pressed
+        let href = prepURL(this.value);
+        let newLink = `<a href="${href}" target="_blank">${userLinksName.value}</a>`;
+        var li = document.createElement("li");
+        li.innerHTML = newLink;
+        li.classList.add("settings-link");
+        linksList.appendChild(li);
+        saveUserLinks();
+        this.value = "";
+        userLinksName.value = "";
+        hideElement(userLinksInput);
+        showElement(userLinksPrompt);
+      }
+    });
 
     linkToChromeTab.addEventListener("click", function() {
       chrome.tabs.create({url: "chrome-search://local-ntp/local-ntp.html"});
@@ -169,6 +181,21 @@
           // if there is, use it to set toggle switches in General Settings
           // and show/hide widgets as appropriate
           displayPreferences();
+        }
+      }
+    });
+  }
+
+  function getUserLinks() {
+    STORAGE.get("userLinks", function(obj){
+      let error = chrome.runtime.lastError;
+      if (error) {
+        console.error("getUserPreferences(): " + error);
+      }
+      else {
+        // if links exist in storage
+        if (obj.userLinks) {
+          displayLinks(obj.userLinks);
         }
       }
     });
@@ -200,6 +227,24 @@
     hideElement(target[0]);
   }
 
+  function saveUserLinks() {
+    STORAGE.set({"userLinks": linksList.innerHTML}, function() {
+      let error = chrome.runtime.lastError;
+      if (error) {
+        console.error("saveUserLinks: " + error);
+      }
+    });
+  }
 
+  function prepURL(url) {
+    if (!url.toLowerCase().startsWith("http")) {
+      url = `http://${url}`;
+    }
+    return url;
+  }
+
+  function displayLinks(links) {
+    linksList.innerHTML = links;
+  }
 
 })();
