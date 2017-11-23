@@ -22,10 +22,13 @@
   const overlay = document.querySelector(".overlay");
   const manifest = chrome.runtime.getManifest();
   let userPreferences = {};
+  let linkDeleteIcons;
   let userLinks;
 
   // Check if widget preferences have been set.
   getUserPreferences();
+
+  getUserLinks();
 
   // Toggle settings panel on and off when settings icon (cog) is clicked.
   settingsIcon.addEventListener("click", toggleSettingsPanel);
@@ -37,8 +40,6 @@
 
   // listen for changes to visibility of Widgets in General Settings
   addListenersToGeneralSettings();
-
-
 
   function addListenersToGeneralSettings() {
     // Add a listener to each toggle switch in General Settings
@@ -125,7 +126,6 @@
   }
 
   function initLinks() {
-    getUserLinks();
     const linkToChromeTab = document.querySelector(".link-chrome-tab");
     const linkToApps = document.querySelector(".link-apps");
 
@@ -144,12 +144,13 @@
     userLinksURL.addEventListener("keydown", function(event) {
       if (event.keyCode === 13 && this.value !== ""){ //Enter key pressed
         let href = prepURL(this.value);
-        let newLink = `<a href="${href}" target="_blank">${userLinksName.value}</a>`;
+        let newLink = `<a href="${href}" target="_blank">${userLinksName.value}</a><span class="link-delete">x</span>`;
         var li = document.createElement("li");
         li.innerHTML = newLink;
         li.classList.add("settings-link");
         linksList.appendChild(li);
         saveUserLinks();
+        linkDeleteIcons = document.querySelectorAll(".link-delete");
         this.value = "";
         userLinksName.value = "";
         hideElement(userLinksInput);
@@ -163,6 +164,15 @@
 
     linkToApps.addEventListener("click", function() {
       chrome.tabs.create({url: "chrome://apps"});
+    });
+
+    // Add a listener to each delete icon "x" in Links Settings
+    let keys = Object.keys(linkDeleteIcons);
+    keys.forEach(function(key) {
+      linkDeleteIcons[key].addEventListener("click", function(event) {
+        event.target.parentNode.remove();
+        saveUserLinks();
+      });
     });
   }
 
@@ -196,6 +206,7 @@
         // if links exist in storage
         if (obj.userLinks) {
           displayLinks(obj.userLinks);
+          linkDeleteIcons = document.querySelectorAll(".link-delete");
         }
       }
     });
@@ -245,6 +256,7 @@
 
   function displayLinks(links) {
     linksList.innerHTML = links;
+    linkDeleteIcons = document.querySelectorAll(".link-delete");
   }
 
 })();

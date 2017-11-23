@@ -697,6 +697,8 @@ input[type=checkbox]:checked + .toggle-btn::before {
   font-size: 1.125rem;
   line-height: 1;
   opacity: .8;
+  display: flex;
+  justify-content: space-between;
 }
 
 .settings-link a {
@@ -704,6 +706,14 @@ input[type=checkbox]:checked + .toggle-btn::before {
   font-size: 1.125rem;
   //line-height: 1;
   text-decoration: none;
+}
+
+.settings-link .link-delete {
+  opacity: 0;
+}
+
+.settings-link:hover .link-delete {
+  opacity: 1;
 }
 
 .user-links-prompt,
@@ -733,6 +743,24 @@ input[type=checkbox]:checked + .toggle-btn::before {
   width: 100%;
   z-index: 1;
 }
+
+.link-delete {
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 50%;
+  font-size: 0.8rem;
+  line-height: 1;
+  margin: 0 .75rem;
+  padding: 2px 5.5px 2px;
+  transition: all 0.3s ease;
+  width: 19px;
+}
+
+.link-delete:hover {
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
 /* end settings "Links" tab */
 
 /* settings "Recipes" tab */
