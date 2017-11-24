@@ -2,17 +2,23 @@
   "use strict";
   $(document).ready(function(){
     let targetNum;
+    let newTargetNumber;
     let taskPanel = $(".task-panel");
     let listPanel = $(".list-panel");
     let numTodos = 0;
     let numLists = 0;
+    let listNumsArr = [];
+
+    activateTodo();
+    todoHandler();
+    addNewList();
+    addNewTask();
 
     function activateTodo() {
       $(".activate-todo").on("click", function(e){
         $(".todo-slider").slideToggle("slow");
       });
     }
-    activateTodo();
 
     function dayElapsed(timeConstraint) {
       let currentTimeStamp = Date.now();
@@ -49,7 +55,8 @@
           "list_panel": listPanel,
           "task_panel": taskPanel,
           "todo_num": numTodos,
-          "list_num": numLists
+          "list_num": numLists,
+          "list_nums_arr": listNumsArr
         }
       });
     }
@@ -62,11 +69,13 @@
           let savedTasks = data["todo"]["task_panel"];
           let savedNumTodos = data["todo"]["todo_num"];
           let savedNumLists = data["todo"]["list_num"];
+          let savedListNumsArr = data["todo"]["list_nums_arr"];
 
           listPanel.html(savedLists);
           numLists = savedNumLists;
           numTodos = savedNumTodos;
           taskPanel.html(savedTasks);
+          listNumsArr = savedListNumsArr;
           // All event handlers to be added to dynamically created elements
           applyCheck();
           applyDelete();
@@ -80,8 +89,6 @@
         }
       });
     }
-
-
 
     function todoHandler() {
       let time = new Date(new Date().setHours(24,0,0,0));
@@ -98,7 +105,6 @@
         });
       });
     }
-    todoHandler();
 
     function deleteTodo() {
       chrome.storage.sync.get(null, function(){
@@ -107,41 +113,47 @@
       });
     }
 
-      function renderTodoStatus() {
-        $(".todo-status").html(numTodos + " todos");
-      }
+    function renderTodoStatus() {
+      $(".todo-status").html(numTodos + " todos");
+    }
 
-      function updateTodoStatus(isDelete) {
-        if (!isDelete) {
-          numTodos++;
-        }
-        if (isDelete) {
-          numTodos--;
-        }
-        renderTodoStatus();
+    function updateTodoStatus(isDelete) {
+      if (!isDelete) {
+        numTodos++;
       }
+      if (isDelete) {
+        numTodos--;
+      }
+      renderTodoStatus();
+    }
 
-      function updateListNum(isDelete) {
-        if (!isDelete) {
-          numLists++;
-        }
-        if (isDelete) {
-          numLists--;
-        }
+    function updateListNum(isDelete, e) {
+      if (!isDelete) {
+        numLists++;
+        listNumsArr.push(newTargetNumber);
       }
+      if (isDelete) {
+        numLists--;
+        // TODO remove list number from array
+        listNumsArr = listNumsArr.filter(function(num) {
+          return num != $(e.target).parent().attr("data-target");
+        });
+      }
+    }
 
-      function deleteCascade(e) {
-        // List name is linked to it's corresponding <ul> via same data-target num
-        targetNum = $(e.target).parent().attr("data-target");
-        let linkedList = $(`ul[data-target=${targetNum}]`);
-        let numTodosToDelete = linkedList.find(".task").length;
-        numTodos -= numTodosToDelete;
-        linkedList.remove();
-        renderTodoStatus();
-      }
+    function deleteCascade(e) {
+      // List name is linked to it's corresponding <ul> via same data-target num
+      targetNum = $(e.target).parent().attr("data-target");
+      let linkedList = $(`ul[data-target=${targetNum}]`);
+      let numTodosToDelete = linkedList.find(".task").length;
+      numTodos -= numTodosToDelete;
+      linkedList.remove();
+      renderTodoStatus();
+    }
 
     function applyDefaultListSelect() {
         $(".list-panel").find("li[data-target='general']").addClass("list-selected");
+        taskReveal();
     }
 
     function deleteHover() {
@@ -158,7 +170,9 @@
       // .off() prevents multiple listeners from being added to a single task
       $(".task").find(".todo-delete").off().on("click", function(e) {
         updateTodoStatus(true);
-        $(e.target).parent().parent().fadeOut().remove();
+        $(e.target).parent().fadeOut().remove();
+        // Save to storage
+        storeTodo();
       });
       deleteHover();
     }
@@ -167,10 +181,16 @@
       $(".list").find(".list-delete").off().on("click", function(e) {
         e.stopPropagation();
         deleteCascade(e);
-        updateListNum(true);
         $(e.target).parent().fadeOut(function(){
-          applyDefaultListSelect();
-        });
+          // Only switch to the general list if the list
+          // being deleted has the "list-selected" class.
+          if ($(e.target).parent().hasClass("list-selected")) {
+            applyDefaultListSelect();
+          }
+        }).remove();
+        updateListNum(true, e);
+        // Save to storage
+        storeTodo();
       });
       deleteHover();
     }
@@ -180,12 +200,14 @@
         // consistent behavior when user clicks either the task value or the checkbox
         let target = $(e.target);
         if(!target.is(":checked")){
-          target.prop("checked", false);
+          target.attr("checked", false);
           target.parent().toggleClass("checked", "");
         }else {
-          target.prop("checked", true);
+          target.attr("checked", true);
           target.parent().toggleClass("checked", "");
         }
+        // Save to storage
+        storeTodo();
       };
       $(".task > input").off().on("click", check);
     }
@@ -208,16 +230,16 @@
     function addNewList() {
       $(".list-input").off().on("keydown", function(e) {
         if (event.which === 13 && e.target.value.trim() !== "") {
-          updateListNum(false);
 
           // Removes selected class from all li's so newest list is selected
           $(".list-panel li").removeClass("list-selected");
+          newTargetNumber = getNewTargetNumber();
           let list = `
-            <label>
-            <li data-target="${numLists}" class="item list list-selected">${e.target.value}
+            <li data-target="${newTargetNumber}" class="item list list-selected">${e.target.value}
             <span class="delete list-delete hidden">x</span>
-            </li>
-            </label>`;
+            </li>`;
+
+          updateListNum(false);
 
           // Append list to list panel
           $(".list-panel").find("ul").prepend(list);
@@ -225,48 +247,59 @@
           deleteList();
 
           // Append an empty ul with matching data-target to task panel
-          $(".task-panel").append(`<ul data-target="${numLists}"></ul>`);
+          $(".task-panel").append(`<ul data-target="${newTargetNumber}"></ul>`);
           taskReveal();
+
+          // Save to storage
+          storeTodo();
 
           // Clear the input after user hits enter
           $(".list-input").val("");
         }
       });
     }
-    addNewList();
 
-      function addNewTask() {
-        $(".task-input").off().on("keydown", function(e) {
-          if (e.which === 13 && e.target.value.trim() !== "") {
-            let newItem =
-              `<label><li class="item task">
-              <input type="checkbox">
-              ${e.target.value}
-              <span class="delete todo-delete hidden">x</span></li></label>`;
-            if(targetNum === undefined) {
-              $(".task-panel").find(`[data-target="general"]`).append(newItem);
-            } else {
-              $(".task-panel").find(`[data-target=${targetNum}]`).append(newItem);
-            }
-            applyDelete();
-            applyCheck();
-            $(".task-input").val("");
-
-            // Increases # tasks
-            updateTodoStatus(false);
-
-          }
-        });
+    function getNewTargetNumber() {
+      if (listNumsArr.length === 0) {
+        return 1;
       }
-    addNewTask();
+      else {
+        newTargetNumber = 1;
+        // find largest num in array, and make next newTargetNumber 1 higher
+        for (let i = 0; i < numLists; i++) {
+          if (listNumsArr[i] >= newTargetNumber) {
+            newTargetNumber = listNumsArr[i] + 1;
+          }
+        }
+        return newTargetNumber;
+      }
+    }
 
-    applyDefaultListSelect();
+    function addNewTask() {
+      $(".task-input").off().on("keydown", function(e) {
+        if (e.which === 13 && e.target.value.trim() !== "") {
+          let newItem =
+            `<li class="item task">
+            <input type="checkbox">
+            ${e.target.value}
+            <span class="delete todo-delete hidden">x</span></li>`;
+          if(targetNum === undefined || targetNum === 0) {
+            $(".task-panel").find(`[data-target="general"]`).append(newItem);
+          } else {
+            $(".task-panel").find(`[data-target=${targetNum}]`).append(newItem);
+          }
+          applyDelete();
+          applyCheck();
+          $(".task-input").val("");
 
-    // $(window).on("unload", function(){
-    //   storeTodo();
-    // });
+          // Increases # tasks
+          updateTodoStatus(false);
+
+          // Save to storage
+          storeTodo();
+        }
+      });
+    }
 
   });
 })();
-
-

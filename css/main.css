@@ -1131,6 +1131,11 @@ div.todo li {
 
 div.todo li:hover {
   background: rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+.task-panel input[type="checkbox"] {
+  cursor: pointer;
 }
 
 .list-panel {
