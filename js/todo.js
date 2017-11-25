@@ -69,7 +69,7 @@
           let savedTasks = data["todo"]["task_panel"];
           let savedNumTodos = data["todo"]["todo_num"];
           let savedNumLists = data["todo"]["list_num"];
-          let savedListNumsArr = data["todo"]["list_nums_arr"];
+          let savedListNumsArr = data["todo"]["list_nums_arr"] || [];
 
           listPanel.html(savedLists);
           numLists = savedNumLists;
