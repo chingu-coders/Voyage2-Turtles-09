@@ -152,8 +152,8 @@
     }
 
     function applyDefaultListSelect() {
-        $(".list-panel").find("li[data-target='general']").addClass("list-selected");
-        taskReveal();
+      $(".list-panel").find("li[data-target='general']").addClass("list-selected");
+      taskReveal();
     }
 
     function deleteHover() {
