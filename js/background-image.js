@@ -41,8 +41,8 @@ function queryUnsplash () {
         //* Updating the previous time stamp in storage to the current time
         prevTimeStamp = currentTimeStamp;
         chrome.storage.sync.set({"time_stamp": prevTimeStamp});
-        console.log('time until change');
-        console.log(1800000 - data["time_stamp"]);
+        //console.log("time until change");
+        //console.log(1800000 - data["time_stamp"]);
         //* Fetching a new background from unsplash
         queryUnsplash();
       } else {

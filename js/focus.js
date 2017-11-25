@@ -116,7 +116,7 @@
       currentFocus = focusArr.pop();
       displayFocus(currentFocus.focusText);
     }
-    
+
   }
 
   function toggleOnFocusCompleted() {

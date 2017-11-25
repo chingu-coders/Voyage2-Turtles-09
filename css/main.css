@@ -500,7 +500,7 @@ body, input {
 /* animate cog icon */
 .settings-icon {
   cursor: pointer;
-  margin: 0 1rem 1rem;
+  margin: 0 1.5rem 1rem;
 }
 
 .fa-cog {
@@ -531,9 +531,9 @@ body, input {
 }
 
 .settings {
-  background-color: rgba(15, 15, 15, .95);
+  background-color: rgba(15, 15, 15, .97);
   border-radius: 3px;
-  bottom: 100px;
+  bottom: 60px;
   display: flex;
   left: .5rem;
   opacity: 1;
@@ -541,7 +541,7 @@ body, input {
   transition: opacity 200ms ease-in,
               visibility 200ms ease-in;
   visibility: visible;
-  z-index: 100;
+  z-index: 1000;
 }
 
 /* speech bubble effect */
@@ -549,7 +549,7 @@ body, input {
   content: "";
   position: absolute;
   bottom: -6px;
-  left: 25px;
+  left: 18px;
   border-width: 6px 8px 0;
   border-style: solid;
   border-color: rgba(15, 15, 15, .9) transparent;
@@ -587,6 +587,7 @@ body, input {
 }
 
 .settings-subpanel {
+  overflow-y: scroll;
   width: 530px;
 }
 
@@ -695,13 +696,76 @@ input[type=checkbox]:checked + .toggle-btn::before {
   font-size: 1.125rem;
   line-height: 1;
   opacity: .8;
+  display: flex;
+  justify-content: space-between;
 }
+
+.settings-link a {
+  color: #fff;
+  font-size: 1.125rem;
+  //line-height: 1;
+  text-decoration: none;
+}
+
+.settings-link .link-delete {
+  opacity: 0;
+}
+
+.settings-link:hover .link-delete {
+  opacity: 1;
+}
+
+.user-links-prompt,
+.user-links-input {
+  position: relative;
+}
+
+.user-links-prompt {
+  color: #666;
+  cursor: pointer;
+  font-size: 1.125rem;
+  z-index: 1;
+}
+
+.user-links-input {
+  margin-top: -36px;
+}
+
+.user-links-name,
+.user-links-url {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  display: block;
+  font-size: 1.125rem;
+  line-height: 1.125;
+  margin-bottom: .75rem;
+  width: 100%;
+  z-index: 1;
+}
+
+.link-delete {
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 50%;
+  font-size: 0.8rem;
+  line-height: 1;
+  margin: 0 .75rem;
+  padding: 2px 5.5px 2px;
+  transition: all 0.3s ease;
+  width: 19px;
+}
+
+.link-delete:hover {
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
 /* end settings "Links" tab */
 
 /* settings "Recipes" tab */
 .settings-recipes {
   background-color: rgba(15, 15, 15, 0.75);
-  overflow-y: scroll;
 }
 
 .settings-recipes h3 {
@@ -1024,19 +1088,31 @@ p.photographer a {
 
 .todo-slider {
   position: absolute;
-  bottom: 2em;
+  bottom: 60px;
   right: 0.5em;
-  z-index: 9999;
+  z-index: 500;
 }
 div.todo {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(15, 15, 15, .95);
+  border-radius: 3px;
   font-size: 1.5rem;
   display: flex;
   max-width: 500px;
   width: 75vw;
   height: 300px;
-  margin: 5px;
   padding: 0;
+}
+
+div.todo:after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  right: 22px;
+  border-width: 6px 8px 0;
+  border-style: solid;
+  border-color: rgba(15, 15, 15, .9) transparent;
+  display: block;
+  width: 0;
 }
 
 div.todo ul {
@@ -1049,11 +1125,17 @@ div.todo ul {
 div.todo li {
   line-height: 1.5em;
   margin-top: 0.3em;
+  margin-left: 0.2em;
   width: 100%;
 }
 
 div.todo li:hover {
   background: rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+.task-panel input[type="checkbox"] {
+  cursor: pointer;
 }
 
 .list-panel {
@@ -1063,7 +1145,7 @@ div.todo li:hover {
 }
 
 .task-panel {
-  border-left: 3px solid #000;
+  border-left: 3px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-flow: row wrap;
   flex: 2 0 0;
@@ -1071,28 +1153,30 @@ div.todo li:hover {
 }
 
 .list-input {
+  background-color: rgba(15, 15, 15, .95);
   border: transparent;
-  background: rgba(255, 255, 255,.1);
+  border-radius: 3px 0 0;
   color: white;
   font-size: 0.7em;
   width: 100%;
   height: 2.5em;
-  padding-left: .33em;
+  padding-left: 0.5em;
 }
 
 .task-input {
   align-self: flex-end;
+  border-radius: 0 0 3px;
   order: 1;
-  background: rgba(255, 255, 255, 0.1);
+  background-color: rgba(15, 15, 15, .95);
   border: transparent;
   color: white;
   font-size: 0.7em;
   width: 100%;
   height: 2em;
-  padding-left: .33rem;
+  padding-left: 0.5rem;
 }
 
-.todo-delete {
+.todo-delete, .list-delete {
   float: right;
   border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 50%;
@@ -1104,7 +1188,7 @@ div.todo li:hover {
   transition: all 0.3s ease;
 }
 
-.todo-delete:hover {
+.todo-delete:hover, .list-delete:hover {
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.5);
   -webkit-transition: all 0.3s ease;

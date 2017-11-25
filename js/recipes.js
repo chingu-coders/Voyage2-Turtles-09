@@ -22,55 +22,57 @@ function recipes() {
   const ingredientPref = document.querySelectorAll(".ingredients-list .ingredient a");
 
   // Display/edit recipe preferences
-  let initialSearchIngredients = ["avocado",
-                                  "cheese",
-                                  "chicken",
-                                  "fish",
-                                  "garlic",
-                                  "lemon",
-                                  "noodle",
-                                  "berry",
-                                  "beef",
-                                  "tomato"];
-  let allSearchIngredients = ["apple",
-                              "artichoke",
-                              "aubergine",
-                              "avocado",
-                              "bacon",
-                              "bean",
-                              "cheese",
-                              "carrot",
-                              "cherry",
-                              "chili",
-                              "chocolate",
-                              "chicken",
-                              "corn",
-                              "crab",
-                              "fish",
-                              "egg",
-                              "garlic",
-                              "honey",
-                              "ice-cream",
-                              "lemon",
-                              "lettuce",
-                              "melon",
-                              "mushroom",
-                              "shellfish",
-                              "noodle",
-                              "olive",
-                              "pasta",
-                              "peach",
-                              "pepper",
-                              "pumpkin",
-                              "berry",
-                              "rice",
-                              "sausage",
-                              "beef",
-                              "strawberry",
-                              "tomato"
-                             ];
+  let initialSearchIngredients = [
+    "avocado",
+    "cheese",
+    "chicken",
+    "fish",
+    "garlic",
+    "lemon",
+    "noodle",
+    "berry",
+    "beef",
+    "tomato"
+  ];
+  let allSearchIngredients = [
+    "apple",
+    "artichoke",
+    "aubergine",
+    "avocado",
+    "bacon",
+    "bean",
+    "cheese",
+    "carrot",
+    "cherry",
+    "chili",
+    "chocolate",
+    "chicken",
+    "corn",
+    "crab",
+    "fish",
+    "egg",
+    "garlic",
+    "honey",
+    "ice-cream",
+    "lemon",
+    "lettuce",
+    "melon",
+    "mushroom",
+    "shellfish",
+    "noodle",
+    "olive",
+    "pasta",
+    "peach",
+    "pepper",
+    "pumpkin",
+    "berry",
+    "rice",
+    "sausage",
+    "beef",
+    "strawberry",
+    "tomato"
+  ];
   let searchIngredients;
-
 
   // ----------------------------------------------------------------------
   // Helper Functions
@@ -94,7 +96,7 @@ function recipes() {
   function listAry(ary) {
     let list = "";
     ary.forEach(function(e){
-      list += ('<span class="' + e.toLowerCase() + '">' + e + '</span>');
+      list += ('<span class="' + e.toLowerCase() + '">' + e + "</span>");
     });
     return list;
   }
@@ -241,12 +243,18 @@ function recipes() {
     let beef = ["steak", "brisket", "ragu", "stroganoff", "bourguignon"];
     let berry = ["raspberry", "blueberry", "blackberry", "cranberry"];
     let lettuce = ["arugula", "endive", "romaine", "cress"];
-    let pasta = ["spaghetti", "macaroni", "fettuccine", "linguine",
-                  "penne", "tagliatelle", "ravioli", "orzo"];
-    let keyIngredients = [fish, mushroom, cheese, shellfish,
-                              melon, bacon, beef, berry, lettuce, pasta];
-    let keyIngredientsStrings = ["fish", "mushroom", "cheese", "shellfish",
-                              "melon", "bacon", "beef", "berry", "lettuce", "pasta"];
+    let pasta = [
+      "spaghetti", "macaroni", "fettuccine", "linguine",
+      "penne", "tagliatelle", "ravioli", "orzo"
+    ];
+    let keyIngredients = [
+      fish, mushroom, cheese, shellfish,
+      melon, bacon, beef, berry, lettuce, pasta
+    ];
+    let keyIngredientsStrings = [
+      "fish", "mushroom", "cheese", "shellfish",
+      "melon", "bacon", "beef", "berry", "lettuce", "pasta"
+    ];
 
     // If the user deselects ALL of the ingredients in recipe settings...
     if (searchIngredients.length < 1) {
