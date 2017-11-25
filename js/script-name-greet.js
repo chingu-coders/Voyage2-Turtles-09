@@ -65,7 +65,7 @@
           });
         } else {
           document.activeElement.blur();
-          nameEntryLineHTMLId.innerHTML = '';
+          nameEntryLineHTMLId.innerHTML = "";
         }
       }
     });

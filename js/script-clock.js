@@ -4,14 +4,14 @@
 
   const time24HourOptions = {
     hour12: false,
-    hour: '2-digit',
-    minute: '2-digit'
+    hour: "2-digit",
+    minute: "2-digit"
   };
 
   const time12HourOptions = {
     hour12: true,
-    hour: '2-digit',
-    minute: '2-digit'
+    hour: "2-digit",
+    minute: "2-digit"
   };
 
   let options;

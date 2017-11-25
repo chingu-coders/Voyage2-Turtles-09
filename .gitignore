@@ -68,3 +68,7 @@ typings/
 
 # Config file
 js/config.js
+
+package.json
+package-lock.json
+.eslintrc.json
