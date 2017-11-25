@@ -82,6 +82,7 @@
           deleteList();
           addNewList();
           addNewTask();
+          applyDefaultListSelect();
           applySelectToggle();
           renderTodoStatus();
           taskReveal();
