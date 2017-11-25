@@ -153,6 +153,7 @@
     }
 
     function applyDefaultListSelect() {
+      $(".list-panel li").removeClass("list-selected");
       $(".list-panel").find("li[data-target='general']").addClass("list-selected");
       taskReveal();
     }
