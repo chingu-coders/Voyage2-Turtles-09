@@ -96,7 +96,7 @@ function recipes() {
   function listAry(ary) {
     let list = "";
     ary.forEach(function(e){
-      list += ("<span class=\"" + e.toLowerCase() + "\">" + e + "</span>");
+      list += ('<span class="' + e.toLowerCase() + '">' + e + "</span>");
     });
     return list;
   }
@@ -302,7 +302,7 @@ function recipes() {
     recipeProtein.textContent = recipe.protein;
     recipeNotes.innerHTML = recipe.notes.length > 0 ? "Contains: " + listAry(recipe.notes) : "";
     recipeSource.innerHTML = recipe.source +
-                               " <i class=\"fa fa-angle-right\" aria-hidden=\"true\"></i>";
+                               ' <i class="fa fa-angle-right" aria-hidden="true"></i>';
     recipeSource.setAttribute("href", recipe.sourceUrl);
   }
 }
